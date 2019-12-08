@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import FirebaseDB from '../config';
 import Picture from '../components/PictureComponent';
+import { NASA_API_KEY } from 'react-native-dotenv';
 
 
 export default class PictureScreen extends React.Component {
@@ -24,7 +25,7 @@ export default class PictureScreen extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://api.nasa.gov/planetary/apod?api_key=XUuhHLjeAkqx57CyY3evo0aDR2fxAEDbsYRj06qs')
+    fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
     .then(response => response.json())
     .then((responseJson) => {
       this.response = responseJson;
