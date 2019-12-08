@@ -8,4 +8,5 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { createAppContainer } from 'react-navigation';
 
 
+console.disableYellowBox = true;
 export default createAppContainer(Tabs);
