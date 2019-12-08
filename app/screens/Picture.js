@@ -54,8 +54,9 @@ export default class PictureScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        // loading screen
-        null
+        <View>
+          <Text>loading...</Text>
+        </View>
       );
     }
     else {

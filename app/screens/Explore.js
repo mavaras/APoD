@@ -20,6 +20,9 @@ export default class ExploreScreen extends React.Component {
     const n_pictures = this.pictures_list.length;
     this.pictures = [this.pictures_list.slice(0, n_pictures/2),
                      this.pictures_list.slice(n_pictures/2, n_pictures)];
+    this.setState({
+      loading: false
+    });
     this._getRandomHeight();
   }
 
@@ -33,32 +36,36 @@ export default class ExploreScreen extends React.Component {
 
   render() {
     if (!this.state.loading) {
-    return (
-      <ScrollView contentContainerStyle={{}}>
-        <Text style={styles.exploreTitle}>
-          Explore Pictures
-        </Text>
-        <View style={styles.exploreView}>
-          <View style={styles.rightColumn}>
-            {this.pictures[0].map((item, ) => (
-              <Image
-                style={styles.image}
-                source={{uri: item.url}}
-              />
-            ))}
+      return (
+        <ScrollView contentContainerStyle={{}}>
+          <Text style={styles.exploreTitle}>
+            Explore Pictures
+          </Text>
+          <View style={styles.exploreView}>
+            <View style={styles.rightColumn}>
+              {this.pictures[0].map((item, ) => (
+                <Image
+                  style={styles.image}
+                  source={{uri: item.url}}
+                />
+              ))}
+            </View>
+            <View style={styles.leftColumn}>
+              {this.pictures[1].map((item, ) => (
+                <Image
+                  style={styles.image}
+                  source={{uri: item.url}}
+                />
+              ))}
+            </View>
           </View>
-          <View style={styles.leftColumn}>
-            {this.pictures[1].map((item, ) => (
-              <Image
-                style={styles.image}
-                source={{uri: item.url}}
-              />
-            ))}
-          </View>
-        </View>
-      </ScrollView>
-    );
+        </ScrollView>
+      );
     }
-    return null;
+    return (
+      <View>
+        <Text>loading...</Text>
+      </View>
+    );
   }
 }
