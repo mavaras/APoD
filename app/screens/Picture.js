@@ -1,10 +1,10 @@
 import React from 'react';
 import { 
-  Image, 
   ScrollView, 
   Text, 
   View 
 } from 'react-native';
+import { WebView } from 'react-native-webview';
 import FirebaseDB from '../config';
 import Picture from '../components/PictureComponent';
 import { NASA_API_KEY } from 'react-native-dotenv';
@@ -64,10 +64,18 @@ export default class PictureScreen extends React.Component {
         const video_id = this.response.url.split('/')[4].split('?')[0];
         // not image but youtube video
         return(
-          null
+          <View>
+            <Text>asldkf</Text>
+            <WebView
+              chromeClient={true}
+              style={{ flex: 1, 'width': 500, margin: 20, 'border': '1px solid black'}}
+              source={{ uri: 'https://www.youtube.com/embed/8fy5HrbMUbA' }}
+              javaScriptEnabled={true}
+            />
+          </View>
         );
       }
-      else {
+      else {console.log(this.response);
         return(
           <ScrollView contentContainerStyle={{}}>
             <Picture attrs={this.response}/>
