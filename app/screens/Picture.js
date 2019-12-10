@@ -24,37 +24,39 @@ export default class PictureScreen extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
-    .then(response => response.json())
-    .then((responseJson) => {
-      this.response = responseJson;
-      if (this.response.url.includes('youtube')) {
-        this.db.pictures.on('value', data => { this.pictures_list = data.val(); });
-        this.pictures_list = Object.values(this.pictures_list);
-        this.response = this.pictures_list[this.pictures_list.length-2];
-      }
-      else {
-        this.db.pictures
-          .orderByChild("title")
-          .equalTo(this.response.title)
-          .once("value")
-          .then(snapshot => {
-            if (!snapshot.val()) {
-              this.DB.pictures.push({
-                title: this.response.title,
-                explanation: this.response.explanation,
-                url: this.response.url,
-                date: this.response.date
-              });
-            }
-          });
-      }
-      this.setState({
-        loading: false,
-        dataSource: responseJson
-      });
-    })
-    .catch(error => console.log(error))
+    setTimeout(() => {
+      fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
+      .then(response => response.json())
+      .then((responseJson) => {
+        this.response = responseJson;
+        if (this.response.url.includes('youtube')) {
+          this.db.pictures.on('value', data => { this.pictures_list = data.val(); });
+          this.pictures_list = Object.values(this.pictures_list);
+          this.response = this.pictures_list[this.pictures_list.length-2];
+        }
+        else {
+          this.db.pictures
+            .orderByChild("title")
+            .equalTo(this.response.title)
+            .once("value")
+            .then(snapshot => {
+              if (!snapshot.val()) {
+                this.DB.pictures.push({
+                  title: this.response.title,
+                  explanation: this.response.explanation,
+                  url: this.response.url,
+                  date: this.response.date
+                });
+              }
+            });
+        }
+        this.setState({
+          loading: false,
+          dataSource: responseJson
+        });
+      })
+      .catch(error => console.log(error))},
+    1000);
   }
 
   render() {
