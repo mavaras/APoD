@@ -9,6 +9,7 @@ import {
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Popover from 'react-native-popover-view';
+import RNFetchBlob from 'rn-fetch-blob';
 
 
 export default class Picture extends React.Component {
@@ -29,6 +30,28 @@ export default class Picture extends React.Component {
       popoverIsVisible: false,
       buttonRect: {},
     };
+  }
+
+  download() {
+    const { config, fs } = RNFetchBlob;
+    let PictureDir = fs.dirs.PictureDir;
+    console.log(PictureDir);
+    const date = new Date();
+    let options = {
+      fileCache: true,
+      addAndroidDownloads : {
+        notification : true,
+        title: 'title',
+        path:  fs.dirs.DownloadDir + "/algo.jpg", //"/APoD_"+Math.floor(date.getTime() + date.getSeconds() / 2),
+        fileCache: true,
+        description : 'Downloading image.',
+        mediaScannable: true,
+      }
+    };
+    config(options).fetch('GET', 'https://blog.jscrambler.com/content/images/2018/12/jscrambler-blog-integrating-firebase-with-react-native-firebase-new-project.png')
+    .then((res) => {
+      console.log("success "+res.path());
+    });
   }
 
   showPopover() {
@@ -53,13 +76,6 @@ export default class Picture extends React.Component {
             source={{uri: this.props.attrs.url}}
           />
         </TouchableHighlight>
-        {/*<Popover
-          isVisible={this.state.popoverIsVisible}
-          fromView={this.image_ref}
-          onClose={() => {console.log("!")}}
-          >
-          <Text>I'm the content of this popover!</Text>
-        </Popover>*/}
         <Modal
           isVisible={this.state.popoverIsVisible}
           style={{flex: 1, 'flexDirection': 'row', alignItems: 'center', justifyContent: 'center'}}
@@ -73,7 +89,7 @@ export default class Picture extends React.Component {
             </View>
             <View style={{'flexDirection': 'row', justifyContent: 'space-between'}}>
               <View style={{'paddingRight': 10, width: '40%'}}>
-                <Icon.Button name="download" backgroundColor="#5b84c2">
+                <Icon.Button name="download" backgroundColor="#5b84c2" onPress={() => {this.download()}}>
                   <Text style={{'color': 'white'}}>Download</Text>
                 </Icon.Button>
               </View>
@@ -87,10 +103,6 @@ export default class Picture extends React.Component {
         </Modal>
 
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          {/*<Image
-            style={{width: '90%', height: 300, marginTop: 20}}
-            source={{uri: this.props.attrs.url}}
-          />*/}
           <Text style={{marginTop: 40, marginBottom: 10, fontSize: 19, textAlign: 'justify', fontWeight: 'bold'}}>
             {this.props.attrs.title}
           </Text>
