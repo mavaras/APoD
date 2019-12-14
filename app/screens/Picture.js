@@ -1,6 +1,8 @@
 import React from 'react';
-import { 
-  ScrollView, 
+import {
+  Animated, Easing,
+  ScrollView,
+  StyleSheet,
   Text, 
   View 
 } from 'react-native';
@@ -8,6 +10,7 @@ import { WebView } from 'react-native-webview';
 import FirebaseDB from '../config';
 import Picture from '../components/PictureComponent';
 import { NASA_API_KEY } from 'react-native-dotenv';
+import LottieView from 'lottie-react-native';
 
 
 export default class PictureScreen extends React.Component {  
@@ -15,15 +18,18 @@ export default class PictureScreen extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      dataSource: []
+      progress: new Animated.Value(0),
+      dataSource: [],
     };
     this.db = FirebaseDB.instance;
-    /*pictures.on('value', data => {
-      //console.log(data.val());
-    });*/
   }
 
   componentDidMount() {
+    Animated.timing(this.state.progress, {
+      toValue: 1,
+      duration: 5000,
+      easing: Easing.linear,
+    }).start();
     setTimeout(() => {
       fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
       .then(response => response.json())
@@ -56,14 +62,17 @@ export default class PictureScreen extends React.Component {
         });
       })
       .catch(error => console.log(error))},
-    1000);
+    3000);
   }
 
   render() {
     if (this.state.loading) {
       return (
-        <View>
-          <Text>loading...</Text>
+        <View style={{alignItems: 'center'}}>
+          <LottieView
+            style={{width: '100%', height: '100%'}}
+            source={require('./example.json')}
+            progress={this.state.progress} />
         </View>
       );
     }
@@ -73,7 +82,6 @@ export default class PictureScreen extends React.Component {
         // not image but youtube video
         return(
           <View>
-            <Text>asldkf</Text>
             <WebView
               chromeClient={true}
               style={{ flex: 1, 'width': 500, margin: 20, 'border': '1px solid black'}}
@@ -93,3 +101,15 @@ export default class PictureScreen extends React.Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
+  }
+})
