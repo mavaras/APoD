@@ -103,7 +103,7 @@ export default class Picture extends React.Component {
         </Modal>
 
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{marginTop: 40, marginBottom: 10, fontSize: 19, textAlign: 'justify', fontWeight: 'bold'}}>
+          <Text style={{marginTop: 40, width: '90%', marginBottom: 10, fontSize: 19, textAlign: 'center', fontWeight: 'bold'}}>
             {this.props.attrs.title}
           </Text>
 
