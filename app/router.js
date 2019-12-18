@@ -1,8 +1,6 @@
 import React from 'react';
-import { Image, ScrollView, Text } from 'react-native';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import ExploreScreen from './screens/Explore';
 import PictureScreen from './screens/Picture';
