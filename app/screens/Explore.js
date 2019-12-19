@@ -23,7 +23,6 @@ export default class ExploreScreen extends React.Component {
     this.setState({
       loading: false
     });
-    // this._getRandomHeight();
   }
 
   _getRandomHeight() {
