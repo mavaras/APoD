@@ -3,7 +3,6 @@ import {
   Animated, Easing,
   ScrollView,
   StyleSheet,
-  Text, 
   View 
 } from 'react-native';
 import { WebView } from 'react-native-webview';

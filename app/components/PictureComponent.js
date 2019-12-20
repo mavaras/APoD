@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Button, 
   Image,
   Text,
   TouchableHighlight,
@@ -8,7 +7,6 @@ import {
 } from 'react-native';
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Popover from 'react-native-popover-view';
 import RNFetchBlob from 'rn-fetch-blob';
 
 
@@ -35,7 +33,6 @@ export default class Picture extends React.Component {
   download() {
     const { config, fs } = RNFetchBlob;
     let PictureDir = fs.dirs.PictureDir;
-    console.log(PictureDir);
     const date = new Date();
     let options = {
       fileCache: true,
@@ -63,7 +60,7 @@ export default class Picture extends React.Component {
     });
   }
   
-  closePopover() {console.log("·");
+  closePopover() {
     this.setState({ popoverIsVisible: false });
   }
 
