@@ -21,7 +21,7 @@ export default class PictureScreen extends React.Component {
       progress: new Animated.Value(0),
       dataSource: [],
     };
-    this.db = FirebaseDB.instance;
+    this.DB = FirebaseDB.instance;
   }
 
   componentDidMount() {
@@ -36,12 +36,12 @@ export default class PictureScreen extends React.Component {
       .then((responseJson) => {
         this.response = responseJson;
         if (this.response.url.includes('youtube')) {
-          this.db.pictures.on('value', data => { this.pictures_list = data.val(); });
+          this.DB.pictures.on('value', data => { this.pictures_list = data.val(); });
           this.pictures_list = Object.values(this.pictures_list);
           this.response = this.pictures_list[this.pictures_list.length-2];
         }
         else {
-          this.db.pictures
+          this.DB.pictures
             .orderByChild("title")
             .equalTo(this.response.title)
             .once("value")
