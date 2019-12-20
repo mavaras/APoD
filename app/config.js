@@ -25,11 +25,6 @@ export default class FirebaseDB {
   pictures = this.db.ref('pictures');
   pictures_nItems = 0;
 
-  async getPictures() {
-    const snapshot = await firebase.firestore().collection('pictures').get();
-    return snapshot.docs.map(doc => doc.data());
-  }
-
   len() {
     this.pictures.on("value", data => { return data.numChildren() });
     return 0;
