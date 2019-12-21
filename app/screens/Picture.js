@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import FirebaseDB from '../config';
-import Picture from '../components/PictureComponent';
 import { NASA_API_KEY } from 'react-native-dotenv';
 import LottieView from 'lottie-react-native';
+import Picture from '../components/PictureComponent';
 
 
 export default class PictureScreen extends React.Component {  
