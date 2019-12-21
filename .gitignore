@@ -60,3 +60,4 @@ buck-out/
 
 .env
 package-lock.json
+.code-workspace

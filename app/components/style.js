@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   touchableHighlight: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   modal: {
     flex: 1,

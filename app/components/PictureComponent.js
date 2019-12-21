@@ -100,6 +100,7 @@ export default class Picture extends React.Component {
         <TouchableHighlight
           ref={(r) => {this.image_ref = r}}
           onPress={this.showPopover.bind(this)}
+          underlayColor='none'
           style={styles.touchableHighlight}
         >
           <Image

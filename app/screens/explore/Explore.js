@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
-import FirebaseDB from '../config';
+import FirebaseDB from '../../config';
 import styles from './style';
+import Picture from '../../components/PictureComponent';
 
 
 export default class ExploreScreen extends React.Component {
@@ -45,17 +46,17 @@ export default class ExploreScreen extends React.Component {
           <View style={styles.exploreView}>
             <View style={styles.rightColumn}>
               {this.pictures[0].map((item, ) => (
-                <Image
-                  style={styles.image}
-                  source={{uri: item.url}}
+                <Picture
+                  attrs={{'url': item.url}}
+                  extraStyle={styles.image}
                 />
               ))}
             </View>
             <View style={styles.leftColumn}>
               {this.pictures[1].map((item, ) => (
-                <Image
-                  style={styles.image}
-                  source={{uri: item.url}}
+                <Picture
+                  attrs={{'url': item.url}}
+                  extraStyle={styles.image}
                 />
               ))}
             </View>

@@ -2,14 +2,14 @@ import React from 'react';
 import {
   Animated, Easing,
   ScrollView,
-  StyleSheet,
   View 
 } from 'react-native';
 import { WebView } from 'react-native-webview';
-import FirebaseDB from '../config';
+import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
 import LottieView from 'lottie-react-native';
-import Picture from '../components/PictureComponent';
+import Picture from '../../components/PictureComponent';
+import styles from './style';
 
 
 export default class PictureScreen extends React.Component {  
@@ -67,17 +67,16 @@ export default class PictureScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.animationView}>
           <LottieView
-            style={{width: '100%', height: '100%'}}
-            source={require('./example.json')}
+            style={styles.lottieComponent}
+            source={require('./../example.json')}
             progress={this.state.progress} />
         </View>
       );
     }
     else {
       if (2 == this.response.url.includes('youtube')) {
-        const video_id = this.response.url.split('/')[4].split('?')[0];
         // not image but youtube video
         return(
           <View>
@@ -100,15 +99,3 @@ export default class PictureScreen extends React.Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10
-  }
-})

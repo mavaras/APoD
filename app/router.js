@@ -2,8 +2,8 @@ import React from 'react';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
-import ExploreScreen from './screens/Explore';
-import PictureScreen from './screens/Picture';
+import ExploreScreen from './screens/explore/Explore';
+import PictureScreen from './screens/picture/Picture';
 
 
 export const Tabs = createBottomTabNavigator({
