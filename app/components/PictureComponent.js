@@ -9,6 +9,7 @@ import {
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import RNFetchBlob from 'rn-fetch-blob';
+import styles from './style';
 
 
 export async function request_storage_runtime_permission() {
@@ -99,57 +100,57 @@ export default class Picture extends React.Component {
         <TouchableHighlight
           ref={(r) => {this.image_ref = r}}
           onPress={this.showPopover.bind(this)}
-          style={{'alignItems': 'center'}}
+          style={styles.touchableHighlight}
         >
           <Image
-            style={{width: '90%', height: 300, marginTop: 20}}
+            style={styles.image}
             source={{uri: this.props.attrs.url}}
           />
         </TouchableHighlight>
         <Modal
           isVisible={this.state.isModalOpen}
-          style={{flex: 1, 'flexDirection': 'row', alignItems: 'center', justifyContent: 'center'}}
+          style={styles.modal}
           onBackdropPress={this.closeModal.bind(this)}
         >
           <View 
-            style={{flex: 1, height: 120, backgroundColor: 'white', 
-                    'flexDirection': 'column', alignItems: 'center', justifyContent: 'center',
-                    'borderRadius': 5}}
+            style={styles.modalMainView}
           >
-            <View style={{'marginBottom': 30}}>
+            <View style={styles.modalContentView}>
               <Text style={{fontSize: 19}}>Modal content</Text>
             </View>
-            <View style={{'flexDirection': 'row', justifyContent: 'space-between'}}>
-              <View style={{'paddingRight': 10, width: '40%'}}>
+            <View style={styles.modalFooterView}>
+              <View style={styles.modalButtonGroupView}>
                 <Icon.Button
                   name="download"
-                  backgroundColor="#5b84c2"
+                  style={styles.button}
                   onPress={() => { this.download(); }}
                 >
-                  <Text style={{'color': 'white'}}>Download</Text>
+                  <Text style={styles.buttonLabel}>Download</Text>
                 </Icon.Button>
               </View>
-              <View style={{'paddingLeft': 10, width: '40%'}}>
-                <Icon.Button name="share-alt" backgroundColor="#5b84c2">
-                  <Text style={{'color': 'white'}}>Share</Text>
+              <View style={styles.modalButtonGroupView}>
+                <Icon.Button
+                  name="share-alt"
+                  style={styles.button}>
+                  <Text style={styles.buttonLabel}>Share</Text>
                 </Icon.Button>
               </View>
             </View>
           </View>
         </Modal>
 
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{marginTop: 40, width: '90%', marginBottom: 10, fontSize: 19, textAlign: 'center', fontWeight: 'bold'}}>
+        <View style={styles.viewPictureText}>
+          <Text style={styles.textPictureTitle}>
             {this.props.attrs.title}
           </Text>
 
-          <Text style={{width: '90%', alignItems: 'center'}}>
+          <Text style={styles.textPictureExplanation}>
             {this.props.attrs.explanation}
           </Text>
         </View>
 
         <View>
-          <Text style={{marginTop: 40, marginBottom: 15, textAlign: 'right', marginRight: '25%'}}>
+          <Text style={styles.viewPictureDate}>
             {this.props.attrs.date}
           </Text>
         </View>
