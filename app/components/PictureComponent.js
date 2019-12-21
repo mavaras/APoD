@@ -63,7 +63,7 @@ export default class Picture extends React.Component {
         useDownloadManager: true,
         notification : true,
         title: 'APoD picture download',
-        path:  fs.dirs.PictureDir + '/APoD_' + Math.floor(date.getTime() + date.getSeconds() / 2) + '.png',
+        path:  fs.dirs.PictureDir + '/APoD/APoD_' + Math.floor(date.getTime() + date.getSeconds() / 2) + '.png',
         fileCache: true,
         description : 'Downloading picture',
         mediaScannable: true,
