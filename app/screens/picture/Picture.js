@@ -7,9 +7,10 @@ import {
 import { WebView } from 'react-native-webview';
 import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
-import LottieView from 'lottie-react-native';
+import Animation from 'lottie-react-native';
 import Picture from '../../components/PictureComponent';
 import styles from './style';
+const animation = require('./../../res/animations/rocket.json')
 
 
 export default class PictureScreen extends React.Component {  
@@ -24,11 +25,8 @@ export default class PictureScreen extends React.Component {
   }
 
   componentDidMount() {
-    Animated.timing(this.state.progress, {
-      toValue: 1,
-      duration: 5000,
-      easing: Easing.linear,
-    }).start();
+    this.animation.play();
+    
     setTimeout(() => {
       fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
       .then(response => response.json())
@@ -68,10 +66,12 @@ export default class PictureScreen extends React.Component {
     if (this.state.loading) {
       return (
         <View style={styles.animationView}>
-          <LottieView
+          <Animation
+            ref={animation => { this.animation = animation; }}
+            loop={true}
             style={styles.lottieComponent}
-            source={require('./../example.json')}
-            progress={this.state.progress} />
+            source={animation}
+          />
         </View>
       );
     }
