@@ -96,14 +96,14 @@ export default class Picture extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View>
         <TouchableHighlight
           ref={(r) => {this.image_ref = r}}
           onPress={this.showPopover.bind(this)}
           style={styles.touchableHighlight}
         >
           <Image
-            style={styles.image}
+            style={this.props.attrs.title ? styles.image : this.props.extraStyle}
             source={{uri: this.props.attrs.url}}
           />
         </TouchableHighlight>
@@ -139,21 +139,24 @@ export default class Picture extends React.Component {
           </View>
         </Modal>
 
-        <View style={styles.viewPictureText}>
-          <Text style={styles.textPictureTitle}>
-            {this.props.attrs.title}
-          </Text>
-
-          <Text style={styles.textPictureExplanation}>
-            {this.props.attrs.explanation}
-          </Text>
-        </View>
-
+        { this.props.attrs.title !== undefined ?
         <View>
-          <Text style={styles.viewPictureDate}>
-            {this.props.attrs.date}
-          </Text>
-        </View>
+          <View style={styles.viewPictureText}>
+            <Text style={styles.textPictureTitle}>
+              {this.props.attrs.title}
+            </Text>
+
+            <Text style={styles.textPictureExplanation}>
+              {this.props.attrs.explanation}
+            </Text>
+          </View>
+
+          <View>
+            <Text style={styles.viewPictureDate}>
+              {this.props.attrs.date}
+            </Text>
+          </View>
+        </View> : undefined }
       </View>
     );
   }
