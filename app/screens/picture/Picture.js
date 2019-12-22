@@ -9,6 +9,7 @@ import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
 import Picture from '../../components/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 
 export default class PictureScreen extends React.Component {  
@@ -79,9 +80,13 @@ export default class PictureScreen extends React.Component {
       }
       else {
         return(
-          <ScrollView contentContainerStyle={{}}>
-            <Picture attrs={this.response}/>
-          </ScrollView>
+          <GestureRecognizer
+            onSwipeLeft={() => { this.props.navigation.navigate('Explore'); }}
+          >
+            <ScrollView contentContainerStyle={{}}>
+              <Picture attrs={this.response}/>
+            </ScrollView>
+          </GestureRecognizer>
         );
       }
     }

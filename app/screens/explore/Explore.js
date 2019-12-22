@@ -4,6 +4,7 @@ import FirebaseDB from '../../config';
 import styles from './style';
 import Picture from '../../components/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 
 export default class ExploreScreen extends React.Component {
@@ -40,29 +41,33 @@ export default class ExploreScreen extends React.Component {
   render() {
     if (!this.state.loading) {
       return (
-        <ScrollView contentContainerStyle={{}}>
-          <Text style={styles.exploreTitle}>
-            Explore Pictures
-          </Text>
-          <View style={styles.exploreView}>
-            <View style={styles.rightColumn}>
-              {this.pictures[0].map((item, ) => (
-                <Picture
-                  attrs={{'url': item.url, 'title': item.title}}
-                  extraStyle={styles.image}
-                />
-              ))}
+        <GestureRecognizer
+          onSwipeRight={() => { this.props.navigation.navigate('Picture'); }}
+        >
+          <ScrollView contentContainerStyle={{}}>
+            <Text style={styles.exploreTitle}>
+              Explore Pictures
+            </Text>
+            <View style={styles.exploreView}>
+              <View style={styles.rightColumn}>
+                {this.pictures[0].map((item, ) => (
+                  <Picture
+                    attrs={{'url': item.url, 'title': item.title}}
+                    extraStyle={styles.image}
+                  />
+                ))}
+              </View>
+              <View style={styles.leftColumn}>
+                {this.pictures[1].map((item, ) => (
+                  <Picture
+                    attrs={{'url': item.url, 'title': item.title}}
+                    extraStyle={styles.image}
+                  />
+                ))}
+              </View>
             </View>
-            <View style={styles.leftColumn}>
-              {this.pictures[1].map((item, ) => (
-                <Picture
-                  attrs={{'url': item.url, 'title': item.title}}
-                  extraStyle={styles.image}
-                />
-              ))}
-            </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </GestureRecognizer>
       );
     }
     return (
