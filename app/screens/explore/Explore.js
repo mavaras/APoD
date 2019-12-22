@@ -3,6 +3,7 @@ import { Image, ScrollView, Text, View } from 'react-native';
 import FirebaseDB from '../../config';
 import styles from './style';
 import Picture from '../../components/PictureComponent';
+import LoadingScreen from '../loading/LoadingScreen';
 
 
 export default class ExploreScreen extends React.Component {
@@ -65,9 +66,7 @@ export default class ExploreScreen extends React.Component {
       );
     }
     return (
-      <View>
-        <Text>loading...</Text>
-      </View>
+      <LoadingScreen/>
     );
   }
 }
