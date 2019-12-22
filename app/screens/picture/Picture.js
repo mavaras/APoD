@@ -7,10 +7,8 @@ import {
 import { WebView } from 'react-native-webview';
 import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
-import Animation from 'lottie-react-native';
 import Picture from '../../components/PictureComponent';
-import styles from './style';
-const animation = require('./../../res/animations/rocket.json')
+import LoadingScreen from '../loading/LoadingScreen';
 
 
 export default class PictureScreen extends React.Component {  
@@ -18,15 +16,12 @@ export default class PictureScreen extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      progress: new Animated.Value(0),
       dataSource: [],
     };
     this.DB = FirebaseDB.instance;
   }
 
   componentDidMount() {
-    this.animation.play();
-    
     setTimeout(() => {
       fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
       .then(response => response.json())
@@ -65,18 +60,11 @@ export default class PictureScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <View style={styles.animationView}>
-          <Animation
-            ref={animation => { this.animation = animation; }}
-            loop={true}
-            style={styles.lottieComponent}
-            source={animation}
-          />
-        </View>
+        <LoadingScreen/>
       );
     }
     else {
-      if (2 == this.response.url.includes('youtube')) {
+      if (2 == (this.response.url.includes('youtube') || this.response.url.includes('vimeo'))) {
         // not image but youtube video
         return(
           <View>
