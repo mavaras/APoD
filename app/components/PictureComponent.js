@@ -4,7 +4,8 @@ import {
   Text,
   TouchableHighlight,
   View,
-  PermissionsAndroid
+  PermissionsAndroid,
+  Share
 } from 'react-native';
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -81,6 +82,14 @@ export default class Picture extends React.Component {
     });
   }
 
+  share() {
+    const options = {
+      message: this.props.attrs.title,
+      url: this.props.attrs.url,
+    };
+    Share.share(options);
+  }
+
   showPopover() {
     this.image_ref.measure((ox, oy, width, height, px, py) => {
       this.setState({
@@ -104,7 +113,7 @@ export default class Picture extends React.Component {
           style={styles.touchableHighlight}
         >
           <Image
-            style={this.props.attrs.title ? styles.image : this.props.extraStyle}
+            style={this.props.attrs.date ? styles.image : this.props.extraStyle}
             source={{uri: this.props.attrs.url}}
           />
         </TouchableHighlight>
@@ -132,7 +141,9 @@ export default class Picture extends React.Component {
               <View style={styles.modalButtonGroupView}>
                 <Icon.Button
                   name="share-alt"
-                  style={styles.button}>
+                  style={styles.button}
+                  onPress={() => { this.share(); }}
+                >
                   <Text style={styles.buttonLabel}>Share</Text>
                 </Icon.Button>
               </View>
@@ -140,7 +151,7 @@ export default class Picture extends React.Component {
           </View>
         </Modal>
 
-        { this.props.attrs.title !== undefined ?
+        { this.props.attrs.date !== undefined ?
         <View>
           <View style={styles.viewPictureText}>
             <Text style={styles.textPictureTitle}>

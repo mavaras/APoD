@@ -48,7 +48,7 @@ export default class ExploreScreen extends React.Component {
             <View style={styles.rightColumn}>
               {this.pictures[0].map((item, ) => (
                 <Picture
-                  attrs={{'url': item.url}}
+                  attrs={{'url': item.url, 'title': item.title}}
                   extraStyle={styles.image}
                 />
               ))}
@@ -56,7 +56,7 @@ export default class ExploreScreen extends React.Component {
             <View style={styles.leftColumn}>
               {this.pictures[1].map((item, ) => (
                 <Picture
-                  attrs={{'url': item.url}}
+                  attrs={{'url': item.url, 'title': item.title}}
                   extraStyle={styles.image}
                 />
               ))}
