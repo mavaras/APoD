@@ -27,7 +27,7 @@ export default class PictureScreen extends React.Component {
       .then(response => response.json())
       .then((responseJson) => {
         this.response = responseJson;
-        if (this.response.url.includes('youtube')) {
+        if (['youtube', 'vimeo'].some(slug => this.response.url.split(/[/.]/).includes(slug))) {
           this.DB.pictures.on('value', data => { this.pictures_list = data.val(); });
           this.pictures_list = Object.values(this.pictures_list);
           this.response = this.pictures_list[this.pictures_list.length-2];
@@ -64,7 +64,7 @@ export default class PictureScreen extends React.Component {
       );
     }
     else {
-      if (2 == (this.response.url.includes('youtube') || this.response.url.includes('vimeo'))) {
+      if (2 == ['youtube', 'vimeo'].some(slug => this.response.url.split(/[/.]/).includes(slug))) {
         // not image but youtube video
         return(
           <View>
