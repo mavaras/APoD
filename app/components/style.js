@@ -11,6 +11,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  modalTitle: {
+    fontSize: 19
+  },
   modalMainView: {
     flex: 1,
     height: 120,
@@ -21,6 +24,8 @@ export default StyleSheet.create({
     borderRadius: 5
   },
   modalContentView: {
+    width: '80%',
+    alignItems: 'center',
     marginBottom: 30
   },
   modalFooterView: {
@@ -28,7 +33,8 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   modalButtonGroupView: {
-    paddingRight: 10,
+    paddingRight: 5,
+    paddingLeft: 5,
     width: '40%'
   },
   button: {

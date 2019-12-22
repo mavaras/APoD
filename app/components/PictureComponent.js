@@ -126,7 +126,7 @@ export default class Picture extends React.Component {
             style={styles.modalMainView}
           >
             <View style={styles.modalContentView}>
-              <Text style={{fontSize: 19}}>Modal content</Text>
+              <Text style={styles.modalTitle}>{this.props.attrs.title}</Text>
             </View>
             <View style={styles.modalFooterView}>
               <View style={styles.modalButtonGroupView}>
