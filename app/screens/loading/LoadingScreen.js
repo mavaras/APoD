@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Text,
   View
 } from 'react-native';
 import Animation from 'lottie-react-native';

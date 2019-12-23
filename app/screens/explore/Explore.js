@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import FirebaseDB from '../../config';
 import styles from './style';
 import Picture from '../../components/PictureComponent';

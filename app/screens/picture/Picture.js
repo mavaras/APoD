@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Animated, Easing,
+  
   ScrollView,
   View 
 } from 'react-native';
@@ -29,9 +29,15 @@ export default class PictureScreen extends React.Component {
       .then((responseJson) => {
         this.response = responseJson;
         if (['youtube', 'vimeo'].some(slug => this.response.url.split(/[/.]/).includes(slug))) {
-          this.DB.pictures.on('value', data => { this.pictures_list = data.val(); });
-          this.pictures_list = Object.values(this.pictures_list);
-          this.response = this.pictures_list[this.pictures_list.length-2];
+          this.DB.pictures.on('value', data => {
+            this.pictures_list = data.val();
+            this.pictures_list = Object.values(this.pictures_list);
+            this.response = this.pictures_list[this.pictures_list.length-2];
+            this.setState({
+              loading: false,
+              dataSource: responseJson
+            });
+          });
         }
         else {
           this.DB.pictures
@@ -47,12 +53,12 @@ export default class PictureScreen extends React.Component {
                   date: this.response.date
                 });
               }
+              this.setState({
+                loading: false,
+                dataSource: responseJson
+              });
             });
         }
-        this.setState({
-          loading: false,
-          dataSource: responseJson
-        });
       })
       .catch(error => console.log(error))},
     3000);
