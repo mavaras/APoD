@@ -21,9 +21,14 @@ export default class ExploreScreen extends React.Component {
       .on('value', data => { 
         this.pictures_list = data.val();
         this.pictures_list = Object.values(this.pictures_list);
+        this.pictures_list = this.pictures_list.filter((e) => {
+          if(!['youtube', 'vimeo'].some(aux => e.url.split(/[/.]/).includes(aux))) {
+            return e;
+          }
+        });
         const n_pictures = this.pictures_list.length;
         this.pictures = [this.pictures_list.slice(0, n_pictures/2),
-                        this.pictures_list.slice(n_pictures/2, n_pictures-1)];
+                         this.pictures_list.slice(n_pictures/2, n_pictures-1)];
         this.setState({
           loading: false
         });

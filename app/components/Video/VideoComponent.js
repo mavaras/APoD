@@ -6,14 +6,14 @@ import styles from './style';
 
 export default class Video extends React.Component {
   constructor(props) {
-    super(props);console.log(this.props.url);
+    super(props);
   }
 
   render() {
     return(
       <View style={styles.videoView}>
         <WebView
-          style={{flex:1}}
+          style={{height: '100%'}}
           javaScriptEnabled={true}
           source={{uri: this.props.url}}
         />
