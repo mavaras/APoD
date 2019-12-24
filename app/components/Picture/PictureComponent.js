@@ -40,6 +40,7 @@ export default class Picture extends React.Component {
     super();
     this.state = {
       isModalOpen: false,
+      downloading: false,
       buttonRect: {x: 0, y: 0, width: 0, height: 0}
     };
   }
@@ -71,10 +72,14 @@ export default class Picture extends React.Component {
         mediaScannable: true,
       }
     };
+    this.setState({
+      downloading: true
+    })
     config(options).fetch('GET', this.props.attrs.url)
     .then((res) => {
       console.log('Success downloading photo to path: ' + res.path());
       this.setState({
+        downloading: false,
         isModalOpen: false
       });
     })
@@ -135,6 +140,7 @@ export default class Picture extends React.Component {
             <View style={styles.modalFooterView}>
               <View style={styles.modalButtonGroupView}>
                 <Icon.Button
+                  disabled={this.state.downloading}
                   name="download"
                   style={styles.button}
                   onPress={() => { this.download(); }}
@@ -144,6 +150,7 @@ export default class Picture extends React.Component {
               </View>
               <View style={styles.modalButtonGroupView}>
                 <Icon.Button
+                  disabled={this.state.downloading}
                   name="share-alt"
                   style={styles.button}
                   onPress={() => { this.share(); }}
