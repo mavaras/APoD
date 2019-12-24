@@ -1,15 +1,15 @@
 import React from 'react';
 import {
-  
   ScrollView,
   View 
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
-import Picture from '../../components/PictureComponent';
+import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import Video from '../../components/Video/VideoComponent';
 
 
 export default class PictureScreen extends React.Component {  
@@ -28,7 +28,7 @@ export default class PictureScreen extends React.Component {
       .then(response => response.json())
       .then((responseJson) => {
         this.response = responseJson;
-        if (['youtube', 'vimeo'].some(slug => this.response.url.split(/[/.]/).includes(slug))) {
+        if (1==2) {//['youtube', 'vimeo'].some(slug => this.response.url.split(/[/.]/).includes(slug))) {
           this.DB.pictures.on('value', data => {
             this.pictures_list = data.val();
             this.pictures_list = Object.values(this.pictures_list);
@@ -74,13 +74,8 @@ export default class PictureScreen extends React.Component {
       if (2 == ['youtube', 'vimeo'].some(slug => this.response.url.split(/[/.]/).includes(slug))) {
         // not image but youtube video
         return(
-          <View>
-            <WebView
-              chromeClient={true}
-              style={{ flex: 1, 'width': 500, margin: 20, 'border': '1px solid black'}}
-              source={{ uri: 'https://www.youtube.com/embed/8fy5HrbMUbA' }}
-              javaScriptEnabled={true}
-            />
+          <View>            
+            
           </View>
         );
       }

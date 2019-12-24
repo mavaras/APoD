@@ -11,6 +11,7 @@ import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import RNFetchBlob from 'rn-fetch-blob';
 import styles from './style';
+import Video from '../Video/VideoComponent';
 
 
 export async function request_storage_runtime_permission() {
@@ -106,17 +107,20 @@ export default class Picture extends React.Component {
   render() {
     return (
       <View>
-        <TouchableHighlight
-          ref={(r) => {this.image_ref = r}}
-          onPress={this.showPopover.bind(this)}
-          underlayColor='none'
-          style={styles.touchableHighlight}
-        >
-          <Image
-            style={this.props.attrs.date ? styles.image : this.props.extraStyle}
-            source={{uri: this.props.attrs.url}}
-          />
-        </TouchableHighlight>
+        {!['youtube', 'vimeo'].some(aux => this.props.attrs.url.split(/[/.]/).includes(aux)) ?
+          <TouchableHighlight
+            ref={(r) => {this.image_ref = r}}
+            onPress={this.showPopover.bind(this)}
+            underlayColor='none'
+            style={styles.touchableHighlight}
+          >
+            <Image
+              style={this.props.attrs.date ? styles.image : this.props.extraStyle}
+              source={{uri: this.props.attrs.url}}
+            />
+          </TouchableHighlight> :
+          <Video url={this.props.attrs.url}/>
+        }
         <Modal
           isVisible={this.state.isModalOpen}
           style={styles.modal}
