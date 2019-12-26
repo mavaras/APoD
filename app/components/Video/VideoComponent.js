@@ -13,7 +13,6 @@ export default class Video extends React.Component {
     return(
       <View style={styles.videoView}>
         <WebView
-          style={{height: '100%'}}
           javaScriptEnabled={true}
           source={{uri: this.props.url}}
         />
