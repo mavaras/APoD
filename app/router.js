@@ -1,5 +1,5 @@
 import React from 'react';
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import ExploreScreen from './screens/explore/Explore';
@@ -11,7 +11,7 @@ export const Tabs = createBottomTabNavigator({
     screen: PictureScreen,
     navigationOptions: {
       tabBarLabel: 'Daily Picture',
-      tabBarIcon: ({tintColor}) => <FontAwesome name='airbnb' size={26} color={tintColor} />
+      tabBarIcon: ({tintColor}) => <FontAwesome name='meteor' size={26} color={tintColor} />
     },
   },
   Explore: {
