@@ -50,7 +50,7 @@ export default class PictureScreen extends React.Component {
           }
         )
         .catch(error => console.log(error))},
-      3000);
+      2000);
     }
     else {
       this.response = navigation.getParam('attrs');
