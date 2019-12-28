@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import ExploreScreen from './screens/explore/Explore';
 import PictureScreen from './screens/picture/Picture';
 
@@ -22,5 +22,14 @@ export const Tabs = createBottomTabNavigator({
     },
   },
 });
-
-export const createRootNavigator = () => createAppContainer(Tabs);
+export const rootNavigator = createStackNavigator({
+  Tabs: {
+    screen: Tabs,
+    navigationOptions: {
+      header: null
+    }
+  },
+  ExplorePicture: {
+    screen: PictureScreen
+  }
+});

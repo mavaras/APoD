@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, Image, TouchableHighlight } from 'react-native';
 import FirebaseDB from '../../config';
 import styles from './style';
 import Picture from '../../components/Picture/PictureComponent';
@@ -56,18 +56,28 @@ export default class ExploreScreen extends React.Component {
             <View style={styles.exploreView}>
               <View style={styles.rightColumn}>
                 {this.pictures[0].map((item, ) => (
-                  <Picture
-                    attrs={{'url': item.url, 'title': item.title}}
-                    extraStyle={styles.image}
-                  />
+                  <TouchableHighlight
+                    onPress={() => {
+                      this.props.navigation.navigate('ExplorePicture', {attrs: item})
+                    }}>
+                    <Image
+                      style={styles.image}
+                      source={{uri: item.url}}
+                    />
+                  </TouchableHighlight>
                 ))}
               </View>
               <View style={styles.leftColumn}>
                 {this.pictures[1].map((item, ) => (
-                  <Picture
-                    attrs={{'url': item.url, 'title': item.title}}
-                    extraStyle={styles.image}
-                  />
+                  <TouchableHighlight
+                  onPress={() => {
+                    this.props.navigation.navigate('ExplorePicture', {attrs: item})
+                  }}>
+                    <Image
+                      style={styles.image}
+                      source={{uri: item.url}}
+                    />
+                  </TouchableHighlight>
                 ))}
               </View>
             </View>

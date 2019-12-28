@@ -22,33 +22,42 @@ export default class PictureScreen extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
-      .then(response => response.json())
-      .then((responseJson) => {
-        this.response = responseJson;
-          this.DB.pictures
-            .orderByChild("title")
-            .equalTo(this.response.title)
-            .once("value")
-            .then(snapshot => {
-              if (!snapshot.val()) {
-                this.DB.pictures.push({
-                  title: this.response.title,
-                  explanation: this.response.explanation,
-                  url: this.response.url,
-                  date: this.response.date
+    const { navigation } = this.props;
+    if (!navigation.getParam('attrs')) {
+      setTimeout(() => {
+        fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
+        .then(response => response.json())
+        .then((responseJson) => {
+          this.response = responseJson;
+            this.DB.pictures
+              .orderByChild("title")
+              .equalTo(this.response.title)
+              .once("value")
+              .then(snapshot => {
+                if (!snapshot.val()) {
+                  this.DB.pictures.push({
+                    title: this.response.title,
+                    explanation: this.response.explanation,
+                    url: this.response.url,
+                    date: this.response.date
+                  });
+                }
+                this.setState({
+                  loading: false,
+                  dataSource: responseJson
                 });
-              }
-              this.setState({
-                loading: false,
-                dataSource: responseJson
               });
-            });
-        }
-      )
-      .catch(error => console.log(error))},
-    3000);
+          }
+        )
+        .catch(error => console.log(error))},
+      3000);
+    }
+    else {
+      this.response = navigation.getParam('attrs');
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   render() {
