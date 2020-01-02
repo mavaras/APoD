@@ -65,7 +65,7 @@ export default StyleSheet.create({
     marginTop: 40,
     marginBottom: 15,
     textAlign: 'right',
-    marginRight: '25%'
+    marginRight: '20%'
   },
 
   image: {
