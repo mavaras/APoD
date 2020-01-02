@@ -49,6 +49,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   textPictureExplanation: {
+    fontSize: 16.5,
     width: '90%',
     alignItems: 'center'
   },
@@ -56,7 +57,7 @@ export default StyleSheet.create({
     marginTop: 40,
     width: '90%',
     marginBottom: 10,
-    fontSize: 19,
+    fontSize: 19.5,
     textAlign: 'center',
     fontWeight: 'bold'
   },
