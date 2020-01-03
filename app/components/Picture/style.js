@@ -49,7 +49,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   textPictureExplanation: {
-    fontSize: 16.5,
+    fontSize: 14.5,
     width: '90%',
     alignItems: 'center'
   },
