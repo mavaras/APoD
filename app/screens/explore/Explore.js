@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollView, Text, View, Image, TouchableHighlight } from 'react-native';
 import FirebaseDB from '../../config';
 import styles from './style';
-import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
 import GestureRecognizer from 'react-native-swipe-gestures';
 

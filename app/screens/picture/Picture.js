@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ScrollView,
-  View 
-} from 'react-native';
-import { WebView } from 'react-native-webview';
+import { ScrollView } from 'react-native';
 import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
 import Picture from '../../components/Picture/PictureComponent';
