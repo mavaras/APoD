@@ -63,10 +63,11 @@ export default StyleSheet.create({
   },
 
   viewPictureDate: {
+    fontStyle: 'italic',
     marginTop: 40,
     marginBottom: 15,
     textAlign: 'right',
-    marginRight: '20%'
+    marginRight: '17%'
   },
 
   image: {
