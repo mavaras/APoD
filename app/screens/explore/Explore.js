@@ -34,6 +34,7 @@ export default class ExploreScreen extends React.Component {
             return e;
           }
         });
+        this.pictures_list.sort(() => Math.random() - 0.5);
         this.n_pictures = this.pictures_list.length;
         const aux = this.pictures_list;
         this.pictures = [aux.slice(0, this.pictures_limit),
