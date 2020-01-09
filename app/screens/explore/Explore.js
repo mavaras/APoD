@@ -1,5 +1,10 @@
 import React from 'react';
-import { ScrollView, Text, View, Image, TouchableHighlight } from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  Image,
+  TouchableHighlight
+} from 'react-native';
 import FirebaseDB from '../../config';
 import styles from './style';
 import LoadingScreen from '../loading/LoadingScreen';
@@ -11,8 +16,12 @@ export default class ExploreScreen extends React.Component {
     super(props);
     this.state = {
       loading: true,
+      loadMore: false,
     }
     this.DB = FirebaseDB.instance;
+    this.n_pictures = 0;
+    this.pictures_limit = 3;
+    this.pictures = [[], []];
   }
 
   componentDidMount() {
@@ -25,9 +34,10 @@ export default class ExploreScreen extends React.Component {
             return e;
           }
         });
-        const n_pictures = this.pictures_list.length;
-        this.pictures = [this.pictures_list.slice(0, n_pictures/2),
-                         this.pictures_list.slice(n_pictures/2, n_pictures-1)];
+        this.n_pictures = this.pictures_list.length;
+        const aux = this.pictures_list;
+        this.pictures = [aux.slice(0, this.pictures_limit),
+                         aux.slice(this.pictures_limit, this.pictures_limit * 2)];
         this.setState({
           loading: false
         });
@@ -42,45 +52,63 @@ export default class ExploreScreen extends React.Component {
     return heights[Math.floor(Math.random()*heights.length)];
   }
 
+  isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 20
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+  }
+
+  loadMoreData = async () => {
+    const { loadMore } = this.state;
+    if (loadMore ||
+      this.n_pictures < this.pictures[0].length +
+      this.pictures[1].length + 6) {
+      return;
+    }
+    this.setState({
+      loading: false,
+      loadMore: true
+    });
+    await setTimeout(() => {}, 2000);
+    this.n_pictures = this.pictures_list.length;
+    const aux = this.pictures_list;
+    this.pictures = [aux.slice(0, this.pictures[0].length + this.pictures_limit),
+                     aux.slice(this.pictures[0].length + this.pictures_limit,
+                              (this.pictures[0].length + this.pictures_limit) * 2)];
+    this.setState({
+      loading: false,
+      loadMore: false,
+    });
+  }
+
   render() {
-    if (!this.state.loading) {
+    if (!this.state.loading && !this.state.loadMore) {
       return (
         <GestureRecognizer
           onSwipeRight={() => { this.props.navigation.navigate('Picture'); }}
         >
-          <ScrollView contentContainerStyle={{}}>
-            <Text style={styles.exploreTitle}>
-              Explore Pictures
-            </Text>
-            <View style={styles.exploreView}>
-              <View style={styles.rightColumn}>
-                {this.pictures[0].map((item, ) => (
-                  <TouchableHighlight
-                    onPress={() => {
-                      this.props.navigation.navigate('ExplorePicture', {attrs: item})
-                    }}>
-                    <Image
-                      style={styles.image}
-                      source={{uri: item.url}}
-                    />
-                  </TouchableHighlight>
-                ))}
-              </View>
-              <View style={styles.leftColumn}>
-                {this.pictures[1].map((item, ) => (
-                  <TouchableHighlight
+          <SafeAreaView>
+
+            <FlatList
+              data={this.pictures_list}
+              renderItem={({item}) => (
+                <TouchableHighlight
+                  style={styles.touchableHighlight}
                   onPress={() => {
                     this.props.navigation.navigate('ExplorePicture', {attrs: item})
                   }}>
-                    <Image
-                      style={styles.image}
-                      source={{uri: item.url}}
-                    />
-                  </TouchableHighlight>
-                ))}
-              </View>
-            </View>
-          </ScrollView>
+                  <Image
+                    style={styles.image}
+                    source={{uri: item.url}}
+                  />
+                </TouchableHighlight>
+              )}
+              keyExtractor={item => item.title.toString()}
+              onEndReachedThreshold={0.5}
+              numColumns={2}
+              initialNumToRender={6}
+            />
+          </SafeAreaView>
         </GestureRecognizer>
       );
     }

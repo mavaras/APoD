@@ -9,18 +9,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18
   },
-  exploreView: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 15
-  },
-  rightColumn: {
-    width: '50%',
-    paddingRight: 6.5
-  },
-  leftColumn: {
-    width: '50%',
-    paddingLeft: 6.5,
+  touchableHighlight: {
+    marginBottom: 0,
+    marginTop: 7,
+    marginRight: 3.5,
+    marginLeft: 3.5,
+    width: '48%',
+    height: 200
   },
   image: {
     width: '100%',
