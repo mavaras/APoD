@@ -34,7 +34,7 @@ export default class ExploreScreen extends React.Component {
             return e;
           }
         });
-        this.pictures_list.sort(() => Math.random() - 0.5);
+        this.pictures_list.splice(-1, 1).sort(() => Math.random() - 0.5);
         this.n_pictures = this.pictures_list.length;
         const aux = this.pictures_list;
         this.pictures = [aux.slice(0, this.pictures_limit),
@@ -89,7 +89,9 @@ export default class ExploreScreen extends React.Component {
           onSwipeRight={() => { this.props.navigation.navigate('Picture'); }}
         >
           <SafeAreaView>
-
+            {/*<View>
+              <Text style={styles.exploreTitle}>Explore Pictures</Text>
+            </View>*/}
             <FlatList
               data={this.pictures_list}
               renderItem={({item}) => (
