@@ -17,14 +17,35 @@ export default class ExploreScreen extends React.Component {
     this.state = {
       loading: true,
       loadMore: false,
+      page: 1,
+      pictures: []
     }
     this.DB = FirebaseDB.instance;
     this.n_pictures = 0;
-    this.pictures_limit = 3;
+    this.pictures_limit = 6;
     this.pictures = [[], []];
   }
 
   componentDidMount() {
+    this.loadMoreData();
+  }
+
+  isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 20
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+  }
+
+  loadMoreData() {
+    const { loadMore } = this.state;
+    if (loadMore ||
+      this.state.pictures.length == this.pictures_list) {
+      return;
+    }
+    this.setState({
+      loading: false,
+      loadMore: true
+    });
     this.DB.pictures
       .on('value', data => { 
         this.pictures_list = data.val();
@@ -36,46 +57,11 @@ export default class ExploreScreen extends React.Component {
         });
         this.pictures_list.splice(-1, 1).sort(() => Math.random() - 0.5);
         this.n_pictures = this.pictures_list.length;
-        const aux = this.pictures_list;
-        this.pictures = [aux.slice(0, this.pictures_limit),
-                         aux.slice(this.pictures_limit, this.pictures_limit * 2)];
         this.setState({
-          loading: false
+          pictures: [...this.pictures_list.splice(0, this.pictures_limit * this.state.page)],
+          page: this.state.page + 1
         });
     });
-  }
-
-  _getRandomHeight() {
-    const heights = [200, 300]
-    this.setState({
-      loading: false
-    });
-    return heights[Math.floor(Math.random()*heights.length)];
-  }
-
-  isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-    const paddingToBottom = 20
-    return layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom
-  }
-
-  loadMoreData = async () => {
-    const { loadMore } = this.state;
-    if (loadMore ||
-      this.n_pictures < this.pictures[0].length +
-      this.pictures[1].length + 6) {
-      return;
-    }
-    this.setState({
-      loading: false,
-      loadMore: true
-    });
-    await setTimeout(() => {}, 2000);
-    this.n_pictures = this.pictures_list.length;
-    const aux = this.pictures_list;
-    this.pictures = [aux.slice(0, this.pictures[0].length + this.pictures_limit),
-                     aux.slice(this.pictures[0].length + this.pictures_limit,
-                              (this.pictures[0].length + this.pictures_limit) * 2)];
     this.setState({
       loading: false,
       loadMore: false,
@@ -93,7 +79,7 @@ export default class ExploreScreen extends React.Component {
               <Text style={styles.exploreTitle}>Explore Pictures</Text>
             </View>*/}
             <FlatList
-              data={this.pictures_list}
+              data={this.state.pictures}
               renderItem={({item}) => (
                 <TouchableHighlight
                   style={styles.touchableHighlight}
@@ -107,6 +93,7 @@ export default class ExploreScreen extends React.Component {
                 </TouchableHighlight>
               )}
               keyExtractor={item => item.title.toString()}
+              onEndReached={() => {this.loadMoreData();}}
               onEndReachedThreshold={0.5}
               numColumns={2}
               initialNumToRender={6}
