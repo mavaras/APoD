@@ -79,6 +79,7 @@ export default class ExploreScreen extends React.Component {
               <Text style={styles.exploreTitle}>Explore Pictures</Text>
             </View>*/}
             <FlatList
+              style={styles.flatList}
               data={this.state.pictures}
               renderItem={({item}) => (
                 <TouchableHighlight

@@ -3,11 +3,14 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   exploreTitle: {
-    marginTop: 40,
+    marginTop: 25,
     marginBottom: 15,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18
+  },
+  flatList: {
+    marginBottom: 8
   },
   touchableHighlight: {
     marginBottom: 0,
