@@ -67,6 +67,16 @@ export default class ExploreScreen extends React.Component {
       loadMore: false,
     });
   }
+  
+  itemStyle(index) {
+    return (
+      [
+        {flex: 1, marginTop: 0, marginBottom: 6, height: 200 },
+        index % 2 == 0 ? { marginLeft: 6, marginRight: 3 } :
+                         { marginRight: 6, marginLeft: 3 }
+      ]
+    );
+  };
 
   render() {
     if (!this.state.loading && !this.state.loadMore) {
@@ -79,11 +89,11 @@ export default class ExploreScreen extends React.Component {
               <Text style={styles.exploreTitle}>Explore Pictures</Text>
             </View>*/}
             <FlatList
-              style={styles.flatList}
+              style={styles.flatList}              
               data={this.state.pictures}
-              renderItem={({item}) => (
+              renderItem={({item, index}) => (
                 <TouchableHighlight
-                  style={styles.touchableHighlight}
+                  style={this.itemStyle(index)}
                   onPress={() => {
                     this.props.navigation.navigate('ExplorePicture', {attrs: item})
                   }}>
