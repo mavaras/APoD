@@ -6,7 +6,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   lottieComponent: {
-    width: '80%',
-    height: '80%'
+    width: '100%',
+    height: '100%'
   }
 });
