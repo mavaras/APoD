@@ -4,9 +4,9 @@ import {
   Text,
   TouchableHighlight,
   View,
-  PermissionsAndroid,
-  Share
+  PermissionsAndroid
 } from 'react-native';
+import Share from 'react-native-share';
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import RNFetchBlob from 'rn-fetch-blob';
@@ -89,11 +89,15 @@ export default class Picture extends React.Component {
   }
 
   share() {
+    const base64 = RNFetchBlob.base64;
+    let base64_url = base64.encode(this.props.attrs.url);
     const options = {
-      message: this.props.attrs.title,
-      url: this.props.attrs.url,
+      message: 'test',
+      url: 'data:image/jpeg;base64,' + base64_url
     };
-    Share.share(options);
+    Share.open(options)
+      .then((res) => { console.log("then: "+res); })
+      .catch((err) => { err && console.log("catch: "+err); });
   }
 
   showPopover() {
