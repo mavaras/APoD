@@ -7,6 +7,7 @@ import {
   PermissionsAndroid
 } from 'react-native';
 import Share from 'react-native-share';
+import ImgToBase64 from 'react-native-image-base64';
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome";
 import RNFetchBlob from 'rn-fetch-blob';
@@ -89,15 +90,18 @@ export default class Picture extends React.Component {
   }
 
   share() {
-    const base64 = RNFetchBlob.base64;
-    let base64_url = base64.encode(this.props.attrs.url);
-    const options = {
-      message: 'test',
-      url: 'data:image/jpeg;base64,' + base64_url
-    };
-    Share.open(options)
-      .then((res) => { console.log("then: "+res); })
-      .catch((err) => { err && console.log("catch: "+err); });
+    ImgToBase64.getBase64String(this.props.attrs.url)
+      .then(base64_url => {
+        const options = {
+          message: 'test',
+          url: 'data:image/png;base64,' + base64_url
+        };
+        Share.open(options)
+          .catch((err) => { console.log(err); });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   showPopover() {
