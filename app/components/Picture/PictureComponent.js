@@ -3,7 +3,7 @@ import {
   Image,
   Text,
   TouchableHighlight,
-  View,
+  View, SafeAreaView,
   PermissionsAndroid
 } from 'react-native';
 import Share from 'react-native-share';
@@ -119,7 +119,7 @@ export default class Picture extends React.Component {
 
   render() {
     return (
-      <View>
+      <SafeAreaView>
         {!['youtube', 'vimeo'].some(aux => this.props.attrs.url.split(/[/.]/).includes(aux)) ?
           <TouchableHighlight
             ref={(r) => {this.image_ref = r}}
@@ -188,7 +188,7 @@ export default class Picture extends React.Component {
             </Text>
           </View>
         </View> : undefined }
-      </View>
+      </SafeAreaView>
     );
   }
 }
