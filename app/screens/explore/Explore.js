@@ -30,12 +30,6 @@ export default class ExploreScreen extends React.Component {
     this.loadMoreData();
   }
 
-  isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-    const paddingToBottom = 20
-    return layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom
-  }
-
   loadMoreData() {
     const { loadMore } = this.state;
     if (loadMore ||
