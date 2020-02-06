@@ -65,6 +65,10 @@ export default class Picture extends React.Component {
     let picture_dir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
     const picture_path = picture_dir + '/APoD/APoD_' + this.props.attrs.title + '.png';
 
+    this.setState({
+      downloading: true
+    });
+
     if (Platform.OS == 'android') {
       let options = {
         fileCache: true,
@@ -78,9 +82,6 @@ export default class Picture extends React.Component {
           mediaScannable: true,
         }
       };
-      this.setState({
-        downloading: true
-      })
       config(options).fetch('GET', this.props.attrs.url)
         .then((res) => {
           console.log('Success downloading photo to path: ' + res.path());
@@ -97,6 +98,10 @@ export default class Picture extends React.Component {
       CameraRoll.saveToCameraRoll(this.props.attrs.url)
         .then((res) => {
           console.log('Success downloading photo to camera roll');
+          this.setState({
+            downloading: false,
+            isModalOpen: false
+          });
         })
         .catch((err) => {
           console.log('Error occurred when trying to download picture: ' + err);
