@@ -6,6 +6,7 @@ import {
   View, SafeAreaView,
   PermissionsAndroid
 } from 'react-native';
+import CameraRoll from "@react-native-community/cameraroll";
 import Share from 'react-native-share';
 import ImgToBase64 from 'react-native-image-base64';
 import Modal from "react-native-modal";
@@ -13,6 +14,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import RNFetchBlob from 'rn-fetch-blob';
 import styles from './style';
 import Video from '../Video/VideoComponent';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export async function request_storage_runtime_permission() {
@@ -60,33 +62,46 @@ export default class Picture extends React.Component {
 
   download() {
     const { config, fs } = RNFetchBlob;
-    const date = new Date();
-    let options = {
-      fileCache: true,
-      addAndroidDownloads : {
-        useDownloadManager: true,
-        notification : true,
-        title: 'APoD picture download',
-        path:  fs.dirs.PictureDir + '/APoD/APoD_' + this.props.attrs.title + '.png',
+    let picture_dir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+    const picture_path = picture_dir + '/APoD/APoD_' + this.props.attrs.title + '.png';
+
+    if (Platform.OS == 'android') {
+      let options = {
         fileCache: true,
-        description : 'Downloading picture',
-        mediaScannable: true,
-      }
-    };
-    this.setState({
-      downloading: true
-    })
-    config(options).fetch('GET', this.props.attrs.url)
-    .then((res) => {
-      console.log('Success downloading photo to path: ' + res.path());
+        addAndroidDownloads : {
+          useDownloadManager: true,
+          notification : true,
+          title: 'APoD picture download',
+          path: picture_path,
+          fileCache: true,
+          description : 'Downloading picture',
+          mediaScannable: true,
+        }
+      };
       this.setState({
-        downloading: false,
-        isModalOpen: false
-      });
-    })
-    .catch((err) => {
-      console.log('Error occurred when trying to download picture: ' + err);
-    });
+        downloading: true
+      })
+      config(options).fetch('GET', this.props.attrs.url)
+        .then((res) => {
+          console.log('Success downloading photo to path: ' + res.path());
+          this.setState({
+            downloading: false,
+            isModalOpen: false
+          });
+        })
+        .catch((err) => {
+          console.log('Error occurred when trying to download picture: ' + err);
+        });
+    }
+    else {
+      CameraRoll.saveToCameraRoll(this.props.attrs.url)
+        .then((res) => {
+          console.log('Success downloading photo to camera roll');
+        })
+        .catch((err) => {
+          console.log('Error occurred when trying to download picture: ' + err);
+        });
+    }
   }
 
   share() {
@@ -120,6 +135,7 @@ export default class Picture extends React.Component {
   render() {
     return (
       <SafeAreaView>
+        <ScrollView>
         {!['youtube', 'vimeo'].some(aux => this.props.attrs.url.split(/[/.]/).includes(aux)) ?
           <TouchableHighlight
             ref={(r) => {this.image_ref = r}}
@@ -188,6 +204,7 @@ export default class Picture extends React.Component {
             </Text>
           </View>
         </View> : undefined }
+        </ScrollView>
       </SafeAreaView>
     );
   }

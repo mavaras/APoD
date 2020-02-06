@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/cameraroll": "^1.4.0",
     "@react-navigation/bottom-tabs": "5.0.0-alpha.22",
     "@react-navigation/core": "3.5.1",
     "add": "2.0.6",

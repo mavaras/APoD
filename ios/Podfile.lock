@@ -261,6 +261,8 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
+  - react-native-cameraroll (1.4.0):
+    - React
   - react-native-image-base64 (0.1.4):
     - React
   - react-native-safe-area-context (0.6.1):
@@ -346,6 +348,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
   - react-native-image-base64 (from `../node_modules/react-native-image-base64`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -424,6 +427,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-cameraroll:
+    :path: "../node_modules/@react-native-community/cameraroll"
   react-native-image-base64:
     :path: "../node_modules/react-native-image-base64"
   react-native-safe-area-context:
@@ -501,6 +506,7 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
+  react-native-cameraroll: 1edb879e985fe97d1d44f42372cb4a948e0384cd
   react-native-image-base64: acfe962aa79535d826a2668e66474e85a9ee468d
   react-native-safe-area-context: 66dcc0f2792b43479bffe0450dab8eac47d3fcee
   react-native-webview: 7eefdb64f283cae1bebe82ebd8ddeb4b805900c0
