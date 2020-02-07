@@ -113,11 +113,12 @@ export default class Picture extends React.Component {
     ImgToBase64.getBase64String(this.props.attrs.url)
       .then(base64_url => {
         const options = {
-          message: 'test',
           url: 'data:image/png;base64,' + base64_url
         };
         Share.open(options)
-          .catch((err) => { console.log(err); });
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch(err => {
         console.log(err);
