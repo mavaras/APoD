@@ -6,6 +6,12 @@ import {
   View, SafeAreaView,
   PermissionsAndroid
 } from 'react-native';
+import Dialog, {
+  DialogButton,
+  DialogContent,
+  DialogFooter,
+  DialogTitle,
+  SlideAnimation } from 'react-native-popup-dialog';
 import CameraRoll from "@react-native-community/cameraroll";
 import Share from 'react-native-share';
 import ImgToBase64 from 'react-native-image-base64';
@@ -44,7 +50,8 @@ export default class Picture extends React.Component {
     this.state = {
       isModalOpen: false,
       downloading: false,
-      buttonRect: {x: 0, y: 0, width: 0, height: 0}
+      buttonRect: {x: 0, y: 0, width: 0, height: 0},
+      showAlert: false
     };
   }
 
@@ -106,6 +113,7 @@ export default class Picture extends React.Component {
         .catch((err) => {
           console.log('Error occurred when trying to download picture: ' + err);
         });
+      this.setState({ showAlert: true });
     }
   }
 
@@ -141,6 +149,28 @@ export default class Picture extends React.Component {
   render() {
     return (
       <SafeAreaView>
+        <Dialog
+          dialogAnimation={new SlideAnimation({
+            slideFrom: 'bottom',
+          })}
+          dialogTitle={<DialogTitle title="APoD" />}
+          footer={
+            <DialogFooter>
+              <DialogButton
+                text="OK"
+                onPress={() => { this.setState({ showAlert: false })}}
+              />
+            </DialogFooter>
+          }
+          visible={this.state.showAlert}
+          onTouchOutside={() => {
+            this.setState({ showAlert: false });
+          }}
+        >
+          <DialogContent>
+            <Text style={styles.dialogContent}>Photo succesfully downloaded!</Text>
+          </DialogContent>
+        </Dialog>
         <ScrollView>
         {!['youtube', 'vimeo'].some(aux => this.props.attrs.url.split(/[/.]/).includes(aux)) ?
           <TouchableHighlight

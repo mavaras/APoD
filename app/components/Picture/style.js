@@ -75,5 +75,9 @@ export default StyleSheet.create({
     height: 300,
     marginTop: 20,
     borderRadius: 3.5
+  },
+
+  dialogContent: {
+    marginTop: 20
   }
 });
