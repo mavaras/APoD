@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   modalMainView: {
     flex: 1,
-    height: 120,
+    height: 140,
     backgroundColor: 'white',
     flexDirection: 'column',
     alignItems: 'center',
@@ -24,9 +24,16 @@ export default StyleSheet.create({
     borderRadius: 5
   },
   modalContentView: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flexShrink: 1,
     width: '80%',
     alignItems: 'center',
-    marginBottom: 30
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginBottom: 25,
+    marginTop: 10
   },
   modalFooterView: {
     flexDirection: 'row',
@@ -35,7 +42,8 @@ export default StyleSheet.create({
   modalButtonGroupView: {
     paddingRight: 5,
     paddingLeft: 5,
-    width: '40%'
+    width: '35%',
+    marginBottom: 15
   },
   button: {
     backgroundColor: '#5b84c2'
