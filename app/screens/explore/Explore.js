@@ -79,9 +79,6 @@ export default class ExploreScreen extends React.Component {
           onSwipeRight={() => { this.props.navigation.navigate('Picture'); }}
         >
           <SafeAreaView>
-            {/*<View>
-              <Text style={styles.exploreTitle}>Explore Pictures</Text>
-            </View>*/}
             <FlatList
               style={styles.flatList}              
               data={this.state.pictures}
