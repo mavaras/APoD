@@ -51,7 +51,8 @@ export default StyleSheet.create({
   textPictureExplanation: {
     fontSize: 14.5,
     width: '90%',
-    alignItems: 'center'
+    alignItems: 'center',
+    textAlign: 'justify'
   },
   textPictureTitle: {
     marginTop: 40,
