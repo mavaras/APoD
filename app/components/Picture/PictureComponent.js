@@ -134,10 +134,10 @@ export default class Picture extends React.Component {
   }
 
   showPopover() {
-    this.image_ref.measure((ox, oy, width, height, px, py) => {
+    this.image_ref.measure((width, height, x, y) => {
       this.setState({
         isModalOpen: true,
-        buttonRect: {x: px, y: py, width: width, height: height}
+        buttonRect: {x: x, y: y, width: width, height: height}
       });
     });
   }
