@@ -10,7 +10,7 @@ export default class Video extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <View style={styles.videoView}>
         <WebView
           javaScriptEnabled={true}
