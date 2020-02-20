@@ -23,7 +23,7 @@ import Video from '../Video/VideoComponent';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-export async function request_storage_runtime_permission() {
+export async function request_storage_runtime_permission_android() {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -57,7 +57,9 @@ export default class Picture extends React.Component {
 
   async componentDidMount() {
     this.refs = React.createRef();
-    await request_storage_runtime_permission();
+    if (Platform.OS == 'android') {
+      await request_storage_runtime_permission_android();
+    }
   }
 
   getInitialState() {
@@ -241,7 +243,7 @@ export default class Picture extends React.Component {
           </View>
         </View> : undefined }
         </ScrollView>
-      </SafeAreaView>
+        </SafeAreaView>
     );
   }
 }
