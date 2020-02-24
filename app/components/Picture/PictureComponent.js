@@ -188,62 +188,62 @@ export default class Picture extends React.Component {
           </TouchableHighlight> :
           <Video url={this.props.attrs.url}/>
         }
-        <Modal
-          isVisible={this.state.isModalOpen}
-          style={styles.modal}
-          onBackdropPress={this.closeModal.bind(this)}
-        >
-          <View 
-            style={styles.modalMainView}
+          <Modal
+            isVisible={this.state.isModalOpen}
+            style={styles.modal}
+            onBackdropPress={this.closeModal.bind(this)}
           >
-            <View style={styles.modalContentView}>
-              <Text style={styles.modalTitle}>{this.props.attrs.title}</Text>
-            </View>
-            <View style={styles.modalFooterView}>
-              <View style={styles.modalButtonGroupView}>
-                <Icon.Button
-                  disabled={this.state.downloading}
-                  name="download"
-                  style={styles.button}
-                  onPress={() => { this.download(); }}
-                >
-                  <Text style={styles.buttonLabel}>Download</Text>
-                </Icon.Button>
+            <View 
+              style={styles.modalMainView}
+            >
+              <View style={styles.modalContentView}>
+                <Text style={styles.modalTitle}>{this.props.attrs.title}</Text>
               </View>
-              <View style={styles.modalButtonGroupView}>
-                <Icon.Button
-                  disabled={this.state.downloading}
-                  name="share-alt"
-                  style={styles.button}
-                  onPress={() => { this.share(); }}
-                >
-                  <Text style={styles.buttonLabel}>Share</Text>
-                </Icon.Button>
+              <View style={styles.modalFooterView}>
+                <View style={styles.modalButtonGroupView}>
+                  <Icon.Button
+                    disabled={this.state.downloading}
+                    name="download"
+                    style={styles.button}
+                    onPress={() => { this.download(); }}
+                  >
+                    <Text style={styles.buttonLabel}>Download</Text>
+                  </Icon.Button>
+                </View>
+                <View style={styles.modalButtonGroupView}>
+                  <Icon.Button
+                    disabled={this.state.downloading}
+                    name="share-alt"
+                    style={styles.button}
+                    onPress={() => { this.share(); }}
+                  >
+                    <Text style={styles.buttonLabel}>Share</Text>
+                  </Icon.Button>
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
 
-        { this.props.attrs.date !== undefined ?
-        <View>
-          <View style={styles.viewPictureText}>
-            <Text style={styles.textPictureTitle}>
-              {this.props.attrs.title}
-            </Text>
-
-            <Text style={styles.textPictureExplanation}>
-              {this.props.attrs.explanation}
-            </Text>
-          </View>
-
+          { this.props.attrs.date !== undefined ?
           <View>
-            <Text style={styles.viewPictureDate}>
-              {this.props.attrs.date}
-            </Text>
-          </View>
-        </View> : undefined }
+            <View style={styles.viewPictureText}>
+              <Text style={styles.textPictureTitle}>
+                {this.props.attrs.title}
+              </Text>
+
+              <Text style={styles.textPictureExplanation}>
+                {this.props.attrs.explanation}
+              </Text>
+            </View>
+
+            <View>
+              <Text style={styles.viewPictureDate}>
+                {this.props.attrs.date}
+              </Text>
+            </View>
+          </View> : undefined }
         </ScrollView>
-        </SafeAreaView>
+      </SafeAreaView>
     );
   }
 }
