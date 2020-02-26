@@ -2,13 +2,12 @@ import React from 'react';
 import {
   FlatList,
   SafeAreaView,
-  Image,
-  TouchableHighlight
 } from 'react-native';
 import FirebaseDB from '../../config';
 import styles from './style';
 import LoadingScreen from '../loading/LoadingScreen';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import PictureSmall from '../../components/Picture/PictureComponentSmall';
 
 
 export default class ExploreScreen extends React.Component {
@@ -61,16 +60,6 @@ export default class ExploreScreen extends React.Component {
       loadMore: false,
     });
   }
-  
-  itemStyle(index) {
-    return (
-      [
-        {flex: 1, marginTop: 0, marginBottom: 6, height: 200 },
-        index % 2 == 0 ? { marginLeft: 6, marginRight: 3 } :
-                         { marginRight: 6, marginLeft: 3 }
-      ]
-    );
-  };
 
   render() {
     if (!this.state.loading && !this.state.loadMore) {
@@ -83,19 +72,13 @@ export default class ExploreScreen extends React.Component {
               style={styles.flatList}              
               data={this.state.pictures}
               renderItem={({item, index}) => (
-                <TouchableHighlight
-                  style={this.itemStyle(index)}
-                  onPress={() => {
-                    this.props.navigation.navigate('ExplorePicture', {attrs: item})
-                  }}>
-                  <Image
-                    style={styles.image}
-                    source={{uri: item.url}}
-                  />
-                </TouchableHighlight>
+                <PictureSmall
+                  picture={item}
+                  index={index}
+                  navigation={this.props.navigation} />
               )}
               keyExtractor={item => item.title.toString()}
-              onEndReached={() => {this.loadMoreData();}}
+              onEndReached={() => { this.loadMoreData(); }}
               onEndReachedThreshold={0.5}
               numColumns={2}
               initialNumToRender={6}

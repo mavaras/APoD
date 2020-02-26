@@ -85,6 +85,12 @@ export default StyleSheet.create({
     marginTop: 20,
     borderRadius: 3.5
   },
+  imageSmall: {
+    width: '100%',
+    height: 200,
+    marginBottom: 15,
+    borderRadius: 5
+  },
 
   dialogContent: {
     marginTop: 20
