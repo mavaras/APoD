@@ -22,6 +22,7 @@ export const Tabs = createBottomTabNavigator({
     },
   },
 });
+
 export const rootNavigator = createStackNavigator({
   Tabs: {
     screen: Tabs,

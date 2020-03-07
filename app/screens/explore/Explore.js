@@ -6,7 +6,6 @@ import {
 import FirebaseDB from '../../config';
 import styles from './style';
 import LoadingScreen from '../loading/LoadingScreen';
-import GestureRecognizer from 'react-native-swipe-gestures';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 
 
@@ -64,27 +63,23 @@ export default class ExploreScreen extends React.Component {
   render() {
     if (!this.state.loading && !this.state.loadMore) {
       return (
-        <GestureRecognizer
-          onSwipeRight={() => { this.props.navigation.navigate('Picture'); }}
-        >
-          <SafeAreaView>
-            <FlatList
-              style={styles.flatList}              
-              data={this.state.pictures}
-              renderItem={({item, index}) => (
-                <PictureSmall
-                  picture={item}
-                  index={index}
-                  navigation={this.props.navigation} />
-              )}
-              keyExtractor={item => item.title.toString()}
-              onEndReached={() => { this.loadMoreData(); }}
-              onEndReachedThreshold={0.5}
-              numColumns={2}
-              initialNumToRender={6}
-            />
-          </SafeAreaView>
-        </GestureRecognizer>
+        <SafeAreaView>
+          <FlatList
+            style={styles.flatList}              
+            data={this.state.pictures}
+            renderItem={({item, index}) => (
+              <PictureSmall
+                picture={item}
+                index={index}
+                navigation={this.props.navigation} />
+            )}
+            keyExtractor={item => item.title.toString()}
+            onEndReached={() => { this.loadMoreData(); }}
+            onEndReachedThreshold={0.5}
+            numColumns={2}
+            initialNumToRender={6}
+          />
+        </SafeAreaView>
       );
     }
     return (
