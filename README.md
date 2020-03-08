@@ -15,14 +15,14 @@ Any contributions are welcomed.
     </th>
     <th>
       <p align="center">
-        <img src="https://raw.githubusercontent.com/mavaras/APoD/master/res/download_share.png">
+        <img src="https://raw.githubusercontent.com/mavaras/APoD/master/res/explore.png">
       </p>
     </th>
   </tr>
   <tr>
     <th>
       <p align="center">
-        <img src="https://raw.githubusercontent.com/mavaras/APoD/master/res/explore.png">
+        <img src="https://raw.githubusercontent.com/mavaras/APoD/master/res/download_share.png">
       </p>
     </th>
     <th>
