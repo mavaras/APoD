@@ -12,5 +12,8 @@ export default StyleSheet.create({
   flatList: {
     marginTop: 10,
     marginBottom: 8
+  },
+  safeAreaView: {
+    flex: 1
   }
 });

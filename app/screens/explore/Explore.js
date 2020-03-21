@@ -61,7 +61,7 @@ export default class ExploreScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.safeAreaView}>
         <FlatList inverted
           style={styles.flatList}
           data={this.state.pictures}
