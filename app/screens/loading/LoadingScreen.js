@@ -7,7 +7,7 @@ import styles from './style';
 export default class LoadingScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.animation = require('./../../res/animations/circle2.json');
+    this.animation = require('./../../res/animations/loading_line.json');
   }
 
   componentDidMount() {
