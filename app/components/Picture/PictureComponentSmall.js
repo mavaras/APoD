@@ -3,6 +3,7 @@ import {
   Image,
   TouchableHighlight,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import styles from './style';
 
 
@@ -28,7 +29,7 @@ export default class PictureSmall extends React.Component {
         onPress={() => {
           this.props.navigation.navigate('ExplorePicture', {attrs: this.props.picture})
         }}>
-        <Image
+        <FastImage
           style={styles.imageSmall}
           source={{uri: this.props.picture.url}}
         />

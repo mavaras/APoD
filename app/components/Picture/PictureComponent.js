@@ -12,6 +12,7 @@ import Dialog, {
   DialogFooter,
   DialogTitle,
   SlideAnimation } from 'react-native-popup-dialog';
+import FastImage from 'react-native-fast-image';
 import CameraRoll from "@react-native-community/cameraroll";
 import Share from 'react-native-share';
 import ImgToBase64 from 'react-native-image-base64';
@@ -181,7 +182,7 @@ export default class Picture extends React.Component {
             underlayColor='none'
             style={styles.touchableHighlight}
           >
-            <Image
+            <FastImage
               style={this.props.attrs.date ? styles.image : this.props.extraStyle}
               source={{uri: this.props.attrs.url}}
             />
