@@ -20,7 +20,7 @@ export default class PictureScreen extends React.Component {
     const { navigation } = this.props;
     if (!navigation.getParam('attrs')) {
       setTimeout(() => {
-        fetch('https://api.nasa.gov/planetary/apod?api_key='+NASA_API_KEY)
+        fetch('https://api.nasa.gov/planetary/apod?api_key=' + NASA_API_KEY)
         .then(response => response.json())
         .then((responseJson) => {
           this.response = responseJson;
