@@ -25,10 +25,10 @@ export default class ExploreScreen extends React.Component {
   }
 
   componentDidMount() {
-    this._loadData();
+    this.loadData();
   }
 
-  async _loadData() {
+  async loadData() {
     const { loadMore } = this.state;
     if (loadMore ||
       this.state.pictures.length == this.pictures_list) {
@@ -42,13 +42,13 @@ export default class ExploreScreen extends React.Component {
         .once('value', data => { 
           this.pictures_list = data.val();
           this.pictures_list = Object.values(this.pictures_list);
-          this._getNextItems();
+          this.getNextItems();
         });
     });
     this.setState({loading: false});
   }
 
-  _getNextItems() {
+  getNextItems() {
     this.pictures_list = this.pictures_list.filter((e) => {
       if(!['youtube', 'vimeo'].some(aux => e.url.split(/[/.]/).includes(aux))) {
         return e;
@@ -72,7 +72,7 @@ export default class ExploreScreen extends React.Component {
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={this._loadData.bind(this)}
+                onRefresh={this.loadData.bind(this)}
               />
             }
             renderItem={({item, index}) => (
