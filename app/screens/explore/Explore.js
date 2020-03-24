@@ -59,6 +59,9 @@ export default class ExploreScreen extends React.Component {
       page: this.state.page + 1,
       refreshing: false,
     });
+    if (this.state.page > 2) {
+      this.flatList_ref.scrollToIndex({animated: true, index: 0.3});  // 0.3 based on SmallPicture marginBottom = 6
+    }
   }
 
   render() {
@@ -66,9 +69,13 @@ export default class ExploreScreen extends React.Component {
       return (
         <SafeAreaView style={styles.safeAreaView}>
           <FlatList inverted
+            ref={(ref) => { this.flatList_ref = ref; }}
             style={styles.flatList}
             data={this.state.pictures}
             extraData={this.state}
+            getItemLayout={(data, index) => {
+              return { length: 200, offset: 200 * index, index: index }
+            }}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
