@@ -21,7 +21,6 @@ export default class ExploreScreen extends React.Component {
     }
     this.DB = FirebaseDB.instance;
     this.pictures_limit = 8;
-    this.pictures = [[], []];
   }
 
   componentDidMount() {

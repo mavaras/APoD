@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   TouchableHighlight,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
