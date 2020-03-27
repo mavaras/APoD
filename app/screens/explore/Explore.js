@@ -48,6 +48,12 @@ export default class ExploreScreen extends React.Component {
     this.setState({loading: false});
   }
 
+  scrollToLastTop() {
+    if (this.state.page > 2) {
+      this.flatList_ref.scrollToIndex({animated: true, index: 0.3});  // 0.3 based on SmallPicture marginBottom = 6
+    }
+  }
+
   getNextItems() {
     this.pictures_list = this.pictures_list.filter((e) => {
       if(!['youtube', 'vimeo'].some(aux => e.url.split(/[/.]/).includes(aux))) {
@@ -59,9 +65,7 @@ export default class ExploreScreen extends React.Component {
       page: this.state.page + 1,
       refreshing: false,
     });
-    if (this.state.page > 2) {
-      this.flatList_ref.scrollToIndex({animated: true, index: 0.3});  // 0.3 based on SmallPicture marginBottom = 6
-    }
+    this.scrollToLastTop();
   }
 
   render() {
@@ -95,6 +99,7 @@ export default class ExploreScreen extends React.Component {
         </SafeAreaView>
       );
     }
+
     return null;  // temporary call
   }
 }
