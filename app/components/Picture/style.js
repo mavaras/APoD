@@ -80,15 +80,15 @@ export default StyleSheet.create({
   },
 
   image: {
-    width: '90%',
+    width: '100%',
     height: 300,
     marginTop: 20,
-    borderRadius: 3.5
+    borderRadius: 0
   },
   imageSmall: {
     width: '100%',
     height: 200,
-    marginBottom: 15,
+    marginBottom: 0,
     borderRadius: 5
   },
 
