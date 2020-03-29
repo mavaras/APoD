@@ -83,6 +83,7 @@ export default class ExploreScreen extends React.Component {
               <RefreshControl
                 refreshing={this.state.refreshing}
                 onRefresh={this.loadData.bind(this)}
+                tintColor="#5b84c2"
               />
             }
             renderItem={({item, index}) => (
