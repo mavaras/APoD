@@ -65,7 +65,7 @@ export default StyleSheet.create({
   textPictureTitle: {
     marginTop: 40,
     width: '90%',
-    marginBottom: 10,
+    marginBottom: 30,
     fontSize: 19.5,
     textAlign: 'center',
     fontWeight: 'bold'
