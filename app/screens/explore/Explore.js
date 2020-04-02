@@ -49,7 +49,10 @@ export default class ExploreScreen extends React.Component {
 
   scrollToLastTop() {
     if (this.state.page > 2) {
-      this.flatList_ref.scrollToIndex({animated: true, index: 0.3});  // 0.3 based on SmallPicture marginBottom = 6
+      setTimeout(() => {this.flatList_ref.scrollToIndex({animated: true, index: 0.3})}, 100);  // 0.3 based on SmallPicture marginBottom = 6
+    }
+    else {
+      setTimeout(() => {this.flatList_ref.scrollToIndex({animated: true, index: 0.5})}, 100);
     }
   }
 
