@@ -12,11 +12,11 @@ import Dialog, {
   DialogTitle,
   SlideAnimation } from 'react-native-popup-dialog';
 import FastImage from 'react-native-fast-image';
-import CameraRoll from "@react-native-community/cameraroll";
+import CameraRoll from '@react-native-community/cameraroll';
 import Share from 'react-native-share';
 import ImgToBase64 from 'react-native-image-base64';
-import Modal from "react-native-modal";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
 import styles from './style';
 import Video from '../Video/VideoComponent';
@@ -33,10 +33,10 @@ export async function request_storage_runtime_permission_android() {
       }
     )
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("Storage Permission Granted");
+      console.log('Storage Permission Granted');
     }
     else {
-      console.log("Storage Permission Not Granted");
+      console.log('Storage Permission Not Granted');
     }
   } 
   catch (err) {
@@ -155,7 +155,7 @@ export default class Picture extends React.Component {
           dialogAnimation={new SlideAnimation({
             slideFrom: 'bottom',
           })}
-          dialogTitle={<DialogTitle title="APoD" />}
+          dialogTitle={<DialogTitle title='APoD' />}
           footer={
             <DialogFooter>
               <DialogButton
@@ -203,7 +203,7 @@ export default class Picture extends React.Component {
                 <View style={styles.modalButtonGroupView}>
                   <Icon.Button
                     disabled={this.state.downloading}
-                    name="download"
+                    name='download'
                     style={styles.button}
                     onPress={() => { this.download(); }}
                   >
@@ -213,7 +213,7 @@ export default class Picture extends React.Component {
                 <View style={styles.modalButtonGroupView}>
                   <Icon.Button
                     disabled={this.state.downloading}
-                    name="share-alt"
+                    name='share-alt'
                     style={styles.button}
                     onPress={() => { this.share(); }}
                   >

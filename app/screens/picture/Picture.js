@@ -25,9 +25,9 @@ export default class PictureScreen extends React.Component {
         .then((responseJson) => {
           this.response = responseJson;
             this.DB.pictures
-              .orderByChild("title")
+              .orderByChild('title')
               .equalTo(this.response.title)
-              .once("value")
+              .once('value')
               .then(snapshot => {
                 if (!snapshot.val()) {
                   this.DB.pictures.push({
@@ -62,7 +62,7 @@ export default class PictureScreen extends React.Component {
       );
     }
     else {
-      return(
+      return (
         <ScrollView contentContainerStyle={{}}>
           <Picture attrs={this.response}/>
         </ScrollView>
