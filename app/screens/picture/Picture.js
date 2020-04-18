@@ -14,35 +14,46 @@ function PictureScreen({ route }) {
 
   function fetchData() {
     if (!route.params?.attrs) {
-      setTimeout(() => {
-        fetch('https://api.nasa.gov/planetary/apod?api_key=' + NASA_API_KEY)
-          .then(response => response.json())
-          .then((responseJson) => {
-            if (!('error' in responseJson)) {
-              setResponse(responseJson);
-              DB.pictures
-                .orderByChild('title')
-                .equalTo(responseJson.title)
-                .once('value')
-                .then(snapshot => {
-                  if (!snapshot.val()) {
-                    DB.pictures.push({
-                      title: response.title,
-                      explanation: response.explanation,
-                      url: response.url,
-                      date: response.date
-                    });
-                  }
-                  setLoading(false);
-                  setDataSource(responseJson);
-                });
-            }
-            else {
-              throw 'error in response';
-            }
-          })
-          .catch(error => console.log(error))},
-      2000);
+      let must_query = true;
+      setTimeout(async () => {
+        await DB.pictures
+          .limitToLast(1)
+          .once('value', data => { 
+            const last_picture = Object.values(data.val())[0];
+            let today = new Date();
+            today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
+            must_query = today != last_picture['date'];
+          });
+        if (must_query) {
+          fetch('https://api.nasa.gov/planetary/apod?api_key=' + NASA_API_KEY)
+            .then(response => response.json())
+            .then((responseJson) => {
+              if (!('error' in responseJson)) {
+                setResponse(responseJson);
+                DB.pictures
+                  .orderByChild('title')
+                  .equalTo(responseJson.title)
+                  .once('value')
+                  .then(snapshot => {
+                    if (!snapshot.val()) {
+                      DB.pictures.push({
+                        title: response.title,
+                        explanation: response.explanation,
+                        url: response.url,
+                        date: response.date
+                      });
+                    }
+                    setLoading(false);
+                    setDataSource(responseJson);
+                  });
+              }
+              else {
+                throw 'error in response';
+              }
+            })
+            .catch(error => console.log(error))
+        }
+      }, 2000);
     }
     else {
       setResponse(route.params.attrs);
