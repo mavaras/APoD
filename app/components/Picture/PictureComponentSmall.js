@@ -6,12 +6,8 @@ import FastImage from 'react-native-fast-image';
 import styles from './style';
 
 
-export default class PictureSmall extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  itemStyle(index) {
+function PictureComponentSmall({ picture, index, navigation }) {
+  function itemStyle(index) {
     return (
       [
         {flex: 1, marginTop: 0, marginBottom: 6, height: 200 },
@@ -21,17 +17,17 @@ export default class PictureSmall extends React.Component {
     );
   };
 
-  render() {
-    return (
-      <TouchableHighlight
-        style={this.itemStyle(this.props.index)}
-        onPress={() => {
-          this.props.navigation.navigate('ExplorePicture', {attrs: this.props.picture})
-        }}>
-        <FastImage
-          style={styles.imageSmall}
-          source={{uri: this.props.picture.url}}
-        />
-      </TouchableHighlight>);
-  }
+  return (
+    <TouchableHighlight
+      style={itemStyle(index)}
+      onPress={() => {
+        navigation.navigate('Explore Picture', { attrs: picture })
+      }}>
+      <FastImage
+        style={styles.imageSmall}
+        source={{uri: picture.url}}
+      />
+    </TouchableHighlight>);
 }
+
+export default PictureComponentSmall;

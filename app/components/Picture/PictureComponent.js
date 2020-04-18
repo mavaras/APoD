@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   TouchableHighlight,
   View, SafeAreaView,
-  PermissionsAndroid
+  PermissionsAndroid,
+  ViewPagerAndroid
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -21,6 +22,8 @@ import RNFetchBlob from 'rn-fetch-blob';
 import styles from './style';
 import Video from '../Video/VideoComponent';
 import { ScrollView } from 'react-native-gesture-handler';
+import { set } from 'react-native-reanimated';
+import PictureSmall from './PictureComponentSmall';
 
 
 export async function request_storage_runtime_permission_android() {
@@ -44,39 +47,26 @@ export async function request_storage_runtime_permission_android() {
   }
 }
 
-export default class Picture extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isModalOpen: false,
-      downloading: false,
-      buttonRect: {x: 0, y: 0, width: 0, height: 0},
-      showAlert: false
-    };
-  }
+function Picture({ attrs }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [buttonRect, setButtonRect] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  let image_ref = undefined;
 
-  async componentDidMount() {
+  useEffect(() => {
     this.refs = React.createRef();
     if (Platform.OS == 'android') {
-      await request_storage_runtime_permission_android();
+      request_storage_runtime_permission_android();
     }
-  }
+  });
 
-  getInitialState() {
-    return {
-      popoverIsVisible: false,
-      buttonRect: {},
-    };
-  }
-
-  download() {
+  const download = () => {
     const { config, fs } = RNFetchBlob;
     let picture_dir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
-    const picture_path = picture_dir + '/APoD/APoD_' + this.props.attrs.title + '.png';
+    const picture_path = picture_dir + '/APoD/APoD_' + attrs.title + '.png';
 
-    this.setState({
-      downloading: true
-    });
+    setDownloading(true);
 
     if (Platform.OS == 'android') {
       let options = {
@@ -91,36 +81,32 @@ export default class Picture extends React.Component {
           mediaScannable: true,
         }
       };
-      config(options).fetch('GET', this.props.attrs.url)
+      config(options).fetch('GET', attrs.url)
         .then((res) => {
           console.log('Success downloading photo to path: ' + res.path());
-          this.setState({
-            downloading: false,
-            isModalOpen: false
-          });
+          setDownloading(false);
+          setIsModalOpen(false);
         })
         .catch((err) => {
           console.log('Error occurred when trying to download picture: ' + err);
         });
     }
     else {
-      CameraRoll.saveToCameraRoll(this.props.attrs.url)
+      CameraRoll.saveToCameraRoll(attrs.url)
         .then((res) => {
           console.log('Success downloading photo to camera roll');
-          this.setState({
-            downloading: false,
-            isModalOpen: false
-          });
+          setDownloading(false);
+          setIsModalOpen(false);
+          setShowAlert(true);
         })
         .catch((err) => {
           console.log('Error occurred when trying to download picture: ' + err);
         });
-      this.setState({ showAlert: true });
     }
   }
 
-  share() {
-    ImgToBase64.getBase64String(this.props.attrs.url)
+  const share = () => {
+    ImgToBase64.getBase64String(attrs.url)
       .then(base64_url => {
         const options = {
           url: 'data:image/png;base64,' + base64_url
@@ -135,115 +121,110 @@ export default class Picture extends React.Component {
       });
   }
 
-  showPopover() {
-    this.image_ref.measure((width, height, x, y) => {
-      this.setState({
-        isModalOpen: true,
-        buttonRect: {x: x, y: y, width: width, height: height}
-      });
+  const showPopover = () => {
+    image_ref.measure((width, height, x, y) => {
+      setIsModalOpen(true);
+      setButtonRect({x: x, y: y, width: width, height: height});
     });
   }
   
-  closeModal() {
-    this.setState({ isModalOpen: false });
+  const closeModal = () => {
+    setIsModalOpen(false);
   }
 
-  render() {
-    return (
-      <SafeAreaView>
-        <Dialog
-          dialogAnimation={new SlideAnimation({
-            slideFrom: 'bottom',
-          })}
-          dialogTitle={<DialogTitle title='APoD' />}
-          footer={
-            <DialogFooter>
-              <DialogButton
-                text="OK"
-                onPress={() => { this.setState({ showAlert: false })}}
-              />
-            </DialogFooter>
-          }
-          visible={this.state.showAlert}
-          onTouchOutside={() => {
-            this.setState({ showAlert: false });
-          }}
-        >
-          <DialogContent>
-            <Text style={styles.dialogContent}>Photo succesfully downloaded!</Text>
-          </DialogContent>
-        </Dialog>
-        <ScrollView>
-        {!['youtube', 'vimeo'].some(aux => this.props.attrs.url.split(/[/.]/).includes(aux)) ?
-          <TouchableHighlight
-            ref={(r) => {this.image_ref = r}}
-            onPress={this.showPopover.bind(this)}
-            underlayColor='none'
-            style={styles.touchableHighlight}
-          >
-            <FastImage
-              style={this.props.attrs.date ? styles.image : this.props.extraStyle}
-              source={{uri: this.props.attrs.url}}
+  return (
+    <SafeAreaView>
+      <Dialog
+        dialogAnimation={new SlideAnimation({
+          slideFrom: "bottom",
+        })}
+        dialogTitle={<DialogTitle title="APoD" />}
+        footer={
+          <DialogFooter>
+            <DialogButton
+              text="OK"
+              onPress={() => { setShowAlert(false); }}
             />
-          </TouchableHighlight> :
-          <Video url={this.props.attrs.url}/>
+          </DialogFooter>
         }
-          <Modal
-            isVisible={this.state.isModalOpen}
-            style={styles.modal}
-            onBackdropPress={this.closeModal.bind(this)}
+        visible={showAlert}
+        onTouchOutside={() => {
+          setShowAlert(false);
+        }}
+      >
+        <DialogContent>
+          <Text style={styles.dialogContent}>Photo succesfully downloaded!</Text>
+        </DialogContent>
+      </Dialog>
+      <ScrollView>
+      {!['youtube', 'vimeo'].some(aux => attrs.url.split(/[/.]/).includes(aux)) ?
+        <TouchableHighlight
+          ref={(r) => {image_ref = r}}
+          onPress={showPopover.bind(this)}
+          underlayColor="none"
+          style={styles.touchableHighlight}
+        >
+          <FastImage
+            style={styles.image}
+            source={{uri: attrs.url}}
+          />
+        </TouchableHighlight> :
+        <Video url={attrs.url}/>
+      }
+        <Modal
+          isVisible={isModalOpen}
+          style={styles.modal}
+          onBackdropPress={closeModal.bind(this)}
+        >
+          <View
+            style={styles.modalMainView}
           >
-            <View 
-              style={styles.modalMainView}
-            >
-              <View style={styles.modalContentView}>
-                <Text style={styles.modalTitle}>{this.props.attrs.title}</Text>
+            <View style={styles.modalContentView}>
+              <Text style={styles.modalTitle}>{attrs.title}</Text>
+            </View>
+            <View style={styles.modalFooterView}>
+              <View style={styles.modalButtonGroupView}>
+                <Icon.Button
+                  disabled={downloading}
+                  name="download"
+                  style={styles.button}
+                  onPress={() => { download(); }}
+                >
+                  <Text style={styles.buttonLabel}>Download</Text>
+                </Icon.Button>
               </View>
-              <View style={styles.modalFooterView}>
-                <View style={styles.modalButtonGroupView}>
-                  <Icon.Button
-                    disabled={this.state.downloading}
-                    name='download'
-                    style={styles.button}
-                    onPress={() => { this.download(); }}
-                  >
-                    <Text style={styles.buttonLabel}>Download</Text>
-                  </Icon.Button>
-                </View>
-                <View style={styles.modalButtonGroupView}>
-                  <Icon.Button
-                    disabled={this.state.downloading}
-                    name='share-alt'
-                    style={styles.button}
-                    onPress={() => { this.share(); }}
-                  >
-                    <Text style={styles.buttonLabel}>Share</Text>
-                  </Icon.Button>
-                </View>
+              <View style={styles.modalButtonGroupView}>
+                <Icon.Button
+                  disabled={downloading}
+                  name="share-alt"
+                  style={styles.button}
+                  onPress={() => { share(); }}
+                >
+                  <Text style={styles.buttonLabel}>Share</Text>
+                </Icon.Button>
               </View>
             </View>
-          </Modal>
-
-          { this.props.attrs.date !== undefined ?
+          </View>
+        </Modal>
+        { attrs.date !== undefined ?
+        <View>
+          <View style={styles.viewPictureText}>
+            <Text style={styles.textPictureTitle}>
+              {attrs.title}
+            </Text>
+            <Text style={styles.textPictureExplanation}>
+              {attrs.explanation}
+            </Text>
+          </View>
           <View>
-            <View style={styles.viewPictureText}>
-              <Text style={styles.textPictureTitle}>
-                {this.props.attrs.title}
-              </Text>
+            <Text style={styles.viewPictureDate}>
+              {attrs.date}
+            </Text>
+          </View>
+        </View> : undefined }
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-              <Text style={styles.textPictureExplanation}>
-                {this.props.attrs.explanation}
-              </Text>
-            </View>
-
-            <View>
-              <Text style={styles.viewPictureDate}>
-                {this.props.attrs.date}
-              </Text>
-            </View>
-          </View> : undefined }
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
-}
+export default Picture;

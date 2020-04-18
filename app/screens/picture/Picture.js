@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import FirebaseDB from '../../config';
 import { NASA_API_KEY } from 'react-native-dotenv';
@@ -6,67 +6,66 @@ import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
 
 
-export default class PictureScreen extends React.Component {  
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      dataSource: [],
-    };
-    this.DB = FirebaseDB.instance;
-  }
+function PictureScreen({ route }) {
+  DB = FirebaseDB.instance;
+  const [loading, setLoading] = useState(true);
+  const [dataSource, setDataSource] = useState([]);
+  let [response, setResponse] = useState({});
 
-  componentDidMount() {
-    const { navigation } = this.props;
-    if (!navigation.getParam('attrs')) {
+  function fetchData() {
+    if (!route.params?.attrs) {
       setTimeout(() => {
         fetch('https://api.nasa.gov/planetary/apod?api_key=' + NASA_API_KEY)
-        .then(response => response.json())
-        .then((responseJson) => {
-          this.response = responseJson;
-            this.DB.pictures
-              .orderByChild('title')
-              .equalTo(this.response.title)
-              .once('value')
-              .then(snapshot => {
-                if (!snapshot.val()) {
-                  this.DB.pictures.push({
-                    title: this.response.title,
-                    explanation: this.response.explanation,
-                    url: this.response.url,
-                    date: this.response.date
-                  });
-                }
-                this.setState({
-                  loading: false,
-                  dataSource: responseJson
+          .then(response => response.json())
+          .then((responseJson) => {
+            if (!('error' in responseJson)) {
+              setResponse(responseJson);
+              DB.pictures
+                .orderByChild('title')
+                .equalTo(responseJson.title)
+                .once('value')
+                .then(snapshot => {
+                  if (!snapshot.val()) {
+                    DB.pictures.push({
+                      title: response.title,
+                      explanation: response.explanation,
+                      url: response.url,
+                      date: response.date
+                    });
+                  }
+                  setLoading(false);
+                  setDataSource(responseJson);
                 });
-              });
-          }
-        )
-        .catch(error => console.log(error))},
+            }
+            else {
+              throw 'error in response';
+            }
+          })
+          .catch(error => console.log(error))},
       2000);
     }
     else {
-      this.response = navigation.getParam('attrs');
-      this.setState({
-        loading: false,
-      });
+      setResponse(route.params.attrs);
+      setLoading(false);
     }
   }
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <LoadingScreen/>
-      );
-    }
-    else {
-      return (
-        <ScrollView contentContainerStyle={{}}>
-          <Picture attrs={this.response}/>
-        </ScrollView>
-      );
-    }
+  useEffect(() => {
+    fetchData();
+  }, [route.params]);
+
+  if (loading) {
+    return (
+      <LoadingScreen/>
+    );
   }
-}
+  else {
+    return (
+      <ScrollView contentContainerStyle={{ backgroundColor: 'white', height: '100%' }}>
+        <Picture attrs={response}/>
+      </ScrollView>
+    );
+  }
+};
+
+export default PictureScreen;

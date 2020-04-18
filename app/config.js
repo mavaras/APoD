@@ -25,7 +25,7 @@ export default class FirebaseDB {
   pictures_nItems = 0;
 
   len() {
-    this.pictures.on("value", data => { return data.numChildren() });
+    this.pictures.on('value', data => { return data.numChildren() });
     return 0;
   }
 }

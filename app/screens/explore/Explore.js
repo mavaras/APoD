@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -9,46 +9,39 @@ import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 
 
-export default class ExploreScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      refreshing: false,
-      loadMore: false,
-      page: 1,
-      pictures: []
-    }
-    this.DB = FirebaseDB.instance;
-    this.pictures_limit = 8;
-  }
+function ExploreScreen({ navigation }) {
+  const DB = FirebaseDB.instance;
+  const pictures_limit = 8;
+  let pictures_list = ['notempty'];
+  let flatList_ref = FlatList;
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loadMore, setLoadMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pictures, setPictures] = useState([]);
 
-  componentDidMount() {
-    this.loadData();
-  }
+  useEffect(() => {
+    setTimeout(() => loadData(), 2000);
+  }, []);
 
-  async loadData() {
-    const { loadMore } = this.state;
+  async function loadData() {
     if (loadMore ||
-      this.state.pictures.length == this.pictures_list) {
+      pictures.length == pictures_list.length) {
       return;
     }
-    this.setState({
-      loading: true,
-      refreshing: true,
-    }, async () => {
-      await this.DB.pictures
-        .once('value', data => { 
-          this.pictures_list = data.val();
-          this.pictures_list = Object.values(this.pictures_list);
-          this.getNextItems();
-        });
-    });
-    this.setState({loading: false});
+    setLoading(true);
+    setRefreshing(true);
+    await DB.pictures
+      .once('value', data => { 
+        pictures_list = data.val();
+        pictures_list = Object.values(pictures_list);
+        getNextItems();
+      });
+    setLoading(false);
   }
 
-  scrollToLastTop() {
-    if (this.state.page > 2) {
+  function scrollToLastTop() {
+    if (page > 2) {
       setTimeout(() => {this.flatList_ref.scrollToIndex({animated: true, index: 0.3})}, 100);  // 0.3 based on SmallPicture marginBottom = 6
     }
     else {
@@ -56,53 +49,51 @@ export default class ExploreScreen extends React.Component {
     }
   }
 
-  getNextItems() {
-    this.pictures_list = this.pictures_list.filter((e) => {
+  async function getNextItems() {
+    pictures_list = pictures_list.filter((e) => {
       if(!['youtube', 'vimeo'].some(aux => e.url.split(/[/.]/).includes(aux))) {
         return e;
       }
     });
-    this.setState({
-      pictures: [...this.pictures_list.splice(0, this.pictures_limit * this.state.page)].reverse(),
-      page: this.state.page + 1,
-      refreshing: false,
-    });
-    this.scrollToLastTop();
+    setPictures([...pictures_list.splice(0, pictures_limit * page)].reverse());
+    setPage(page + 1);
+    setRefreshing(false);
+    scrollToLastTop();
   }
 
-  render() {
-    if (!this.state.loading) {
-      return (
-        <SafeAreaView style={styles.safeAreaView}>
-          <FlatList inverted
-            ref={(ref) => { this.flatList_ref = ref; }}
-            style={styles.flatList}
-            data={this.state.pictures}
-            extraData={this.state}
-            getItemLayout={(data, index) => {
-              return { length: 200, offset: 200 * index, index: index }
-            }}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.loadData.bind(this)}
-                tintColor="#5b84c2"
-              />
-            }
-            renderItem={({item, index}) => (
-              <PictureSmall
-                picture={item}
-                index={index}
-                navigation={this.props.navigation}
-              />
-            )}
-            keyExtractor={item => item.title.toString()}
-            numColumns={2}
-          />
-        </SafeAreaView>
-      );
-    }
-
-    return null;  // temporary call
+  if (!loading) {
+    return (
+      <SafeAreaView style={styles.safeAreaView}>
+        <FlatList inverted
+          ref={(ref) => { this.flatList_ref = ref; }}
+          style={styles.flatList}
+          data={pictures}
+          extraData={pictures}
+          getItemLayout={(data, index) => {
+            return { length: 200, offset: 200 * index, index: index }
+          }}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={loadData.bind(this)}
+              tintColor="#5b84c2"
+            />
+          }
+          renderItem={({item, index}) => (
+            <PictureSmall
+              picture={item}
+              index={index}
+              navigation={navigation}
+            />
+          )}
+          keyExtractor={item => item.title.toString()}
+          numColumns={2}
+        />
+      </SafeAreaView>
+    );
   }
+
+  return null;  // temporary call
 }
+
+export default ExploreScreen;
