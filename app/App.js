@@ -1,6 +1,4 @@
 import 'react-native-gesture-handler';
-import { rootNavigator } from './router';
-import { createAppContainer } from 'react-navigation';
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from '@react-navigation/native';

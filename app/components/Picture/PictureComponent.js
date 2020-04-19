@@ -4,7 +4,6 @@ import {
   TouchableHighlight,
   View, SafeAreaView,
   PermissionsAndroid,
-  ViewPagerAndroid
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -22,8 +21,6 @@ import RNFetchBlob from 'rn-fetch-blob';
 import styles from './style';
 import Video from '../Video/VideoComponent';
 import { ScrollView } from 'react-native-gesture-handler';
-import { set } from 'react-native-reanimated';
-import PictureSmall from './PictureComponentSmall';
 
 
 export async function request_storage_runtime_permission_android() {
