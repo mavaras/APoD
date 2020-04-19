@@ -7,6 +7,7 @@ import {
 import FirebaseDB from '../../config';
 import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
+import { shuffle_array } from '../../utils';
 
 
 function ExploreScreen({ navigation }) {
@@ -34,7 +35,13 @@ function ExploreScreen({ navigation }) {
     await DB.pictures
       .once('value', data => { 
         pictures_list = data.val();
-        pictures_list = Object.values(pictures_list);
+        this.pictures_list = Object.values(pictures_list);
+        this.pictures_list = this.pictures_list.filter((picture) => {
+          if(!['youtube', 'vimeo'].some(aux => picture.url.split(/[/.]/).includes(aux))) {
+            return picture;
+          }
+        });
+        this.pictures_list = shuffle_array(this.pictures_list);
         getNextItems();
       });
     setLoading(false);
@@ -42,20 +49,19 @@ function ExploreScreen({ navigation }) {
 
   function scrollToLastTop() {
     if (page > 2) {
-      setTimeout(() => {this.flatList_ref.scrollToIndex({animated: true, index: 0.3})}, 100);  // 0.3 based on SmallPicture marginBottom = 6
+      setTimeout(() => { this.flatList_ref.scrollToIndex({animated: true, index: 0.3}); }, 200);  // 0.3 based on SmallPicture marginBottom = 6
     }
     else {
-      setTimeout(() => {this.flatList_ref.scrollToIndex({animated: true, index: 0.5})}, 100);
+      setTimeout(() => { this.flatList_ref.scrollToIndex({animated: true, index: 0.5}); }, 100);
     }
   }
 
   async function getNextItems() {
-    pictures_list = pictures_list.filter((picture) => {
-      if(!['youtube', 'vimeo'].some(aux => picture.url.split(/[/.]/).includes(aux))) {
-        return picture;
-      }
-    });
-    setPictures([...pictures_list.splice(0, pictures_limit * page)].reverse());
+    if (this.pictures_list.length == 0 || pictures.length == this.pictures_list.length) {
+      setRefreshing(false);
+      return;
+    }
+    setPictures([...this.pictures_list.slice(0, pictures_limit * page)].reverse());
     setPage(page + 1);
     setRefreshing(false);
     scrollToLastTop();
@@ -75,7 +81,7 @@ function ExploreScreen({ navigation }) {
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
-              onRefresh={loadData.bind(this)}
+              onRefresh={getNextItems.bind(this)}
               tintColor="#5b84c2"
             />
           }
