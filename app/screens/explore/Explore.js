@@ -48,7 +48,7 @@ function ExploreScreen({ navigation }) {
   }
 
   function scrollToLastTop() {
-    if (page > 2) {
+    if (page > 1) {
       setTimeout(() => { this.flatList_ref.scrollToIndex({animated: true, index: 0.3}); }, 200);  // 0.3 based on SmallPicture marginBottom = 6
     }
     else {
