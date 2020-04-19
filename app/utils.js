@@ -1,3 +1,5 @@
+import { PermissionsAndroid } from 'react-native';
+
 
 export function shuffle_array(array) {
     var aux, random_index, current_index = array.length;
