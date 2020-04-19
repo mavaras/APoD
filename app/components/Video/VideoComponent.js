@@ -4,19 +4,15 @@ import { View } from 'react-native';
 import styles from './style';
 
 
-export default class Video extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={styles.videoView}>
-        <WebView
-          javaScriptEnabled={true}
-          source={{uri: this.props.url}}
-        />
-      </View>
-    );
-  }
+function Video({ url }) {
+  return (
+    <View style={styles.videoView}>
+      <WebView
+        javaScriptEnabled={true}
+        source={{uri: url}}
+      />
+    </View>
+  );
 }
+
+export default Video;
