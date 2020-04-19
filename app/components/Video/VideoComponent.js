@@ -8,8 +8,7 @@ function Video({ url }) {
   return (
     <View style={styles.videoView}>
       <WebView
-        javaScriptEnabled={true}
-        source={{uri: url}}
+        source={{ uri: url }}
       />
     </View>
   );
