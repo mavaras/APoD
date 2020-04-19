@@ -17,7 +17,7 @@ function ExploreScreen({ navigation }) {
   let flatList_ref = FlatList;
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [loadMore, setLoadMore] = useState(false);
+  const [loadMore, ] = useState(false);
   const [page, setPage] = useState(1);
   const [pictures, setPictures] = useState([]);
 
@@ -26,18 +26,17 @@ function ExploreScreen({ navigation }) {
   }, []);
 
   async function loadData() {
-    if (loadMore ||
-      pictures.length == pictures_list.length) {
+    if (loadMore || pictures.length === pictures_list.length) {
       return;
     }
     setLoading(true);
     setRefreshing(true);
     await DB.pictures
-      .once('value', data => { 
+      .once('value', (data) => {
         pictures_list = data.val();
         this.pictures_list = Object.values(pictures_list);
         this.pictures_list = this.pictures_list.filter((picture) => {
-          if(!['youtube', 'vimeo'].some(aux => picture.url.split(/[/.]/).includes(aux))) {
+          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
             return picture;
           }
         });
@@ -49,15 +48,15 @@ function ExploreScreen({ navigation }) {
 
   function scrollToLastTop() {
     if (page > 1) {
-      setTimeout(() => { this.flatList_ref.scrollToIndex({animated: true, index: 0.3}); }, 200);  // 0.3 based on SmallPicture marginBottom = 6
-    }
-    else {
-      setTimeout(() => { this.flatList_ref.scrollToIndex({animated: true, index: 0.5}); }, 100);
+      // 0.3 based on SmallPicture marginBottom = 6
+      setTimeout(() => { this.flatList_ref.scrollToIndex({ animated: true, index: 0.3 }); }, 200);
+    } else {
+      setTimeout(() => { this.flatList_ref.scrollToIndex({ animated: true, index: 0.5 }); }, 100);
     }
   }
 
   async function getNextItems() {
-    if (this.pictures_list.length == 0 || pictures.length == this.pictures_list.length) {
+    if (this.pictures_list.length === 0 || pictures.length === this.pictures_list.length) {
       setRefreshing(false);
       return;
     }
@@ -70,36 +69,35 @@ function ExploreScreen({ navigation }) {
   if (!loading) {
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <FlatList inverted
+        <FlatList
+          inverted
           ref={(ref) => { this.flatList_ref = ref; }}
           style={styles.flatList}
           data={pictures}
           extraData={pictures}
-          getItemLayout={(data, index) => {
-            return { length: 200, offset: 200 * index, index: index }
-          }}
-          refreshControl={
+          getItemLayout={(data, indx) => ({ length: 200, offset: 200 * indx, index: indx })}
+          refreshControl={(
             <RefreshControl
               refreshing={refreshing}
               onRefresh={getNextItems.bind(this)}
               tintColor="#5b84c2"
             />
-          }
-          renderItem={({item, index}) => (
+          )}
+          renderItem={({ item, index }) => (
             <PictureSmall
               picture={item}
               index={index}
               navigation={navigation}
             />
           )}
-          keyExtractor={item => item.title.toString()}
+          keyExtractor={(item) => item.title.toString()}
           numColumns={2}
         />
       </SafeAreaView>
     );
   }
 
-  return null;  // temporary call
+  return null; // temporary call
 }
 
 export default ExploreScreen;
