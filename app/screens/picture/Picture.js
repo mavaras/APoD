@@ -15,11 +15,12 @@ function PictureScreen({ route }) {
   function fetchData() {
     if (!route.params?.attrs) {
       let must_query = true;
+      let last_picture = null;
       setTimeout(async () => {
         await DB.pictures
           .limitToLast(1)
           .once('value', data => { 
-            const last_picture = Object.values(data.val())[0];
+            last_picture = Object.values(data.val())[0];
             let today = new Date();
             today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
             must_query = today != last_picture['date'];
@@ -52,6 +53,10 @@ function PictureScreen({ route }) {
               }
             })
             .catch(error => console.log(error))
+        }
+        else {
+          setResponse(last_picture);
+          setLoading(false);
         }
       }, 2000);
     }
