@@ -50,9 +50,9 @@ function ExploreScreen({ navigation }) {
   }
 
   async function getNextItems() {
-    pictures_list = pictures_list.filter((e) => {
-      if(!['youtube', 'vimeo'].some(aux => e.url.split(/[/.]/).includes(aux))) {
-        return e;
+    pictures_list = pictures_list.filter((picture) => {
+      if(!['youtube', 'vimeo'].some(aux => picture.url.split(/[/.]/).includes(aux))) {
+        return picture;
       }
     });
     setPictures([...pictures_list.splice(0, pictures_limit * page)].reverse());
