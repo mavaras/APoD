@@ -66,7 +66,7 @@ export default StyleSheet.create({
     marginTop: 40,
     width: '90%',
     marginBottom: 30,
-    fontSize: 19.5,
+    fontSize: 22.5,
     textAlign: 'center',
     fontWeight: 'bold'
   },
@@ -87,7 +87,7 @@ export default StyleSheet.create({
   },
   imageSmall: {
     width: '100%',
-    height: 200,
+    height: '100%',
     marginBottom: 0,
     borderRadius: 5
   },
