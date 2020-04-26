@@ -13,13 +13,16 @@ function PictureComponentSmall({
     // eslint-disable-next-line no-nested-ternary
     const pos = indx % cols === 0 ? 0 : (indx + 1) % cols === 0 ? 1 : 2;
     const img_height = [400, 200, 150][cols - 1];
+    const img_sep = [3, 2][cols - 2];
     return ([
       {
-        flex: 1, marginTop: 0, marginBottom: 6, height: img_height,
+        flex: 1, marginTop: 0, marginBottom: img_sep * 2, height: img_height,
       },
       // eslint-disable-next-line no-nested-ternary
-      pos === 0 ? { marginLeft: 6, marginRight: 3 }
-        : pos === 1 ? { marginRight: 6, marginLeft: 3 } : { marginRight: 3, marginLeft: 3 }
+      pos === 0 ? { marginLeft: img_sep * 2, marginRight: img_sep }
+        : pos === 1
+          ? { marginRight: img_sep * 2, marginLeft: img_sep }
+          : { marginRight: img_sep, marginLeft: img_sep }
     ]);
   }
 
