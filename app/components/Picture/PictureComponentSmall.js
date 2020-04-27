@@ -13,7 +13,7 @@ function PictureComponentSmall({
     // eslint-disable-next-line no-nested-ternary
     const pos = indx % cols === 0 ? 0 : (indx + 1) % cols === 0 ? 1 : 2;
     const img_height = [400, 200, 150][cols - 1];
-    const img_sep = [2.2, 3, 2][cols - 1];
+    const img_sep = [2.2, 2.8, 2][cols - 1];
     const style = cols === 1 ? [
       {
         flex: 1,
