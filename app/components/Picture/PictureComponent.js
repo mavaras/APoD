@@ -157,9 +157,7 @@ function Picture({ attrs }) {
           style={styles.modal}
           onBackdropPress={closeModal.bind(this)}
         >
-          <View
-            style={styles.modalMainView}
-          >
+          <View style={styles.modalMainView}>
             <View style={styles.modalContentView}>
               <Text style={styles.modalTitle}>{attrs.title}</Text>
             </View>

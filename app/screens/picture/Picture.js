@@ -49,8 +49,7 @@ function PictureScreen({ route }) {
                     setLoading(false);
                     setDataSource(responseJson);
                   });
-              }
-              else {
+              } else {
                 throw new Error('error in response');
               }
             })
