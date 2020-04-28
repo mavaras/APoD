@@ -16,8 +16,16 @@ const Tabs = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
     <Tabs.Navigator
+      tabBarVisible={false}
       tabBarOptions={{
-        activeTintColor: '#007AFF'
+        activeTintColor: '#007AFF',
+        style: {
+          position: 'absolute',
+          height: 90,
+          marginTop: 20,
+          paddingBottom: 24,
+          borderRadius: 17
+        }
       }}
     >
       <Tabs.Screen
@@ -25,7 +33,7 @@ function BottomTabNavigator() {
         component={PictureScreen}
         options={{
           attrs: undefined,
-          tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={26} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome style={{ marginBottom: -8 }} name="meteor" size={26} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
       <Tabs.Screen
@@ -33,7 +41,7 @@ function BottomTabNavigator() {
         component={ExploreScreen}
         options={{
           navigation: undefined,
-          tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={26} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome style={{ marginBottom: -8 }} name="rocket" size={26} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
     </Tabs.Navigator>
@@ -47,7 +55,7 @@ function StackNavigator() {
         <Stack.Screen
           name="Back"
           component={BottomTabNavigator}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, tabBarVisible: false }}
         />
         <Stack.Screen
           name="Explore Picture"
