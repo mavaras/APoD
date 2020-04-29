@@ -1,12 +1,8 @@
 {
-  // ...
   "rules": {
-    // ...
     "variable-name": [
       true,
-      // ...
       "allow-leading-underscore"
     ]
-  },
-  // ...
+  }
 }
