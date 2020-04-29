@@ -6,28 +6,28 @@ import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
 
 
-function PictureScreen({ route }) {
+function PictureScreen({ route }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
-  const [loading, setLoading] = useState(true);
-  const [, setDataSource] = useState([]);
-  const [response, setResponse] = useState({});
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
+  const [response, setResponse] = useState<{[string: string]: string}>({});
 
   function fetchData() {
     if (!route.params?.attrs) {
-      let must_query = true;
-      let last_picture = null;
+      let mustQuery: boolean = true;
+      let lastPicture: any = null;
       setTimeout(async () => {
         await DB.pictures
           .limitToLast(1)
-          .once('value', (data) => {
+          .once('value', (data: any) => {
             // eslint-disable-next-line prefer-destructuring
-            last_picture = Object.values(data.val())[0];
-            let today = new Date();
+            lastPicture = Object.values(data.val())[0];
+            const today = new Date();
             // eslint-disable-next-line prefer-template
-            today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
-            must_query = today !== last_picture.date;
+            const todayDate: string = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
+            mustQuery = todayDate !== lastPicture.date;
           });
-        if (must_query) {
+        if (mustQuery) {
           fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
             .then((_response) => _response.json())
             .then((responseJson) => {
@@ -37,13 +37,13 @@ function PictureScreen({ route }) {
                   .orderByChild('title')
                   .equalTo(responseJson.title)
                   .once('value')
-                  .then((snapshot) => {
+                  .then((snapshot: any) => {
                     if (!snapshot.val()) {
                       DB.pictures.push({
                         title: response.title,
                         explanation: response.explanation,
                         url: response.url,
-                        date: response.date
+                        date: response.date,
                       });
                     }
                     setLoading(false);
@@ -54,14 +54,12 @@ function PictureScreen({ route }) {
               }
             })
             .catch((error) => console.log(error));
-        }
-        else {
-          setResponse(last_picture);
+        } else {
+          setResponse(lastPicture);
           setLoading(false);
         }
       }, 2000);
-    }
-    else {
+    } else {
       setResponse(route.params.attrs);
       setLoading(false);
     }
@@ -81,6 +79,6 @@ function PictureScreen({ route }) {
       <Picture attrs={response} />
     </ScrollView>
   );
-};
+}
 
 export default PictureScreen;

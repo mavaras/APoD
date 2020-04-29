@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {
   Text,
   TouchableHighlight,
-  View, SafeAreaView, Platform
+  View, SafeAreaView, Platform,
 } from 'react-native';
 import Dialog, {
   DialogButton,
   DialogContent,
   DialogFooter,
   DialogTitle,
-  SlideAnimation
+  SlideAnimation,
 } from 'react-native-popup-dialog';
 import FastImage from 'react-native-fast-image';
 import CameraRoll from '@react-native-community/cameraroll';
@@ -21,29 +21,29 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from './style';
 import Video from '../Video/VideoComponent';
-import { request_storage_runtime_permission_android } from '../../utils';
+import { requestStorageRuntimePermissionAndroid } from '../../utils';
 
 
-function Picture({ attrs }) {
+function Picture({ attrs }: {[string: string]: any}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [, setButtonRect] = useState({
-    x: 0, y: 0, width: 0, height: 0
+    x: 0, y: 0, width: 0, height: 0,
   });
-  let image_ref;
+  let imageRef: any;
 
   useEffect(() => {
     this.refs = React.createRef();
     if (Platform.OS === 'android') {
-      request_storage_runtime_permission_android();
+      requestStorageRuntimePermissionAndroid();
     }
   });
 
   const download = () => {
     const { config, fs } = RNFetchBlob;
-    const picture_dir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
-    const picture_path = `${picture_dir}/APoD/APoD_${attrs.title}.png`;
+    const pictureDir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+    const picturePath = `${pictureDir}/APoD/APoD_${attrs.title}.png`;
 
     setDownloading(true);
 
@@ -54,20 +54,20 @@ function Picture({ attrs }) {
           useDownloadManager: true,
           notification: true,
           title: 'APoD picture download',
-          path: picture_path,
+          path: picturePath,
           fileCache: true,
           description: 'Downloading picture',
           mediaScannable: true,
-        }
+        },
       };
       config(options).fetch('GET', attrs.url)
         .then((res) => {
-          console.log('Success downloading photo to path: ' + res.path());
+          console.log(`Success downloading photo to path: ${res.path()}`);
           setDownloading(false);
           setIsModalOpen(false);
         })
         .catch((err) => {
-          console.log('Error occurred when trying to download picture: ' + err);
+          console.log(`Error occurred when trying to download picture: ${err}`);
         });
     } else {
       CameraRoll.saveToCameraRoll(attrs.url)
@@ -78,36 +78,36 @@ function Picture({ attrs }) {
           setShowAlert(true);
         })
         .catch((err) => {
-          console.log('Error occurred when trying to download picture: ' + err);
+          console.log(`Error occurred when trying to download picture: ${err}`);
         });
     }
   };
 
   const share = () => {
     ImgToBase64.getBase64String(attrs.url)
-      .then((base64_url) => {
+      .then((base64Url: string) => {
         const options = {
-          url: `data:image/png;base64,${base64_url}`
+          url: `data:image/png;base64,${base64Url}`,
         };
         Share.open(options)
-          .catch((err) => {
+          .catch((err: string) => {
             console.log(err);
           });
       })
-      .catch((err) => {
+      .catch((err: string) => {
         console.log(err);
       });
   };
 
   const showPopover = () => {
-    image_ref.measure((width, height, x, y) => {
+    imageRef.measure((width: number, height: number, x: number, y: number) => {
       setIsModalOpen(true);
       setButtonRect({
-        x, y, width, height
+        x, y, width, height,
       });
     });
   };
- 
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -140,7 +140,7 @@ function Picture({ attrs }) {
         {!['youtube', 'vimeo'].some((aux) => attrs.url.split(/[/.]/).includes(aux))
           ? (
             <TouchableHighlight
-              ref={(r) => { image_ref = r; }}
+              ref={(r) => { imageRef = r; }}
               onPress={showPopover.bind(this)}
               underlayColor="none"
               style={styles.touchableHighlight}
@@ -207,6 +207,6 @@ function Picture({ attrs }) {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 export default Picture;

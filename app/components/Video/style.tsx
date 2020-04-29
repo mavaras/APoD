@@ -6,6 +6,6 @@ export default StyleSheet.create({
     marginLeft: '5%',
     width: '90%',
     height: 300,
-    marginTop: 20
-  }
+    marginTop: 20,
+  },
 });

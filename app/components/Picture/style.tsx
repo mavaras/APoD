@@ -3,16 +3,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   touchableHighlight: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   modal: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   modalTitle: {
-    fontSize: 19
+    fontSize: 19,
   },
   modalMainView: {
     flex: 1,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5
+    borderRadius: 5,
   },
   modalContentView: {
     flex: 1,
@@ -33,34 +33,34 @@ export default StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     marginBottom: 25,
-    marginTop: 10
+    marginTop: 10,
   },
   modalFooterView: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   modalButtonGroupView: {
     paddingRight: 5,
     paddingLeft: 5,
     width: '35%',
-    marginBottom: 15
+    marginBottom: 15,
   },
   button: {
-    backgroundColor: '#5b84c2'
+    backgroundColor: '#5b84c2',
   },
   buttonLabel: {
-    color: 'white'
+    color: 'white',
   },
 
   viewPictureText: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textPictureExplanation: {
     fontSize: 14.5,
     width: '90%',
     alignItems: 'center',
-    textAlign: 'justify'
+    textAlign: 'justify',
   },
   textPictureTitle: {
     marginTop: 40,
@@ -68,7 +68,7 @@ export default StyleSheet.create({
     marginBottom: 30,
     fontSize: 22.5,
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
   viewPictureDate: {
@@ -76,23 +76,23 @@ export default StyleSheet.create({
     marginTop: 40,
     marginBottom: 15,
     textAlign: 'right',
-    marginRight: '17%'
+    marginRight: '17%',
   },
 
   image: {
     width: '100%',
     height: 300,
     marginTop: 20,
-    borderRadius: 0
+    borderRadius: 0,
   },
   imageSmall: {
     width: '100%',
     height: '100%',
     marginBottom: 0,
-    borderRadius: 5
+    borderRadius: 5,
   },
 
   dialogContent: {
-    marginTop: 20
-  }
+    marginTop: 20,
+  },
 });

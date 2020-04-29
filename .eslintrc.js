@@ -1,17 +1,11 @@
 module.exports = {
-  'extends': 'airbnb',
-  'parser': 'babel-eslint',
-  'env': {
-    'jest': true,
+  extends: [
+    "airbnb-typescript"
+  ],
+  parserOptions: {
+      project: './tsconfig.json',
   },
-  'rules': {
-    'no-use-before-define': 'off',
-    'react/jsx-filename-extension': 'off',
-    'react/prop-types': 'off',
-    'comma-dangle': 'off',
-    'camelcase': 'off'
-  },
-  'globals': {
-    "fetch": false
+  rules: {
+    "react/prop-types": 0
   }
 };

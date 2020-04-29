@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import styles from './style';
 
 
-function Video({ url }) {
+function Video({ url }: any) {
   return (
     <View style={styles.videoView}>
       <WebView

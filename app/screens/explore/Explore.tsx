@@ -13,80 +13,82 @@ import FastImage from 'react-native-fast-image';
 import FirebaseDB from '../../config';
 import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
-import { shuffle_array } from '../../utils';
+import { shuffleArray } from '../../utils';
 
 
-function ExploreScreen({ navigation }) {
+function ExploreScreen({ navigation }: any) {
   const DB = FirebaseDB.instance;
-  const pictures_limit = 8;
-  let pictures_list = ['notempty'];
-  let flatList_ref = FlatList;
-  const [loading, setLoading] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-  const [loadMore, ] = useState(false);
-  const [showPopover, setShowPopover] = useState(false);
-  const [page, setPage] = useState(1);
-  const [pictures, setPictures] = useState([]);
-  const [picturesAux, setPicturesAux] = useState([]);
-  const [search, setSearch] = useState('');
-  const [cols, setCols] = useState(2);
-  const [displayStyle, setDisplayStyle] = useState('grid');
-
-  useEffect(() => {
-    setTimeout(() => loadData(), 2000);
-  }, []);
-
-  async function loadData() {
-    if (loadMore || pictures.length === pictures_list.length) {
-      return;
-    }
-    setLoading(true);
-    setRefreshing(true);
-    await DB.pictures
-      .once('value', (data) => {
-        pictures_list = data.val();
-        this.pictures_list = Object.values(pictures_list);
-        this.pictures_list = this.pictures_list.filter((picture) => {
-          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
-            return picture;
-          }
-        });
-        this.pictures_list = shuffle_array(this.pictures_list);
-        getNextItems();
-      });
-    setLoading(false);
-  }
+  const picturesLimit: number = 8;
+  let picturesList: Array<string> = ['notempty'];
+  const flatListRef = FlatList;
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [refreshing, setRefreshing] = useState<Boolean>(false);
+  const [loadMore, _] = useState<Boolean>(false);
+  const [showPopover, setShowPopover] = useState<Boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [pictures, setPictures] = useState<Array<{[string: string]: string}>>([]);
+  const [picturesAux, setPicturesAux] = useState<Array<{[string: string]: string}>>([]);
+  const [search, setSearch] = useState<string>('');
+  const [cols, setCols] = useState<number>(2);
+  const [displayStyle, setDisplayStyle] = useState<string>('grid');
 
   function scrollToLastTop() {
     if (page > 1) {
       // 0.3 based on SmallPicture marginBottom = 6
-      setTimeout(() => { this.flatList_ref.scrollToIndex({ animated: true, index: 0.3 }); }, 200);
+      setTimeout(() => { this.flatListRef.scrollToIndex({ animated: true, index: 0.3 }); }, 200);
     } else {
-      setTimeout(() => { this.flatList_ref.scrollToIndex({ animated: true, index: 0.5 }); }, 100);
+      setTimeout(() => { this.flatListRef.scrollToIndex({ animated: true, index: 0.5 }); }, 100);
     }
   }
 
   async function getNextItems() {
-    if (this.pictures_list.length === 0 || pictures.length === this.pictures_list.length) {
+    if (this.picturesList.length === 0 || pictures.length === this.picturesList.length) {
       setRefreshing(false);
       return;
     }
-    setPictures([...this.pictures_list.slice(0, pictures_limit * page)].reverse());
-    setPicturesAux([...this.pictures_list.slice(0, pictures_limit * page)].reverse());
+    const newArray: Array<{[string: string]: string}> = [...this.picturesList.slice(0, picturesLimit * page)].reverse();
+    setPictures(newArray);
+    setPicturesAux(newArray);
     setPage(page + 1);
     setRefreshing(false);
     scrollToLastTop();
   }
 
-  function setNumberOfColumns(n) {
-    setCols(n);
+  async function loadData() {
+    if (loadMore || pictures.length === picturesList.length) {
+      return;
+    }
+    setLoading(true);
+    setRefreshing(true);
+    await DB.pictures
+      .once('value', (data: any) => {
+        picturesList = data.val();
+        this.picturesList = Object.values(picturesList);
+        this.picturesList = this.picturesList.filter((picture: {[string: string]: string})
+        : {[string: string]: string} | undefined => {
+          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
+            return picture;
+          }
+        });
+        this.picturesList = shuffleArray(this.picturesList);
+        getNextItems();
+      });
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    setTimeout(() => loadData(), 2000);
+  }, []);
+
+  function setNumberOfColumns(nCols: number) {
+    setCols(nCols);
     setShowPopover(false);
   }
 
-  function searchFilterFunction(text) {
+  function searchFilterFunction(text: string) {
     if (text !== '') {
-      const newData = this.pictures_list.filter(
-        (picture) => picture.title.toLowerCase().includes(text.toLowerCase())
+      const newData = this.picturesList.filter(
+        (picture: {[string: string]: string}) => picture.title.toLowerCase().includes(text.toLowerCase()),
       );
       setPictures(newData);
     } else {
@@ -101,7 +103,7 @@ function ExploreScreen({ navigation }) {
         <Popover
           isVisible={showPopover}
           fromRect={{
-            x: 335, y: 100, width: 100, height: 0
+            x: 335, y: 100, width: 100, height: 0,
           }}
           placement="bottom"
           onRequestClose={() => setShowPopover(false)}
@@ -164,7 +166,7 @@ function ExploreScreen({ navigation }) {
         <FlatList
           inverted
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
-          ref={(ref) => { this.flatList_ref = ref; }}
+          ref={(ref) => { this.flatListRef = ref; }}
           key={cols}
           style={styles.flatList}
           data={pictures}
