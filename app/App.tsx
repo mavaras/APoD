@@ -25,6 +25,7 @@ function BottomTabNavigator() {
           marginTop: 20,
           paddingBottom: 24,
           borderRadius: 19,
+          borderTopColor: 'white'
         },
       }}
     >
@@ -32,7 +33,6 @@ function BottomTabNavigator() {
         name="Daily Picture"
         component={PictureScreen}
         options={{
-          attrs: undefined,
           tabBarIcon: ({ focused }) => <FontAwesome style={{ marginBottom: -8 }} name="meteor" size={26} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
@@ -40,7 +40,6 @@ function BottomTabNavigator() {
         name="Explore"
         component={ExploreScreen}
         options={{
-          navigation: undefined,
           tabBarIcon: ({ focused }) => <FontAwesome style={{ marginBottom: -8 }} name="rocket" size={26} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
@@ -55,12 +54,12 @@ function StackNavigator() {
         <Stack.Screen
           name="Back"
           component={BottomTabNavigator}
-          options={{ headerShown: false, tabBarVisible: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Explore Picture"
           component={PictureScreen}
-          options={{ headerTitle: null }}
+          options={{ headerTitleStyle: { color: 'white' }}}
         />
       </Stack.Navigator>
     </NavigationContainer>
