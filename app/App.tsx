@@ -24,7 +24,7 @@ function BottomTabNavigator() {
           height: 90,
           marginTop: 20,
           paddingBottom: 24,
-          borderRadius: 17,
+          borderRadius: 19,
         },
       }}
     >
