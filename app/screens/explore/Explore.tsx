@@ -87,9 +87,8 @@ function ExploreScreen({ navigation }: any) {
 
   function searchFilterFunction(text: string) {
     if (text !== '') {
-      const newData = this.picturesList.filter(
-        (picture: {[string: string]: string}) => picture.title.toLowerCase().includes(text.toLowerCase()),
-      );
+      const newData = this.picturesList.filter((picture: {[string: string]: string}) =>
+        picture.title.toLowerCase().includes(text.toLowerCase()));
       setPictures(newData);
     } else {
       setPictures(picturesAux);
@@ -108,43 +107,43 @@ function ExploreScreen({ navigation }: any) {
           placement="bottom"
           onRequestClose={() => setShowPopover(false)}
         >
-          <View style={{ height: 130, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.layoutPopoverView}>
             <Icon.Button
               name="grip-vertical"
               size={16}
               iconStyle={{ color: 'gray' }}
-              style={{ backgroundColor: 'white' }}
+              style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-horizontal"
               size={16}
               iconStyle={{ color: 'gray' }}
-              style={{ backgroundColor: 'white' }}
+              style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-lines"
               size={16}
               iconStyle={{ color: 'gray' }}
-              style={{ backgroundColor: 'white' }}
+              style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="list-ul"
               size={16}
               iconStyle={{ color: 'gray' }}
-              style={{ backgroundColor: 'white' }}
+              style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
             />
           </View>
         </Popover>
-        <View style={{ flexDirection: 'row', backgroundColor: '#f2f2ff' }}>
+        <View style={styles.layoutUpperView}>
           <View style={{ width: '87%' }}>
             <SearchBar
               lightTheme
               round
-              containerStyle={{ backgroundColor: '#f2f2ff' }}
+              containerStyle={styles.searchBar}
               inputStyle={{}}
               searchIcon={{ size: 24 }}
               onChangeText={(text) => searchFilterFunction(text)}
@@ -153,12 +152,12 @@ function ExploreScreen({ navigation }: any) {
               value={search}
             />
           </View>
-          <View style={{ backgroundColor: '#f2f2ff', width: '13%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.layoutDisplayButtonView}>
             <Icon.Button
               name="sliders-h"
               size={20}
               iconStyle={{ color: 'gray' }}
-              style={{ backgroundColor: '#f2f2ff' }}
+              style={styles.layoutDisplayButton}
               onPress={() => { setShowPopover(true); }}
             />
           </View>
