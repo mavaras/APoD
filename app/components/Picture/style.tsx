@@ -69,7 +69,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   textPictureExplanation: {
-    fontSize: 14.5,
+    fontSize: 15.7,
     width: '90%',
     alignItems: 'center',
     textAlign: 'justify',
