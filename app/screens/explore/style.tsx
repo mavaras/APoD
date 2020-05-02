@@ -38,4 +38,30 @@ export default StyleSheet.create({
   searchBar: {
     backgroundColor: '#f2f2ff',
   },
+
+  listLayoutItem: {
+    flexDirection: 'row',
+    height: 60,
+    borderBottomColor: '#f2f2ff',
+    borderBottomWidth: 1,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  listLayoutItemTextView: {
+    width: '87%',
+  },
+  listLayoutItemImageView: {
+    width: '13%',
+  },
+  listLayoutItemText: {
+    fontSize: 15,
+  },
+  listLayoutItemImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 30,
+  },
 });

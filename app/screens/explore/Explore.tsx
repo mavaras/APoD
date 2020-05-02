@@ -188,13 +188,13 @@ function ExploreScreen({ navigation }: any) {
                       navigation.navigate('Explore Picture', { attrs: item });
                     }}
                   >
-                    <View style={{ flexDirection: 'row', height: 60, borderBottomColor: '#f2f2ff', borderBottomWidth: 1, flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 30, marginRight: 30 }}>
-                      <View style={{ width: '87%' }}>
-                        <Text style={{ fontSize: 15 }}>{item.title}</Text>
+                    <View style={styles.listLayoutItem}>
+                      <View style={styles.listLayoutItemTextView}>
+                        <Text style={styles.listLayoutItemText}>{item.title}</Text>
                       </View>
-                      <View style={{ width: '13%' }}>
+                      <View style={styles.listLayoutItemImageView}>
                         <FastImage
-                          style={{ width: 40, height: 40, borderRadius: 30 }}
+                          style={styles.listLayoutItemImage}
                           source={{ uri: item.url }}
                         />
                       </View>
