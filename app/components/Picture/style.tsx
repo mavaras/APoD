@@ -1,9 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 
 export default StyleSheet.create({
+  safeAreaView: {
+    height: Dimensions.get('window').height,
+    overflow: 'hidden',
+    backgroundColor: 'white',
+  },
+
   touchableHighlight: {
-    alignItems: 'center',
+    alignItems: 'center', backgroundColor: 'red',
   },
   modal: {
     flex: 1,
@@ -54,7 +60,8 @@ export default StyleSheet.create({
 
   scrollView: {
     backgroundColor: 'white',
-    height: '100%',
+    marginTop: 170,
+    height: Dimensions.get('window').height,
   },
 
   viewPictureText: {

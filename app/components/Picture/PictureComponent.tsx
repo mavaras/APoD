@@ -115,114 +115,122 @@ function Picture({ attrs }: {[string: string]: any}) {
 
   const ImageScale = scrollY.interpolate({
     inputRange: [-100, 0, 200],
-    outputRange: [1.4, 1.2, 1],
+    outputRange: [1.4, 1.1, 1],
     extrapolate: 'clamp',
   });
 
   return (
-    <Animated.ScrollView
-      contentContainerStyle={styles.scrollView}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        {
-          useNativeDriver: true,
-        },
-      )}
-    >
-      <SafeAreaView>
-        <Dialog
-          dialogAnimation={new SlideAnimation({
-            slideFrom: 'bottom',
-          })}
-          dialogTitle={<DialogTitle title="APoD" />}
-          footer={(
-            <DialogFooter>
-              <DialogButton
-                text="OK"
-                onPress={() => { setShowAlert(false); }}
-              />
-            </DialogFooter>
-          )}
-          visible={showAlert}
-          onTouchOutside={() => {
-            setShowAlert(false);
-          }}
-        >
-          <DialogContent>
-            <Text style={styles.dialogContent}>Photo succesfully downloaded!</Text>
-          </DialogContent>
-        </Dialog>
-        <ScrollView>
-          {!['youtube', 'vimeo'].some((aux) => attrs.url.split(/[/.]/).includes(aux))
-            ? (
-              <TouchableHighlight
-                ref={(r) => { imageRef = r; }}
-                onPress={showPopover.bind(this)}
-                underlayColor="none"
-                style={styles.touchableHighlight}
-              >
-                <FastImage
-                  style={styles.image}
-                  source={{ uri: attrs.url }}
-                />
-              </TouchableHighlight>
-            )
-            : (<Video url={attrs.url} />)}
-          <Modal
-            isVisible={isModalOpen}
-            style={styles.modal}
-            onBackdropPress={closeModal.bind(this)}
+    <SafeAreaView style={styles.safeAreaView}>
+      <Dialog
+        dialogAnimation={new SlideAnimation({
+          slideFrom: 'bottom',
+        })}
+        dialogTitle={<DialogTitle title="APoD" />}
+        footer={(
+          <DialogFooter>
+            <DialogButton
+              text="OK"
+              onPress={() => { setShowAlert(false); }}
+            />
+          </DialogFooter>
+        )}
+        visible={showAlert}
+        onTouchOutside={() => {
+          setShowAlert(false);
+        }}
+      >
+        <DialogContent>
+          <Text style={styles.dialogContent}>Photo succesfully downloaded!</Text>
+        </DialogContent>
+      </Dialog>
+      {!['youtube', 'vimeo'].some((aux) => attrs.url.split(/[/.]/).includes(aux))
+        ? (
+          <TouchableHighlight
+            ref={(r) => { imageRef = r; }}
+            onPress={showPopover.bind(this)}
+            underlayColor="none"
+            style={{
+              height: 200,
+              marginTop: 20,
+              backgroundColor: 'white',
+            }}
           >
-            <View style={styles.modalMainView}>
-              <View style={styles.modalContentView}>
-                <Text style={styles.modalTitle}>{attrs.title}</Text>
+            <Animated.Image
+              style={{
+                width: '100%',
+                height: 350,
+                marginTop: attrs.explorePicture !== undefined ? 0 : 20,
+                position: 'absolute',
+                transform: [{ scale: ImageScale }],
+              }}
+              source={{ uri: attrs.url }}
+            />
+          </TouchableHighlight>
+        )
+        : (<Video url={attrs.url} />)}
+      <Animated.ScrollView
+        contentContainerStyle={styles.scrollView}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          {
+            useNativeDriver: true,
+          },
+        )}
+      >
+        <Modal
+          isVisible={isModalOpen}
+          style={styles.modal}
+          onBackdropPress={closeModal.bind(this)}
+        >
+          <View style={styles.modalMainView}>
+            <View style={styles.modalContentView}>
+              <Text style={styles.modalTitle}>{attrs.title}</Text>
+            </View>
+            <View style={styles.modalFooterView}>
+              <View style={styles.modalButtonGroupView}>
+                <Icon.Button
+                  disabled={downloading}
+                  name="download"
+                  style={styles.button}
+                  onPress={() => { download(); }}
+                >
+                  <Text style={styles.buttonLabel}>Download</Text>
+                </Icon.Button>
               </View>
-              <View style={styles.modalFooterView}>
-                <View style={styles.modalButtonGroupView}>
-                  <Icon.Button
-                    disabled={downloading}
-                    name="download"
-                    style={styles.button}
-                    onPress={() => { download(); }}
-                  >
-                    <Text style={styles.buttonLabel}>Download</Text>
-                  </Icon.Button>
-                </View>
-                <View style={styles.modalButtonGroupView}>
-                  <Icon.Button
-                    disabled={downloading}
-                    name="share-alt"
-                    style={styles.button}
-                    onPress={() => { share(); }}
-                  >
-                    <Text style={styles.buttonLabel}>Share</Text>
-                  </Icon.Button>
-                </View>
+              <View style={styles.modalButtonGroupView}>
+                <Icon.Button
+                  disabled={downloading}
+                  name="share-alt"
+                  style={styles.button}
+                  onPress={() => { share(); }}
+                >
+                  <Text style={styles.buttonLabel}>Share</Text>
+                </Icon.Button>
               </View>
             </View>
-          </Modal>
-          { attrs.date !== undefined
-            ? (
-              <View>
-                <View style={styles.viewPictureText}>
-                  <Text style={styles.textPictureTitle}>
-                    {attrs.title}
-                  </Text>
-                  <Text style={styles.textPictureExplanation}>
-                    {attrs.explanation}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={styles.viewPictureDate}>
-                    {attrs.date}
-                  </Text>
-                </View>
+          </View>
+        </Modal>
+        { attrs.date !== undefined
+          ? (
+            <View>
+              <View style={styles.viewPictureText}>
+                <Text style={styles.textPictureTitle}>
+                  {attrs.title}
+                </Text>
+                <Text style={styles.textPictureExplanation}>
+                  {attrs.explanation}
+                </Text>
               </View>
-            )
-            : undefined }
-        </ScrollView>
-      </SafeAreaView>
-    </Animated.ScrollView>
+              <View>
+                <Text style={styles.viewPictureDate}>
+                  {attrs.date}
+                </Text>
+              </View>
+            </View>
+          )
+          : undefined }
+      </Animated.ScrollView>
+    </SafeAreaView>
   );
 }
 
