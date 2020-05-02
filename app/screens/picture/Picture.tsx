@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
 import { NASA_API_KEY } from 'react-native-dotenv';
-import styles from './style';
 import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
@@ -76,9 +74,7 @@ function PictureScreen({ route }: any) {
     );
   }
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
-      <Picture attrs={response} />
-    </ScrollView>
+    <Picture attrs={response} />
   );
 }
 

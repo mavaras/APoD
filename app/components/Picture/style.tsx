@@ -52,6 +52,11 @@ export default StyleSheet.create({
     color: 'white',
   },
 
+  scrollView: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
+
   viewPictureText: {
     justifyContent: 'center',
     alignItems: 'center',
