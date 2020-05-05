@@ -3,7 +3,7 @@ import {
   FlatList, View,
   SafeAreaView,
   RefreshControl,
-  Text
+  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SearchBar } from 'react-native-elements';
@@ -18,9 +18,9 @@ import { shuffleArray } from '../../utils';
 
 function ExploreScreen({ navigation }: any) {
   const DB = FirebaseDB.instance;
-  const picturesLimit: number = 8;
   let picturesList: Array<string> = ['notempty'];
   const flatListRef = FlatList;
+  const [picturesLimit, setPicturesLimit] = useState<number>(8);
   const [loading, setLoading] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
   const [loadMore, _] = useState<Boolean>(false);
@@ -46,7 +46,8 @@ function ExploreScreen({ navigation }: any) {
       setRefreshing(false);
       return;
     }
-    const newArray: Array<{[string: string]: string}> = [...this.picturesList.slice(0, picturesLimit * page)].reverse();
+    const newArray: Array<{[string: string]: string}> = [
+      ...this.picturesList.slice(0, picturesLimit * page)].reverse();
     setPictures(newArray);
     setPicturesAux(newArray);
     setPage(page + 1);
@@ -113,28 +114,28 @@ function ExploreScreen({ navigation }: any) {
               size={16}
               iconStyle={{ color: 'gray' }}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
+              onPress={() => { setNumberOfColumns(2); setPicturesLimit(8); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-horizontal"
               size={16}
               iconStyle={{ color: 'gray' }}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
+              onPress={() => { setNumberOfColumns(3); setPicturesLimit(15); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-lines"
               size={16}
               iconStyle={{ color: 'gray' }}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
+              onPress={() => { setNumberOfColumns(1); setPicturesLimit(6); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="list-ul"
               size={16}
               iconStyle={{ color: 'gray' }}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
+              onPress={() => { setNumberOfColumns(1); setPicturesLimit(10); setDisplayStyle('list'); }}
             />
           </View>
         </Popover>
