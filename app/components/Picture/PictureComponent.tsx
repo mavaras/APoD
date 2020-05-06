@@ -115,7 +115,7 @@ function Picture({ attrs }: {[string: string]: any}) {
 
   const ImageScale = scrollY.interpolate({
     inputRange: [-100, 0, 200],
-    outputRange: [1.4, 1.1, 1],
+    outputRange: [1.5, 1.1, 1],
     extrapolate: 'clamp',
   });
 
