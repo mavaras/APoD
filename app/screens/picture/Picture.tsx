@@ -12,7 +12,7 @@ function PictureScreen({ route }: any) {
   const [response, setResponse] = useState<{[string: string]: string}>({});
 
   function fetchData() {
-    if (!route.params?.attrs) {
+    if (!route.params) {
       let mustQuery: boolean = true;
       let lastPicture: any = null;
       setTimeout(async () => {
