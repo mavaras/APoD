@@ -3,6 +3,7 @@ import { NASA_API_KEY } from 'react-native-dotenv';
 import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
+import { filterByWord } from '../../utils';
 
 
 function PictureScreen({ route }: any) {
@@ -15,6 +16,7 @@ function PictureScreen({ route }: any) {
     if (!route.params) {
       let mustQuery: boolean = true;
       let lastPicture: any = null;
+      console.log("!!");
       setTimeout(async () => {
         await DB.pictures
           .limitToLast(1)
@@ -23,9 +25,11 @@ function PictureScreen({ route }: any) {
             lastPicture = Object.values(data.val())[0];
             const today = new Date();
             // eslint-disable-next-line prefer-template
-            const todayDate: string = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
+            const todayDate: string = today.getFullYear() + '-' +
+                                      ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+                                      ('0' + today.getDate()).slice(-2);
             mustQuery = todayDate !== lastPicture.date;
-          });
+          });console.log(mustQuery);
         if (mustQuery) {
           fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
             .then((_response) => _response.json())
@@ -37,6 +41,8 @@ function PictureScreen({ route }: any) {
                   .equalTo(responseJson.title)
                   .once('value')
                   .then((snapshot: any) => {
+                    setLoading(false);
+                    setDataSource(responseJson);
                     if (!snapshot.val()) {
                       DB.pictures.push({
                         title: response.title,
@@ -45,8 +51,6 @@ function PictureScreen({ route }: any) {
                         date: response.date,
                       });
                     }
-                    setLoading(false);
-                    setDataSource(responseJson);
                   });
               } else {
                 throw new Error('error in response');
@@ -56,12 +60,39 @@ function PictureScreen({ route }: any) {
         } else {
           setResponse(lastPicture);
           setLoading(false);
+          getSimilars();
         }
       }, 2000);
     } else {
       setResponse(route.params.attrs);
       setLoading(false);
     }
+  }
+
+  async function getSimilars() {
+    const titleWords = response.title.split(' ').filter((word) => word.length > 3);
+    let picturesList = ['noempty'];
+    await DB.pictures
+      .once('value', (data: any) => {
+        picturesList = data.val();
+        picturesList = Object.values(picturesList);
+        picturesList = picturesList.filter((picture: {[string: string]: string})
+        : {[string: string]: string} | undefined => {
+          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
+            return picture;
+          }
+        });
+      });
+    let similarsList = [];
+    let maxLen = 0;
+    for (const word in titleWords) {
+      const wordFiltered = filterByWord(picturesList, word);
+      if (wordFiltered.length > maxLen) {
+        maxLen = wordFiltered.length;
+        similarsList = wordFiltered;
+      }
+    }
+    return similarsList;
   }
 
   useEffect(() => {
