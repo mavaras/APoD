@@ -16,6 +16,10 @@ export function shuffleArray(array: any[]) {
   return array;
 }
 
+export function filterByWord(array: any[], text: string) {
+  return array.filter((element: {[string: string]: string}) =>
+    element.title.toLowerCase().includes(text.toLowerCase()));
+}
 
 export async function requestStorageRuntimePermissionAndroid() {
   try {

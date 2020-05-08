@@ -13,7 +13,7 @@ import FastImage from 'react-native-fast-image';
 import FirebaseDB from '../../config';
 import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
-import { shuffleArray } from '../../utils';
+import { filterByWord, shuffleArray } from '../../utils';
 
 
 function ExploreScreen({ navigation }: any) {
@@ -88,8 +88,7 @@ function ExploreScreen({ navigation }: any) {
 
   function searchFilterFunction(text: string) {
     if (text !== '') {
-      const newData = this.picturesList.filter((picture: {[string: string]: string}) =>
-        picture.title.toLowerCase().includes(text.toLowerCase()));
+      const newData = filterByWord(this.picturesList, text);
       setPictures(newData);
     } else {
       setPictures(picturesAux);
