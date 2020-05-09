@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Text, Animated,
   TouchableHighlight,
-  View, SafeAreaView, Platform,
+  View, SafeAreaView, Platform, Image,
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -24,7 +24,7 @@ import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid } from '../../utils';
 
 
-function Picture({ attrs }: {[string: string]: any}) {
+function Picture({ attrs, similars }: {[string: string]: any}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -229,6 +229,35 @@ function Picture({ attrs }: {[string: string]: any}) {
             </View>
           )
           : undefined }
+        {Object.keys(similars).length !== 0 ?
+          <View
+            style={{
+              marginLeft: '5%',
+              marginRight: '5%',
+              marginBottom: 10, marginTop: 60
+            }}>
+            <Text style={{ fontWeight: '600', fontSize: 20, marginBottom: 30 }}>
+              Similar Pictures
+            </Text>
+            <ScrollView
+              style={{ backgroundColor: "white" }}
+              horizontal={true}
+              contentContainerStyle={{
+                height: 300 }}
+              showsHorizontalScrollIndicator={false}
+              scrollEventThrottle={200}
+              decelerationRate="fast"
+              pagingEnabled
+            >
+              {similars?.map((picture) =>
+              <View style={{ marginRight: 5, width: 130, }}>
+                <Image style={[styles.imageSmall, {height: 130, borderRadius: 7}]}
+                  source={{ uri: picture.url }}
+                />
+              </View>
+              )}
+            </ScrollView>
+          </View> : undefined}
       </Animated.ScrollView>
     </SafeAreaView>
   );

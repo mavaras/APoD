@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NASA_API_KEY } from 'react-native-dotenv';
 import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
@@ -6,17 +6,26 @@ import LoadingScreen from '../loading/LoadingScreen';
 import { filterByWord } from '../../utils';
 
 
+const usePrevious = value => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
 function PictureScreen({ route }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   const [loading, setLoading] = useState<Boolean>(true);
   const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
   const [response, setResponse] = useState<{[string: string]: string}>({});
+  const responseAux = usePrevious(response);
+  const [similars, setSimilars] = useState<{[string: string]: string}>({});
 
-  function fetchData() {
+  async function fetchData() {
     if (!route.params) {
       let mustQuery: boolean = true;
       let lastPicture: any = null;
-      console.log("!!");
       setTimeout(async () => {
         await DB.pictures
           .limitToLast(1)
@@ -41,7 +50,6 @@ function PictureScreen({ route }: any) {
                   .equalTo(responseJson.title)
                   .once('value')
                   .then((snapshot: any) => {
-                    setLoading(false);
                     setDataSource(responseJson);
                     if (!snapshot.val()) {
                       DB.pictures.push({
@@ -59,30 +67,16 @@ function PictureScreen({ route }: any) {
             .catch((error) => console.log(error));
         } else {
           setResponse(lastPicture);
-          setLoading(false);
-          getSimilars();
         }
       }, 2000);
     } else {
       setResponse(route.params.attrs);
-      setLoading(false);
     }
   }
 
   async function getSimilars() {
     const titleWords = response.title.split(' ').filter((word) => word.length > 3);
-    let picturesList = ['noempty'];
-    await DB.pictures
-      .once('value', (data: any) => {
-        picturesList = data.val();
-        picturesList = Object.values(picturesList);
-        picturesList = picturesList.filter((picture: {[string: string]: string})
-        : {[string: string]: string} | undefined => {
-          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
-            return picture;
-          }
-        });
-      });
+    let picturesList = DB.picturesList;
     let similarsList = [];
     let maxLen = 0;
     for (const word in titleWords) {
@@ -92,12 +86,20 @@ function PictureScreen({ route }: any) {
         similarsList = wordFiltered;
       }
     }
-    return similarsList;
+    setSimilars(similarsList);
   }
 
   useEffect(() => {
     fetchData();
-  }, [route.params]);
+  }, []);
+  useEffect(() => {
+    if (JSON.stringify(response) !== JSON.stringify({})) {
+      getSimilars();
+      setLoading(false);
+    }
+  }, [response]);
+  
+  
 
   if (loading) {
     return (
@@ -105,7 +107,10 @@ function PictureScreen({ route }: any) {
     );
   }
   return (
-    <Picture attrs={response} />
+    <Picture
+      attrs={response}
+      similars={similars}
+    />
   );
 }
 
