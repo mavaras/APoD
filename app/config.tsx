@@ -28,6 +28,21 @@ export default class FirebaseDB {
   pictures = this.db.ref('pictures');
 
   pictures_nItems = 0;
+  picturesList = [];
+
+  constructor() {
+    this.pictures
+      .once('value', (data: any) => {
+        this.picturesList = data.val();
+        this.picturesList = Object.values(this.picturesList);
+        this.picturesList = this.picturesList.filter((picture: {[string: string]: string})
+        : {[string: string]: string} | undefined => {
+          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
+            return picture;
+          }
+        });
+      });
+  }
 
   len() {
     this.pictures.on('value', (data) => { return data.numChildren(); });
