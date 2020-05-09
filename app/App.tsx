@@ -25,7 +25,7 @@ function BottomTabNavigator() {
           marginTop: 20,
           paddingBottom: 24,
           borderRadius: 19,
-          borderTopColor: 'white'
+          borderTopColor: 'white',
         },
       }}
     >
@@ -59,7 +59,7 @@ function StackNavigator() {
         <Stack.Screen
           name="Explore Picture"
           component={PictureScreen}
-          options={{ headerTitleStyle: { color: 'white' }}}
+          options={{ headerTitleStyle: { color: 'white' } }}
         />
       </Stack.Navigator>
     </NavigationContainer>
