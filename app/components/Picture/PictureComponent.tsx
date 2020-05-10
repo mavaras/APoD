@@ -24,7 +24,7 @@ import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 
 
-function Picture({ attrs, similars }: {[string: string]: any}) {
+function Picture({ attrs, similars, navigation }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -121,6 +121,15 @@ function Picture({ attrs, similars }: {[string: string]: any}) {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <View style={{ borderColor: 'white', marginLeft: '86%', width: 10, marginTop: 33, position: 'absolute' }}>
+        <Icon.Button
+          name="cog"
+          size={22}
+          iconStyle={{ color: 'black' }}
+          style={{ backgroundColor: 'white', width: 60 }}
+          onPress={() => console.log("!!!")}
+        />
+      </View>
       <Dialog
         dialogAnimation={new SlideAnimation({
           slideFrom: 'bottom',
@@ -259,7 +268,6 @@ function Picture({ attrs, similars }: {[string: string]: any}) {
               style={{
                 marginLeft: '5%',
                 marginRight: '5%',
-                marginBottom: 40,
                 marginTop: 60,
               }}
             >
@@ -276,12 +284,17 @@ function Picture({ attrs, similars }: {[string: string]: any}) {
                 pagingEnabled
               >
                 {similars?.map((picture) => (
-                  <View style={{ marginRight: 5, width: 130 }}>
+                  <TouchableHighlight
+                    style={{ marginRight: 5, width: 130 }}
+                    onPress={() => {
+                      navigation.push('Explore Picture', { attrs: picture });
+                    }}
+                  >
                     <Image
                       style={[styles.imageSmall, { height: 130, borderRadius: 7 }]}
                       source={{ uri: picture.url }}
                     />
-                  </View>
+                  </TouchableHighlight>
                 ))}
               </ScrollView>
             </View>
