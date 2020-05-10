@@ -21,7 +21,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from './style';
 import Video from '../Video/VideoComponent';
-import { requestStorageRuntimePermissionAndroid } from '../../utils';
+import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 
 
 function Picture({ attrs, similars }: {[string: string]: any}) {
@@ -221,43 +221,63 @@ function Picture({ attrs, similars }: {[string: string]: any}) {
                   {attrs.explanation}
                 </Text>
               </View>
-              <View>
-                <Text style={styles.viewPictureDate}>
-                  {attrs.date}
-                </Text>
-              </View>
             </View>
           )
           : undefined }
-        {Object.keys(similars).length !== 0 ?
-          <View
-            style={{
-              marginLeft: '5%',
-              marginRight: '5%',
-              marginBottom: 10, marginTop: 60
-            }}>
-            <Text style={{ fontWeight: '600', fontSize: 20, marginBottom: 30 }}>
-              Similar Pictures
+        <View
+          style={{
+            justifyContent: 'center',
+            borderTopLeftRadius: 15,
+            borderBottomRightRadius: 15,
+            alignItems: 'center',
+            backgroundColor: '#dcdcdcb8',
+            marginLeft: '5%',
+            marginTop: 50,
+            width: '90%',
+            height: 70,
+          }}
+        >
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name="calendar" size={26} style={{ color: 'black' }} />
+            <Text style={{ marginLeft: 10, marginTop: 3, fontSize: 17 }}>
+              {formatDate(attrs.date)}
             </Text>
-            <ScrollView
-              style={{ backgroundColor: "white" }}
-              horizontal={true}
-              contentContainerStyle={{
-                height: 300 }}
-              showsHorizontalScrollIndicator={false}
-              scrollEventThrottle={200}
-              decelerationRate="fast"
-              pagingEnabled
+          </View>
+        </View>
+        {Object.keys(similars).length !== 0
+          ? (
+            <View
+              style={{
+                marginLeft: '5%',
+                marginRight: '5%',
+                marginBottom: 40,
+                marginTop: 60,
+              }}
             >
-              {similars?.map((picture) =>
-              <View style={{ marginRight: 5, width: 130, }}>
-                <Image style={[styles.imageSmall, {height: 130, borderRadius: 7}]}
-                  source={{ uri: picture.url }}
-                />
-              </View>
-              )}
-            </ScrollView>
-          </View> : undefined}
+              <Text style={{ fontWeight: '600', fontSize: 20, marginBottom: 30 }}>
+                Similar Pictures
+              </Text>
+              <ScrollView
+                style={{ backgroundColor: "white" }}
+                horizontal={true}
+                contentContainerStyle={{ height: 300 }}
+                showsHorizontalScrollIndicator={false}
+                scrollEventThrottle={200}
+                decelerationRate="fast"
+                pagingEnabled
+              >
+                {similars?.map((picture) => (
+                  <View style={{ marginRight: 5, width: 130 }}>
+                    <Image
+                      style={[styles.imageSmall, { height: 130, borderRadius: 7 }]}
+                      source={{ uri: picture.url }}
+                    />
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+          )
+          : undefined}
       </Animated.ScrollView>
     </SafeAreaView>
   );

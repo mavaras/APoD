@@ -16,6 +16,15 @@ export function shuffleArray(array: any[]) {
   return array;
 }
 
+export function formatDate(date: string) {
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  const dateSplit = date.split('-');
+  return `${monthNames[parseInt(dateSplit[1], 10) - 1]} ${parseInt(dateSplit[2], 10)}`;
+}
+
 export function filterByWord(array: any[], text: string) {
   return array.filter((element: {[string: string]: string}) =>
     element.title.toLowerCase().includes(text.toLowerCase()));

@@ -6,13 +6,13 @@ import LoadingScreen from '../loading/LoadingScreen';
 import { filterByWord } from '../../utils';
 
 
-const usePrevious = value => {
+function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
   });
   return ref.current;
-};
+}
 
 function PictureScreen({ route }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
@@ -34,9 +34,7 @@ function PictureScreen({ route }: any) {
             lastPicture = Object.values(data.val())[0];
             const today = new Date();
             // eslint-disable-next-line prefer-template
-            const todayDate: string = today.getFullYear() + '-' +
-                                      ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-                                      ('0' + today.getDate()).slice(-2);
+            const todayDate: string = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
             mustQuery = todayDate !== lastPicture.date;
           });console.log(mustQuery);
         if (mustQuery) {
@@ -76,7 +74,7 @@ function PictureScreen({ route }: any) {
 
   async function getSimilars() {
     const titleWords = response.title.split(' ').filter((word) => word.length > 3);
-    let picturesList = DB.picturesList;
+    const picturesList = DB.picturesList;
     let similarsList = [];
     let maxLen = 0;
     for (const word in titleWords) {
@@ -98,8 +96,6 @@ function PictureScreen({ route }: any) {
       setLoading(false);
     }
   }, [response]);
-  
-  
 
   if (loading) {
     return (
