@@ -3,7 +3,7 @@ import { NASA_API_KEY } from 'react-native-dotenv';
 import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
-import { filterByWord } from '../../utils';
+import { filterByWord, shuffleArray } from '../../utils';
 
 
 function usePrevious(value) {
@@ -85,7 +85,7 @@ function PictureScreen({ route, navigation }: any) {
         similarsList = wordFiltered;
       }
     }
-    setSimilars(similarsList);
+    setSimilars(shuffleArray(similarsList));
   }
 
   useEffect(() => {
