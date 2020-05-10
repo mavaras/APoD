@@ -61,7 +61,6 @@ export default StyleSheet.create({
   scrollView: {
     backgroundColor: 'white',
     marginTop: 170,
-    height: Dimensions.get('window').height + 200,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
