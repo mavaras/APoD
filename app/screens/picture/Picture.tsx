@@ -14,7 +14,7 @@ function usePrevious(value) {
   return ref.current;
 }
 
-function PictureScreen({ route }: any) {
+function PictureScreen({ route, navigation }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   const [loading, setLoading] = useState<Boolean>(true);
   const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
@@ -107,6 +107,7 @@ function PictureScreen({ route }: any) {
     <Picture
       attrs={response}
       similars={similars}
+      navigation={navigation}
     />
   );
 }
