@@ -55,6 +55,7 @@ function PictureScreen({ route }: any) {
                         explanation: response.explanation,
                         url: response.url,
                         date: response.date,
+                        author: response.author,
                       });
                     }
                   });
