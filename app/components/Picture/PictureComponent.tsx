@@ -217,6 +217,15 @@ function Picture({ attrs, similars }: {[string: string]: any}) {
                 <Text style={styles.textPictureTitle}>
                   {attrs.title}
                 </Text>
+                {attrs.author
+                  ? (
+                    <View style={{ flexDirection: 'row', marginTop: -23, marginBottom: 30 }}>
+                      <Icon name="camera" size={14} style={{ color: 'black', marginTop: 2 }} />
+                      <Text style={{ marginLeft: 10 }}>
+                        {attrs.author}
+                      </Text>
+                    </View>
+                  ) : undefined}
                 <Text style={styles.textPictureExplanation}>
                   {attrs.explanation}
                 </Text>
