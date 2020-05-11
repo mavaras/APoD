@@ -24,6 +24,8 @@ import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 
 
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+
 function Picture({ attrs, similars, navigation }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -39,7 +41,7 @@ function Picture({ attrs, similars, navigation }: any) {
     if (Platform.OS === 'android') {
       requestStorageRuntimePermissionAndroid();
     }
-  });
+  }, []);
 
   const download = () => {
     const { config, fs } = RNFetchBlob;
@@ -164,7 +166,7 @@ function Picture({ attrs, similars, navigation }: any) {
               backgroundColor: 'white',
             }}
           >
-            <Animated.Image
+            <AnimatedFastImage
               style={{
                 width: '100%',
                 height: 350,
@@ -291,7 +293,7 @@ function Picture({ attrs, similars, navigation }: any) {
                       navigation.push('Explore Picture', { attrs: picture });
                     }}
                   >
-                    <Image
+                    <FastImage
                       style={[styles.imageSmall, { height: 130, borderRadius: 7 }]}
                       source={{ uri: picture.url }}
                     />
