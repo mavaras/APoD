@@ -250,7 +250,7 @@ function Picture({ attrs, similars, navigation }: any) {
             alignItems: 'center',
             backgroundColor: '#dcdcdcb8',
             marginLeft: '5%',
-            marginTop: 50,
+            marginTop: 37,
             width: '90%',
             height: 70,
           }}
@@ -268,7 +268,7 @@ function Picture({ attrs, similars, navigation }: any) {
               style={{
                 marginLeft: '5%',
                 marginRight: '5%',
-                marginTop: 60,
+                marginTop: 50,
               }}
             >
               <Text style={{ fontWeight: '600', fontSize: 20, marginBottom: 30 }}>
@@ -286,6 +286,7 @@ function Picture({ attrs, similars, navigation }: any) {
                 {similars?.map((picture) => (
                   <TouchableHighlight
                     style={{ marginRight: 5, width: 130 }}
+                    underlayColor="none"
                     onPress={() => {
                       navigation.push('Explore Picture', { attrs: picture });
                     }}
