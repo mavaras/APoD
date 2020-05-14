@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import PictureScreen from './screens/picture/Picture';
+import SettingsScreen from './screens/settings/Settings';
 import ExploreScreen from './screens/explore/Explore';
 
 
@@ -20,11 +21,8 @@ function BottomTabNavigator() {
       tabBarOptions={{
         activeTintColor: '#007AFF',
         style: {
+          backgroundColor: 'white',
           position: 'absolute',
-          height: 90,
-          marginTop: 20,
-          paddingBottom: 24,
-          borderRadius: 19,
           borderTopColor: 'white',
         },
       }}
@@ -33,14 +31,14 @@ function BottomTabNavigator() {
         name="Daily Picture"
         component={PictureScreen}
         options={{
-          tabBarIcon: ({ focused }) => <FontAwesome style={{ marginBottom: -8 }} name="meteor" size={26} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={24} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
       <Tabs.Screen
         name="Explore"
         component={ExploreScreen}
         options={{
-          tabBarIcon: ({ focused }) => <FontAwesome style={{ marginBottom: -8 }} name="rocket" size={26} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={24} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
     </Tabs.Navigator>
@@ -59,7 +57,13 @@ function StackNavigator() {
         <Stack.Screen
           name="Explore Picture"
           component={PictureScreen}
-          options={{ headerTitleStyle: { color: 'white' } }}
+          options={{
+            headerTitleStyle: { color: 'white' },
+          }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
