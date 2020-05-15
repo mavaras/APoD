@@ -19,8 +19,6 @@ const styles = StyleSheet.create({
   rowTouchable: {
     width: '90%', alignSelf: 'center',
     height: 60,
-    borderBottomWidth: 1.5,
-    borderBottomColor: '#ececece1',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -41,9 +39,13 @@ function SectionsMenu({ items }) {
     <ScrollView>
       {items.map((sectionItems) => (
         <View style={styles.rowView}>
-          {sectionItems.map((item) => (
+          {sectionItems.map((item, index) => (
             <TouchableHighlight
-              style={styles.rowTouchable}
+              style={[
+                styles.rowTouchable,
+                index % 2 === 0 ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
+                  : {},
+              ]}
               onPress={item.action}
               underlayColor="none"
             >
