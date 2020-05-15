@@ -19,7 +19,7 @@ import { filterByWord, shuffleArray } from '../../utils';
 function ExploreScreen({ navigation }: any) {
   const DB = FirebaseDB.instance;
   let picturesList: Array<string> = ['notempty'];
-  const flatListRef = FlatList;
+  const [flatListRef, setFlatListRef] = useState<FlatList<any>>();
   const [picturesLimit, setPicturesLimit] = useState<number>(8);
   const [loading, setLoading] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
@@ -35,9 +35,13 @@ function ExploreScreen({ navigation }: any) {
   function scrollToLastTop() {
     if (page > 1) {
       // 0.3 based on SmallPicture marginBottom = 6
-      setTimeout(() => { this.flatListRef.scrollToIndex({ animated: true, index: 0.3 }); }, 200);
+      setTimeout(() => {
+        flatListRef?.scrollToIndex({ animated: true, index: [4.1, 0.3, 0.08][cols - 1] });
+      }, 200);
     } else {
-      setTimeout(() => { this.flatListRef.scrollToIndex({ animated: true, index: 0.5 }); }, 100);
+      setTimeout(() => {
+        flatListRef?.scrollToIndex({ animated: true, index: 0 });
+      }, 200);
     }
   }
 
@@ -165,12 +169,16 @@ function ExploreScreen({ navigation }: any) {
         <FlatList
           inverted
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
-          ref={(ref) => { this.flatListRef = ref; }}
+          ref={(ref) => { setFlatListRef(ref); }}
           key={cols}
           style={styles.flatList}
           data={pictures}
           extraData={pictures}
-          getItemLayout={(data, indx) => ({ length: 200, offset: indx, index: indx })}
+          getItemLayout={(data, indx) => ({
+            length: [400, 200, 150][cols - 1] + [2.2, 2.8, 2][cols - 1],
+            offset: ([400, 200, 150][cols - 1] + [2.2, 2.8, 2][cols - 1]) * indx,
+            index: indx,
+          })}
           refreshControl={(
             <RefreshControl
               refreshing={refreshing}
