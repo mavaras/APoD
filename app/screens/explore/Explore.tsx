@@ -33,7 +33,7 @@ function ExploreScreen({ navigation }: any) {
   const [displayStyle, setDisplayStyle] = useState<string>('grid');
 
   function scrollToLastTop() {
-    if (page > 1) {
+    if (page > 1 && displayStyle === 'grid') {
       // 0.3 based on SmallPicture marginBottom = 6
       setTimeout(() => {
         flatListRef?.scrollToIndex({ animated: true, index: [4.1, 0.3, 0.08][cols - 1] });
@@ -114,29 +114,29 @@ function ExploreScreen({ navigation }: any) {
           <View style={styles.layoutPopoverView}>
             <Icon.Button
               name="grip-vertical"
-              size={16}
-              iconStyle={{ color: 'gray' }}
+              size={18}
+              iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(2); setPicturesLimit(8); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-horizontal"
-              size={16}
-              iconStyle={{ color: 'gray' }}
+              size={18}
+              iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(3); setPicturesLimit(15); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-lines"
-              size={16}
-              iconStyle={{ color: 'gray' }}
+              size={18}
+              iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(1); setPicturesLimit(6); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="list-ul"
-              size={16}
-              iconStyle={{ color: 'gray' }}
+              size={18}
+              iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
               onPress={() => { setNumberOfColumns(1); setPicturesLimit(10); setDisplayStyle('list'); }}
             />

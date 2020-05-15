@@ -12,14 +12,20 @@ export default StyleSheet.create({
   },
 
   layoutPopoverView: {
-    height: 130,
+    height: 150,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
   },
   layoutButton: {
     backgroundColor: 'white',
   },
+  layoutButtonIcon: {
+    color: 'gray',
+    marginLeft: 10,
+  },
+
   layoutDisplayButtonView: {
     backgroundColor: '#f2f2ff',
     width: '12%',
