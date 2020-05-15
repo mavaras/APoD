@@ -16,10 +16,10 @@ import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import { filterByWord, shuffleArray } from '../../utils';
 
 
+let flatListRef: typeof FlatList = FlatList;
 function ExploreScreen({ navigation }: any) {
   const DB = FirebaseDB.instance;
   let picturesList: Array<string> = ['notempty'];
-  const [flatListRef, setFlatListRef] = useState<FlatList<any>>();
   const [picturesLimit, setPicturesLimit] = useState<number>(8);
   const [loading, setLoading] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
@@ -40,7 +40,7 @@ function ExploreScreen({ navigation }: any) {
       }, 200);
     } else {
       setTimeout(() => {
-        flatListRef?.scrollToIndex({ animated: true, index: 0 });
+        flatListRef?.scrollToEnd();
       }, 200);
     }
   }
@@ -88,6 +88,7 @@ function ExploreScreen({ navigation }: any) {
   function setNumberOfColumns(nCols: number) {
     setCols(nCols);
     setShowPopover(false);
+    //setTimeout(() => { flatListRef?.scrollToEnd(); }, 200);
   }
 
   function searchFilterFunction(text: string) {
@@ -169,7 +170,11 @@ function ExploreScreen({ navigation }: any) {
         <FlatList
           inverted
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
-          ref={(ref) => { setFlatListRef(ref); }}
+          ref={(ref) => {
+            if (ref) {
+              setTimeout(() => flatListRef = ref, 100);
+            }
+          }}
           key={cols}
           style={styles.flatList}
           data={pictures}
