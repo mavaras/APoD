@@ -27,14 +27,16 @@ export default StyleSheet.create({
   },
 
   layoutDisplayButtonView: {
-    backgroundColor: '#f2f2ff',
+    backgroundColor: 'white',
     width: '12%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2ff',
   },
   layoutDisplayButton: {
-    backgroundColor: '#f2f2ff',
+    backgroundColor: 'white',
   },
 
   layoutUpperView: {
@@ -42,7 +44,10 @@ export default StyleSheet.create({
     backgroundColor: '#f2f2ff',
   },
   searchBar: {
-    backgroundColor: '#f2f2ff',
+    backgroundColor: 'white',
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#f2f2ff',
+    borderTopColor: 'white',
   },
 
   listLayoutItem: {
