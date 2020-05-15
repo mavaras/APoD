@@ -20,7 +20,7 @@ let flatListRef: typeof FlatList = FlatList;
 function ExploreScreen({ navigation }: any) {
   const DB = FirebaseDB.instance;
   let picturesList: Array<string> = ['notempty'];
-  const [picturesLimit, setPicturesLimit] = useState<number>(8);
+  const [picturesLimit, setPicturesLimit] = useState<number>(18);
   const [loading, setLoading] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
   const [loadMore, _] = useState<Boolean>(false);
@@ -100,7 +100,7 @@ function ExploreScreen({ navigation }: any) {
     }
     setSearch(text);
   }
-
+console.log(picturesLimit);
   if (!loading) {
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -118,28 +118,28 @@ function ExploreScreen({ navigation }: any) {
               size={18}
               iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(2); setPicturesLimit(8); setDisplayStyle('grid'); }}
+              onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-horizontal"
               size={18}
               iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(3); setPicturesLimit(15); setDisplayStyle('grid'); }}
+              onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-lines"
               size={18}
               iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(1); setPicturesLimit(6); setDisplayStyle('grid'); }}
+              onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="list-ul"
               size={18}
               iconStyle={styles.layoutButtonIcon}
               style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(1); setPicturesLimit(10); setDisplayStyle('list'); }}
+              onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
             />
           </View>
         </Popover>
