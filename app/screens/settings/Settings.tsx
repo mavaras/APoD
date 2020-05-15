@@ -1,61 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Linking,
-  SafeAreaView, Text, View, Dimensions, StyleSheet,TouchableHighlight
+  SafeAreaView, Dimensions,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import style from '../../components/Picture/style';
-import BackButton from 'react-navigation-stack/lib/typescript/views/Header/BackButtonWeb';
 import { ScrollView } from 'react-native-gesture-handler';
 import SectionsMenu from '../../components/Settings/SectionsMenu';
-import { getActiveChildNavigationOptions } from 'react-navigation';
 
-
-function algo() { console.log("press"); }
-function handleNotifications() {
-  console.log("handle notifications");
-}
-
-const items = [
-  [
-    {
-      title: 'notifications',
-      iconName: 'bell',
-      extraStyle: { color: '#5b84c2' },
-      action: () => handleNotifications(),
-    },
-    {
-      title: 'appearance',
-      iconName: 'moon',
-      extraStyle: { color: '#5b84c2' },
-      action: () => algo(),
-    },
-  ],
-  [
-    {
-      title: 'github',
-      iconName: 'github',
-      extraStyle: {},
-      action: () => Linking.openURL('https://www.google.es'),
-    },
-    {
-      title: 'buy me a coffee',
-      iconName: 'coffee',
-      extraStyle: { color: 'brown' },
-      action: () => algo(),
-    },
-  ],
-  [
-    {
-      title: 'rate this app',
-      iconName: 'star',
-      extraStyle: { color: 'orange' },
-      action: () => algo(),
-    },
-  ],
-];
 
 function SettingsScreen() {
+  let [notifications] = useState<Boolean>(false);
+  const [items, setItems] = useState<Array<Array<Object>>>([
+    [
+      {
+        title: 'notifications',
+        iconName: 'bell',
+        extraStyle: { color: '#5b84c2' },
+        action: () => handleNotifications(),
+      },
+      {
+        title: 'appearance',
+        iconName: 'map',
+        extraStyle: { color: '#719259e8' },
+        action: () => handleNotifications(),
+      },
+    ],
+    [
+      {
+        title: 'github',
+        iconName: 'github',
+        extraStyle: {},
+        action: () => Linking.openURL('https://www.google.es'),
+      },
+      {
+        title: 'buy me a coffee',
+        iconName: 'coffee',
+        extraStyle: { color: 'brown' },
+        action: () => handleNotifications(),
+      },
+    ],
+    [
+      {
+        title: 'rate this app',
+        iconName: 'star',
+        extraStyle: { color: 'orange' },
+        action: () => handleNotifications(),
+      },
+    ],
+  ]);
+
+  async function handleNotifications() {
+    notifications = !notifications;
+    let auxItems: Array<Array<Object>> = [...items];
+    auxItems[0][0].iconName = notifications ? 'bell-slash' : 'bell';
+    setItems(auxItems);
+  }
+
   return (
     <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: '#ececece8' }}>
       <ScrollView>
