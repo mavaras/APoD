@@ -4,7 +4,7 @@ import {
   SafeAreaView, Dimensions,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import SectionsMenu from '../../components/Settings/SectionsMenu';
+import SectionsMenu from '../../components/common/SectionsMenu';
 
 
 function SettingsScreen() {
@@ -29,13 +29,13 @@ function SettingsScreen() {
         title: 'github',
         iconName: 'github',
         extraStyle: {},
-        action: () => Linking.openURL('https://www.google.es'),
+        action: () => Linking.openURL('https://www.github.com/mavaras/APoD'),
       },
       {
         title: 'buy me a coffee',
         iconName: 'coffee',
         extraStyle: { color: 'brown' },
-        action: () => handleNotifications(),
+        action: () => Linking.openURL('https://www.buymeacoffee.com/mavaras'),
       },
     ],
     [
@@ -43,7 +43,7 @@ function SettingsScreen() {
         title: 'rate this app',
         iconName: 'star',
         extraStyle: { color: 'orange' },
-        action: () => handleNotifications(),
+        action: () => Linking.openURL(''),
       },
     ],
   ]);
