@@ -8,11 +8,10 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SearchBar } from 'react-native-elements';
 import Popover from 'react-native-popover-view';
-import { TouchableHighlight } from 'react-native-gesture-handler';
-import FastImage from 'react-native-fast-image';
 import FirebaseDB from '../../config';
 import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
+import PictureListItem from '../../components/common/PictureListItem';
 import { filterByWord, shuffleArray } from '../../utils';
 
 
@@ -198,24 +197,10 @@ function ExploreScreen({ navigation }: any) {
             return (
               displayStyle === 'list'
                 ? (
-                  <TouchableHighlight
-                    underlayColor="white"
-                    onPress={() => {
-                      navigation.navigate('Explore Picture', { attrs: item });
-                    }}
-                  >
-                    <View style={styles.listLayoutItem}>
-                      <View style={styles.listLayoutItemTextView}>
-                        <Text style={styles.listLayoutItemText}>{item.title}</Text>
-                      </View>
-                      <View style={styles.listLayoutItemImageView}>
-                        <FastImage
-                          style={styles.listLayoutItemImage}
-                          source={{ uri: item.url }}
-                        />
-                      </View>
-                    </View>
-                  </TouchableHighlight>
+                  <PictureListItem
+                    navigation={navigation}
+                    item={item}
+                  />
                 ) : (
                   <PictureSmall
                     picture={item}
