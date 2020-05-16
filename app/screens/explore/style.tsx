@@ -32,7 +32,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderBottomWidth: 2.5,
     borderBottomColor: '#f2f2ff',
   },
   layoutDisplayButton: {
@@ -45,7 +45,7 @@ export default StyleSheet.create({
   },
   searchBar: {
     backgroundColor: 'white',
-    borderBottomWidth: 1.5,
+    borderBottomWidth: 2.5,
     borderBottomColor: '#f2f2ff',
     borderTopColor: 'white',
   },
