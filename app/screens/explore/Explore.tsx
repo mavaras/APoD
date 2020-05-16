@@ -36,7 +36,10 @@ function ExploreScreen({ navigation }: any) {
     if (page > 1 && displayStyle === 'grid') {
       // 0.3 based on SmallPicture marginBottom = 6
       setTimeout(() => {
-        flatListRef?.scrollToIndex({ animated: true, index: [4.1, 0.3, 0.08][cols - 1] });
+        flatListRef?.scrollToIndex({
+          animated: true,
+          index: [4.1, 0.3, 0.04][cols - 1],
+        });
       }, 200);
     } else {
       setTimeout(() => {
@@ -100,7 +103,7 @@ function ExploreScreen({ navigation }: any) {
     }
     setSearch(text);
   }
-console.log(picturesLimit);
+
   if (!loading) {
     return (
       <SafeAreaView style={styles.safeAreaView}>
