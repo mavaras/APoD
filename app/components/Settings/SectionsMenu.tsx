@@ -43,7 +43,8 @@ function SectionsMenu({ items }) {
             <TouchableHighlight
               style={[
                 styles.rowTouchable,
-                index % 2 === 0 ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
+                index % 2 === 0 && sectionItems.length > 1
+                  ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
                   : {},
               ]}
               onPress={item.action}
