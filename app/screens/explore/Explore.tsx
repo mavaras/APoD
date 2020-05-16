@@ -155,7 +155,7 @@ function ExploreScreen({ navigation }: any) {
               searchIcon={{ size: 24 }}
               onChangeText={(text) => searchFilterFunction(text)}
               onClear={() => searchFilterFunction('')}
-              placeholder="Type Here..."
+              placeholder="Search pictures..."
               value={search}
             />
           </View>
