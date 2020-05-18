@@ -286,18 +286,10 @@ function Picture({ attrs, similars, navigation }: any) {
         </View>
         {Object.keys(similars).length !== 0
           ? (
-            <View
-              style={{
-                marginLeft: '5%',
-                marginRight: '5%',
-                marginTop: 50,
-              }}
-            >
-              <Text style={{ fontWeight: '600', fontSize: 20, marginBottom: 30 }}>
-                Similar Pictures
-              </Text>
+            <View style={styles.viewSimilars}>
+              <Text style={styles.textSimilars}>Similar Pictures</Text>
               <ScrollView
-                style={{ backgroundColor: "white" }}
+                style={styles.scrollViewSimilars}
                 horizontal={true}
                 contentContainerStyle={{ height: 300 }}
                 showsHorizontalScrollIndicator={false}
@@ -307,7 +299,7 @@ function Picture({ attrs, similars, navigation }: any) {
               >
                 {similars?.map((picture) => (
                   <TouchableHighlight
-                    style={{ marginRight: 5, width: 130 }}
+                    style={styles.touchableHighlightSimilars}
                     underlayColor="none"
                     onPress={() => {
                       navigation.push('Explore Picture', { attrs: picture });

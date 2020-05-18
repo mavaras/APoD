@@ -132,4 +132,22 @@ export default StyleSheet.create({
   textDate: {
     marginLeft: 10, marginTop: 3, fontSize: 17,
   },
+
+  viewSimilars: {
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginTop: 50,
+  },
+  textSimilars: {
+    fontWeight: '600',
+    fontSize: 20,
+    marginBottom: 30,
+  },
+  scrollViewSimilars: {
+    backgroundColor: 'white',
+  },
+  touchableHighlightSimilars: {
+    marginRight: 5,
+    width: 130,
+  },
 });
