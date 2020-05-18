@@ -276,22 +276,10 @@ function Picture({ attrs, similars, navigation }: any) {
             </View>
           )
           : undefined }
-        <View
-          style={{
-            justifyContent: 'center',
-            borderTopLeftRadius: 15,
-            borderBottomRightRadius: 15,
-            alignItems: 'center',
-            backgroundColor: '#dcdcdcb8',
-            marginLeft: '5%',
-            marginTop: 37,
-            width: '90%',
-            height: 70,
-          }}
-        >
-          <View style={{ flexDirection: 'row' }}>
-            <Icon name="calendar" size={26} style={{ color: 'black' }} />
-            <Text style={{ marginLeft: 10, marginTop: 3, fontSize: 17 }}>
+        <View style={styles.viewDate}>
+          <View style={styles.viewDate2}>
+            <Icon name="calendar" size={26} style={styles.viewDateIcon} />
+            <Text style={styles.textDate}>
               {formatDate(attrs.date)}
             </Text>
           </View>

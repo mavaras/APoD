@@ -111,4 +111,25 @@ export default StyleSheet.create({
   dialogContent: {
     marginTop: 20,
   },
+
+  viewDate: {
+    justifyContent: 'center',
+    borderTopLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    alignItems: 'center',
+    backgroundColor: '#dcdcdcb8',
+    marginLeft: '5%',
+    marginTop: 37,
+    width: '90%',
+    height: 70,
+  },
+  viewDate2: {
+    flexDirection: 'row'
+  },
+  viewDateIcon: {
+    color: 'black',
+  },
+  textDate: {
+    marginLeft: 10, marginTop: 3, fontSize: 17,
+  },
 });
