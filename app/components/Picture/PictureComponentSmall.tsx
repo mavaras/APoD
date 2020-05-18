@@ -1,19 +1,20 @@
 import React from 'react';
 import {
-  TouchableHighlight,
+  TouchableHighlight, View, Text
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Shimmer from 'react-native-shimmer';
 import styles from './style';
 
 
 function PictureComponentSmall({
   picture, index, cols, navigation,
 }: any) {
+  const imgHeight: number = [400, 200, 150][cols - 1];
+  const imgSep = [2.2, 2.4, 2][cols - 1];
   function itemStyle(indx: number) {
     // eslint-disable-next-line no-nested-ternary
     const pos = indx % cols === 0 ? 0 : (indx + 1) % cols === 0 ? 1 : 2;
-    const imgHeight: number = [400, 200, 150][cols - 1];
-    const imgSep = [2.2, 2.8, 2][cols - 1];
     const style = cols === 1 ? [
       {
         flex: 1,
@@ -23,7 +24,7 @@ function PictureComponentSmall({
         height: imgHeight,
       }] : [
       {
-        flex: 1, marginTop: 0, marginBottom: imgSep * 2, height: imgHeight,
+        flex: 1, marginTop: 0, marginBottom: imgSep, height: imgHeight,
       },
       // eslint-disable-next-line no-nested-ternary
       pos === 0 ? { marginLeft: imgSep * 2, marginRight: imgSep }
@@ -40,10 +41,19 @@ function PictureComponentSmall({
         navigation.navigate('Explore Picture', { attrs: picture });
       }}
     >
-      <FastImage
-        style={styles.imageSmall}
-        source={{ uri: picture.url }}
-      />
+      <View>
+        <Shimmer
+          pauseDuration={580}
+          opacity={0.55}
+          style={{ justifyContent: 'center' }}
+        >
+          <Text style={{ height: imgHeight - imgSep, width: '50%', backgroundColor: '#dadadae8' }} />
+        </Shimmer>
+        <FastImage
+          style={styles.imageSmall}
+          source={{ uri: picture.url }}
+        />
+      </View>
     </TouchableHighlight>
   );
 }

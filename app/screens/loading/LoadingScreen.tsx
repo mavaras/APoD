@@ -20,6 +20,6 @@ function LoadingScreen() {
       />
     </View>
   );
-};
+}
 
 export default LoadingScreen;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Text, Animated,
-  TouchableHighlight,
+  TouchableHighlight,TouchableOpacity,
   View, SafeAreaView, Platform, Image,
 } from 'react-native';
 import Dialog, {
@@ -11,6 +11,8 @@ import Dialog, {
   DialogTitle,
   SlideAnimation,
 } from 'react-native-popup-dialog';
+import Animation from 'lottie-react-native';
+import Shimmer from 'react-native-shimmer';
 import FastImage from 'react-native-fast-image';
 import CameraRoll from '@react-native-community/cameraroll';
 import Share from 'react-native-share';
@@ -22,12 +24,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import styles from './style';
 import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 function Picture({ attrs, similars, navigation }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  let [loadingImage, setLoadingImage] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [, setButtonRect] = useState({
@@ -35,6 +39,7 @@ function Picture({ attrs, similars, navigation }: any) {
   });
   const [scrollY] = useState(new Animated.Value(0));
   let imageRef: any;
+  let refs = React.createRef();
 
   useEffect(() => {
     this.refs = React.createRef();
@@ -123,15 +128,23 @@ function Picture({ attrs, similars, navigation }: any) {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <View style={{ borderColor: 'white', marginLeft: '86%', width: 10, marginTop: 33, position: 'absolute' }}>
-        <Icon.Button
+      <TouchableHighlight
+        style={{
+          borderColor: 'white',
+          marginLeft: '90%',
+          width: 10,
+          marginTop: 39,
+          position: 'absolute',
+        }}
+      >
+        <Icon
           name="cog"
           size={22}
           iconStyle={{ color: 'black' }}
           style={{ backgroundColor: 'white', width: 60 }}
-          onPress={() => console.log("!!!")}
+          onPress={() => navigation.navigate('Settings')}
         />
-      </View>
+      </TouchableHighlight>
       <Dialog
         dialogAnimation={new SlideAnimation({
           slideFrom: 'bottom',
@@ -166,20 +179,31 @@ function Picture({ attrs, similars, navigation }: any) {
               backgroundColor: 'white',
             }}
           >
-            <AnimatedFastImage
-              style={{
-                width: '100%',
-                height: 350,
-                marginTop: attrs.explorePicture !== undefined ? 0 : 20,
-                position: 'absolute',
-                transform: [{ scale: ImageScale }],
-              }}
-              source={{ uri: attrs.url }}
-            />
+            <View>
+              <Shimmer
+                pauseDuration={580}
+                opacity={0.55}
+                style={{ justifyContent: 'center', marginTop: 20 }}
+              >
+                <Text style={{ height: 500, width: 500, backgroundColor: '#dadadae8' }} />
+              </Shimmer>
+              <AnimatedFastImage
+                style={{
+                  width: '100%',
+                  height: 350,
+                  marginTop: attrs.explorePicture !== undefined ? 0 : 20,
+                  position: 'absolute',
+                  transform: [{ scale: ImageScale }],
+                }}
+                source={{ uri: attrs.url }}
+                onLoad={() => setLoadingImage(false)}
+              />
+            </View>
           </TouchableHighlight>
         )
         : (<Video url={attrs.url} />)}
       <Animated.ScrollView
+        overScrollMode="always"
         contentContainerStyle={styles.scrollView}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],

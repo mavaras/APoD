@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView, Text, View, Dimensions, StyleSheet,TouchableHighlight
+  Text, View, StyleSheet, TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import style from '../../components/Picture/style';
-import BackButton from 'react-navigation-stack/lib/typescript/views/Header/BackButtonWeb';
 import { ScrollView } from 'react-native-gesture-handler';
 
 

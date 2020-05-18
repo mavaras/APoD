@@ -4,12 +4,13 @@ import { StyleSheet, Dimensions } from 'react-native';
 export default StyleSheet.create({
   safeAreaView: {
     height: Dimensions.get('window').height,
+    flex: 1,
     overflow: 'hidden',
     backgroundColor: 'white',
   },
 
   touchableHighlight: {
-    alignItems: 'center', backgroundColor: 'red',
+    alignItems: 'center',
   },
   modal: {
     flex: 1,
@@ -60,6 +61,7 @@ export default StyleSheet.create({
 
   scrollView: {
     backgroundColor: 'white',
+    height: Dimensions.get('window').height + 200,
     marginTop: 170,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -101,6 +103,7 @@ export default StyleSheet.create({
   imageSmall: {
     width: '100%',
     height: '100%',
+    position: 'absolute',
     marginBottom: 0,
     borderRadius: 5,
   },

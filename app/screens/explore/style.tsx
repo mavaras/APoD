@@ -20,6 +20,11 @@ export default StyleSheet.create({
   },
   layoutButton: {
     backgroundColor: 'white',
+    height: '100%',
+    borderLeftWidth: 1,
+    borderLeftColor: '#f2f2ff',
+    borderRightWidth: 1,
+    borderRightColor: '#f2f2ff',
   },
   layoutButtonIcon: {
     color: 'gray',
