@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SearchBar } from 'react-native-elements';
-import Popover from 'react-native-popover-view';
 import FirebaseDB from '../../config';
 import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
@@ -117,45 +116,6 @@ function ExploreScreen({ navigation }: any) {
   if (!loading) {
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <Popover
-          isVisible={false}
-          fromRect={{
-            x: 335, y: 100, width: 100, height: 0,
-          }}
-          placement="bottom"
-          onRequestClose={() => setShowPopover(false)}
-        >
-          <View style={styles.layoutPopoverView}>
-            <Icon.Button
-              name="grip-vertical"
-              size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
-            />
-            <Icon.Button
-              name="grip-horizontal"
-              size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
-            />
-            <Icon.Button
-              name="grip-lines"
-              size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
-            />
-            <Icon.Button
-              name="list-ul"
-              size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
-              onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
-            />
-          </View>
-        </Popover>
         <View style={styles.layoutUpperView}>
           <View style={{ width: '87%' }}>
             <SearchBar
