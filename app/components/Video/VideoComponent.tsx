@@ -1,12 +1,11 @@
 import React from 'react';
 import WebView from 'react-native-webview';
 import { View } from 'react-native';
-import styles from './style';
 
 
-function Video({ url }: any) {
+function Video({ url, style }: any) {
   return (
-    <View style={styles.videoView}>
+    <View style={style}>
       <WebView
         source={{ uri: url }}
       />

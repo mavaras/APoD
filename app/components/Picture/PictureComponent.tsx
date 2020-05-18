@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Text, Animated,
-  TouchableHighlight,TouchableOpacity,
-  View, SafeAreaView, Platform, Image,
+  TouchableHighlight,
+  View, SafeAreaView, Platform,
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -11,7 +11,6 @@ import Dialog, {
   DialogTitle,
   SlideAnimation,
 } from 'react-native-popup-dialog';
-import Animation from 'lottie-react-native';
 import Shimmer from 'react-native-shimmer';
 import FastImage from 'react-native-fast-image';
 import CameraRoll from '@react-native-community/cameraroll';
@@ -24,7 +23,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import styles from './style';
 import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
@@ -201,7 +199,17 @@ function Picture({ attrs, similars, navigation }: any) {
             </View>
           </TouchableHighlight>
         )
-        : (<Video url={attrs.url} />)}
+        : (
+          <Video
+            style={{
+              width: '100%',
+              height: 350,
+              marginTop: attrs.explorePicture !== undefined ? 0 : 20,
+              marginBottom: -160,
+            }}
+            url={attrs.url}
+          />
+        )}
       <Animated.ScrollView
         overScrollMode="always"
         contentContainerStyle={styles.scrollView}
