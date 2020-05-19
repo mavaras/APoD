@@ -23,6 +23,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import styles from './style';
 import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
+import Storage from '../../storage';
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
@@ -105,6 +106,20 @@ function Picture({ attrs, similars, navigation }: any) {
       });
   };
 
+  const handleFavourite = async () => {
+    const favourites = await Storage.getItem('@favourites');
+    let favouritesArray = [];
+    if (favourites) {
+      favouritesArray = JSON.parse(favourites);
+      if (!favouritesArray?.some((item: object) => item.title === attrs.title)) {
+        favouritesArray.push(attrs);
+      }
+    } else {
+      favouritesArray = [attrs];
+    }
+    await Storage.setItem('@favourites', JSON.stringify(favouritesArray));
+  };
+
   const showPopover = () => {
     imageRef.measure((width: number, height: number, x: number, y: number) => {
       setIsModalOpen(true);
@@ -172,7 +187,7 @@ function Picture({ attrs, similars, navigation }: any) {
             onPress={showPopover.bind(this)}
             underlayColor="none"
             style={{
-              height: 200,
+              height: 0,
               marginTop: 20,
               backgroundColor: 'white',
             }}
@@ -205,7 +220,7 @@ function Picture({ attrs, similars, navigation }: any) {
               width: '100%',
               height: 350,
               marginTop: attrs.explorePicture !== undefined ? 0 : 20,
-              marginBottom: -160,
+              marginBottom: -360,
             }}
             url={attrs.url}
           />
@@ -282,6 +297,48 @@ function Picture({ attrs, similars, navigation }: any) {
             <Text style={styles.textDate}>
               {formatDate(attrs.date)}
             </Text>
+          </View>
+        </View>
+        <View
+          style={{ marginRight: '5%' }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              height: 50,
+            }}
+          >
+            <Icon.Button
+              name="heart"
+              size={18}
+              iconStyle={{ color: '#5c5c5c', marginRight: -3 }}
+              style={{
+                backgroundColor: 'white',
+                height: '100%',
+              }}
+              onPress={() => handleFavourite(attrs.title)}
+            />
+            <Icon.Button
+              name="download"
+              size={18}
+              iconStyle={{ color: '#5c5c5c', marginRight: -3 }}
+              style={{
+                backgroundColor: 'white',
+                height: '100%',
+              }}
+              onPress={download}
+            />
+            <Icon.Button
+              name="share-alt"
+              size={18}
+              iconStyle={{ color: '#5c5c5c', marginRight: -3 }}
+              style={{
+                backgroundColor: 'white',
+                height: '100%',
+              }}
+              onPress={share}
+            />
           </View>
         </View>
         {Object.keys(similars).length !== 0

@@ -61,8 +61,8 @@ export default StyleSheet.create({
 
   scrollView: {
     backgroundColor: 'white',
-    height: Dimensions.get('window').height + 200,
-    marginTop: 170,
+    height: Dimensions.get('window').height + 400,
+    marginTop: 370,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
@@ -136,7 +136,7 @@ export default StyleSheet.create({
   viewSimilars: {
     marginLeft: '5%',
     marginRight: '5%',
-    marginTop: 50,
+    marginTop: 10,
   },
   textSimilars: {
     fontWeight: '600',
