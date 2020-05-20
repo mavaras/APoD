@@ -11,6 +11,7 @@ import styles from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import PictureListItem from '../../components/common/PictureListItem';
 import { filterByWord, shuffleArray } from '../../utils';
+import Storage from '../../storage';
 
 
 let flatListRef: typeof FlatList = FlatList;
@@ -19,6 +20,7 @@ function ExploreScreen({ navigation }: any) {
   let picturesList: Array<string> = ['notempty'];
   const [picturesLimit, setPicturesLimit] = useState<number>(18);
   const [loading, setLoading] = useState<Boolean>(false);
+  const [showFavourites, setShowFavourites] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
   const [searching, setSearching] = useState<Boolean>(false);
   const [loadMore, _] = useState<Boolean>(false);
@@ -104,14 +106,24 @@ function ExploreScreen({ navigation }: any) {
     setSearch(text);
   }
 
-  const renderFooter = () => {
-    if (!refreshing || searching) return null;
+  function renderFooter() {
+    if (showFavourites || (!refreshing || searching)) return null;
     return (
       <ActivityIndicator
         style={{ color: '#000', height: 100, marginBottom: 50 }}
       />
     );
-  };
+  }
+
+  async function handleShowFavourites() {
+    setShowFavourites(!showFavourites);
+    if (!showFavourites) {
+      const favourites = await Storage.getItem('@favourites');
+      setPictures(JSON.parse(favourites));
+    } else {
+      setPictures(picturesAux);
+    }
+  }
 
   if (!loading) {
     return (
@@ -180,16 +192,17 @@ function ExploreScreen({ navigation }: any) {
             <Icon.Button
               name="heart"
               size={18}
-              iconStyle={styles.layoutButtonIcon}
+              iconStyle={[styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
               style={styles.layoutButton}
+              onPress={handleShowFavourites}
             />
           </View>
         </View>
         <FlatList
-          inverted={searching}
+          inverted={searching || showFavourites}
           ListFooterComponent={renderFooter.bind(this)}
           onEndReached={() => {
-            if (!refreshing && !searching) {
+            if (!refreshing && !searching && !showFavourites) {
               setRefreshing(true);
               setTimeout(() => getNextItems(), 3000);
             }
