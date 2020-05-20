@@ -123,7 +123,10 @@ function Picture({ attrs, similars, navigation }: any) {
 
   async function removeFavourite() {
     setIsFavourite(false);
-    // next one
+    const favourites = await Storage.getItem('@favourites');
+    let favouritesArray = JSON.parse(favourites);
+    favouritesArray = favouritesArray.filter((item: object) => attrs.title !== item.title);
+    await Storage.setItem('@favourites', JSON.stringify(favouritesArray));
   }
 
   async function handleFavourite() {
@@ -147,12 +150,6 @@ function Picture({ attrs, similars, navigation }: any) {
     setIsModalOpen(false);
   }
 
-  const ImageScale = scrollY.interpolate({
-    inputRange: [-100, 0, 200],
-    outputRange: [1.5, 1.1, 1],
-    extrapolate: 'clamp',
-  });
-
   useEffect(() => {
     async function auxIsFavourite() {
       setIsFavourite(await _isFavourite());
@@ -163,6 +160,12 @@ function Picture({ attrs, similars, navigation }: any) {
       requestStorageRuntimePermissionAndroid();
     }
   }, []);
+
+  const ImageScale = scrollY.interpolate({
+    inputRange: [-100, 0, 200],
+    outputRange: [1.5, 1.1, 1],
+    extrapolate: 'clamp',
+  });
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
