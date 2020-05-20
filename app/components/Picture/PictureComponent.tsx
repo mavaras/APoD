@@ -32,6 +32,7 @@ function Picture({ attrs, similars, navigation }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   let [loadingImage, setLoadingImage] = useState(true);
   const [downloading, setDownloading] = useState(false);
+  const [isFavourite, setIsFavourite] = useState<Boolean>(false);
   const [showAlert, setShowAlert] = useState(false);
   const [, setButtonRect] = useState({
     x: 0, y: 0, width: 0, height: 0,
@@ -39,13 +40,6 @@ function Picture({ attrs, similars, navigation }: any) {
   const [scrollY] = useState(new Animated.Value(0));
   let imageRef: any;
   let refs = React.createRef();
-
-  useEffect(() => {
-    this.refs = React.createRef();
-    if (Platform.OS === 'android') {
-      requestStorageRuntimePermissionAndroid();
-    }
-  }, []);
 
   function download() {
     const { config, fs } = RNFetchBlob;
@@ -106,24 +100,38 @@ function Picture({ attrs, similars, navigation }: any) {
       });
   }
 
-  async function isFavourite() {
+  async function _isFavourite() {
     const favourites = await Storage.getItem('@favourites');
     const favouritesArray = JSON.parse(favourites);
     return favouritesArray.some((item: object) => item.title === attrs.title);
   }
 
-  async function handleFavourite() {
+  async function addFavourite() {
+    setIsFavourite(true);
     const favourites = await Storage.getItem('@favourites');
     let favouritesArray = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
-      if (!await isFavourite()) {
+      if (!await _isFavourite()) {
         favouritesArray.push(attrs);
       }
     } else {
       favouritesArray = [attrs];
     }
     await Storage.setItem('@favourites', JSON.stringify(favouritesArray));
+  }
+
+  async function removeFavourite() {
+    setIsFavourite(false);
+    // next one
+  }
+
+  async function handleFavourite() {
+    if (isFavourite) {
+      removeFavourite();
+    } else {
+      addFavourite();
+    }
   }
 
   function showPopover() {
@@ -133,7 +141,7 @@ function Picture({ attrs, similars, navigation }: any) {
         x, y, width, height,
       });
     });
-  };
+  }
 
   function closeModal() {
     setIsModalOpen(false);
@@ -144,6 +152,17 @@ function Picture({ attrs, similars, navigation }: any) {
     outputRange: [1.5, 1.1, 1],
     extrapolate: 'clamp',
   });
+
+  useEffect(() => {
+    async function auxIsFavourite() {
+      setIsFavourite(await _isFavourite());
+    }
+    auxIsFavourite();
+    this.refs = React.createRef();
+    if (Platform.OS === 'android') {
+      requestStorageRuntimePermissionAndroid();
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -318,7 +337,9 @@ function Picture({ attrs, similars, navigation }: any) {
             <Icon.Button
               name="heart"
               size={18}
-              iconStyle={{ color: '#5c5c5c', marginRight: -3 }}
+              iconStyle={
+                [{ marginRight: -3 }, isFavourite ? { color: '#f134d2' } : { color: '#5c5c5c' }]
+              }
               style={{
                 backgroundColor: 'white',
                 height: '100%',
