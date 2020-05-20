@@ -47,7 +47,7 @@ function Picture({ attrs, similars, navigation }: any) {
     }
   }, []);
 
-  const download = () => {
+  function download() {
     const { config, fs } = RNFetchBlob;
     const pictureDir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
     const picturePath = `${pictureDir}/APoD/APoD_${attrs.title}.png`;
@@ -88,9 +88,9 @@ function Picture({ attrs, similars, navigation }: any) {
           console.log(`Error occurred when trying to download picture: ${err}`);
         });
     }
-  };
+  }
 
-  const share = () => {
+  function share() {
     ImgToBase64.getBase64String(attrs.url)
       .then((base64Url: string) => {
         const options = {
@@ -104,23 +104,29 @@ function Picture({ attrs, similars, navigation }: any) {
       .catch((err: string) => {
         console.log(err);
       });
-  };
+  }
 
-  const handleFavourite = async () => {
+  async function isFavourite() {
+    const favourites = await Storage.getItem('@favourites');
+    const favouritesArray = JSON.parse(favourites);
+    return favouritesArray.some((item: object) => item.title === attrs.title);
+  }
+
+  async function handleFavourite() {
     const favourites = await Storage.getItem('@favourites');
     let favouritesArray = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
-      if (!favouritesArray?.some((item: object) => item.title === attrs.title)) {
+      if (!await isFavourite()) {
         favouritesArray.push(attrs);
       }
     } else {
       favouritesArray = [attrs];
     }
     await Storage.setItem('@favourites', JSON.stringify(favouritesArray));
-  };
+  }
 
-  const showPopover = () => {
+  function showPopover() {
     imageRef.measure((width: number, height: number, x: number, y: number) => {
       setIsModalOpen(true);
       setButtonRect({
@@ -129,9 +135,9 @@ function Picture({ attrs, similars, navigation }: any) {
     });
   };
 
-  const closeModal = () => {
+  function closeModal() {
     setIsModalOpen(false);
-  };
+  }
 
   const ImageScale = scrollY.interpolate({
     inputRange: [-100, 0, 200],
