@@ -214,19 +214,15 @@ function Picture({ attrs, similars, navigation }: any) {
             ref={(r) => { imageRef = r; }}
             onPress={showPopover.bind(this)}
             underlayColor="none"
-            style={{
-              height: 0,
-              marginTop: 20,
-              backgroundColor: 'white',
-            }}
+            style={styles.touchableHighlight}
           >
             <View>
               <Shimmer
                 pauseDuration={580}
                 opacity={0.55}
-                style={{ justifyContent: 'center', marginTop: 20 }}
+                style={styles.shimmer}
               >
-                <Text style={{ height: 500, width: 500, backgroundColor: '#dadadae8' }} />
+                <Text style={styles.innerShimmer} />
               </Shimmer>
               <AnimatedFastImage
                 style={{
@@ -244,12 +240,8 @@ function Picture({ attrs, similars, navigation }: any) {
         )
         : (
           <Video
-            style={{
-              width: '100%',
-              height: 350,
-              marginTop: attrs.explorePicture !== undefined ? 0 : 20,
-              marginBottom: -360,
-            }}
+            style={[styles.video,
+              { marginTop: attrs.explorePicture !== undefined ? 0 : 20 }]}
             url={attrs.url}
           />
         )}
@@ -305,9 +297,9 @@ function Picture({ attrs, similars, navigation }: any) {
                 </Text>
                 {attrs.author
                   ? (
-                    <View style={{ flexDirection: 'row', marginTop: -23, marginBottom: 30 }}>
-                      <Icon name="camera" size={14} style={{ color: 'black', marginTop: 2 }} />
-                      <Text style={{ marginLeft: 10 }}>
+                    <View style={styles.authorView}>
+                      <Icon name="camera" size={14} style={styles.authorIcon} />
+                      <Text style={styles.authorText}>
                         {attrs.author}
                       </Text>
                     </View>
@@ -327,46 +319,29 @@ function Picture({ attrs, similars, navigation }: any) {
             </Text>
           </View>
         </View>
-        <View
-          style={{ marginRight: '5%' }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              height: 50,
-            }}
-          >
+        <View style={styles.iconsView}>
+          <View style={styles.iconsViewRow}>
             <Icon.Button
               name="heart"
               size={18}
               iconStyle={
-                [{ marginRight: -3 }, isFavourite ? { color: '#f134d2' } : { color: '#5c5c5c' }]
+                [styles.iconStyle, isFavourite ? { color: '#f134d2' } : { color: '#5c5c5c' }]
               }
-              style={{
-                backgroundColor: 'white',
-                height: '100%',
-              }}
-              onPress={() => handleFavourite(attrs.title)}
+              style={styles.iconButtonStyle}
+              onPress={() => handleFavourite()}
             />
             <Icon.Button
               name="download"
               size={18}
-              iconStyle={{ color: '#5c5c5c', marginRight: -3 }}
-              style={{
-                backgroundColor: 'white',
-                height: '100%',
-              }}
+              iconStyle={styles.iconStyle}
+              style={styles.iconButtonStyle}
               onPress={download}
             />
             <Icon.Button
               name="share-alt"
               size={18}
-              iconStyle={{ color: '#5c5c5c', marginRight: -3 }}
-              style={{
-                backgroundColor: 'white',
-                height: '100%',
-              }}
+              iconStyle={styles.iconStyle}
+              style={styles.iconButtonStyle}
               onPress={share}
             />
           </View>
@@ -393,7 +368,7 @@ function Picture({ attrs, similars, navigation }: any) {
                     }}
                   >
                     <FastImage
-                      style={[styles.imageSmall, { height: 130, borderRadius: 7 }]}
+                      style={[styles.imageSmall, styles.imageSimilars]}
                       source={{ uri: picture.url }}
                     />
                   </TouchableHighlight>

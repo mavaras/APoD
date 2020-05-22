@@ -9,8 +9,16 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
 
+  video: {
+    width: '100%',
+    height: 350,
+    marginBottom: -360,
+  },
+
   touchableHighlight: {
-    alignItems: 'center',
+    height: 0,
+    marginTop: 20,
+    backgroundColor: 'white',
   },
   modal: {
     flex: 1,
@@ -107,6 +115,15 @@ export default StyleSheet.create({
     marginBottom: 0,
     borderRadius: 5,
   },
+  shimmer: {
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  innerShimmer: {
+    height: 500,
+    width: 500,
+    backgroundColor: '#dadadae8',
+  },
 
   dialogContent: {
     marginTop: 20,
@@ -124,7 +141,7 @@ export default StyleSheet.create({
     height: 70,
   },
   viewDate2: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   viewDateIcon: {
     color: 'black',
@@ -149,5 +166,39 @@ export default StyleSheet.create({
   touchableHighlightSimilars: {
     marginRight: 5,
     width: 130,
+  },
+  imageSimilars: {
+    height: 130,
+    borderRadius: 7,
+  },
+
+  iconsView: {
+    marginRight: '5%',
+  },
+  iconsViewRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    height: 50,
+  },
+  iconStyle: {
+    color: '#5c5c5c',
+    marginRight: -3,
+  },
+  iconButtonStyle: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
+
+  authorView: {
+    flexDirection: 'row',
+    marginTop: -23,
+    marginBottom: 30,
+  },
+  authorIcon: {
+    color: 'black',
+    marginTop: 2,
+  },
+  authorText: {
+    marginLeft: 10,
   },
 });
