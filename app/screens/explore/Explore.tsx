@@ -32,9 +32,14 @@ function ExploreScreen({ navigation }: any) {
   const [cols, setCols] = useState<number>(2);
   const [displayStyle, setDisplayStyle] = useState<string>('grid');
 
+  function scrollToTop() {
+    setTimeout(() => {
+      flatListRef?.scrollToEnd();
+    }, 200);
+  }
+
   function scrollToLastTop() {
     if (page > 1 && displayStyle === 'grid') {
-      // 0.3 based on SmallPicture marginBottom = 6
       setTimeout(() => {
         flatListRef?.scrollToIndex({
           animated: true,
@@ -42,9 +47,7 @@ function ExploreScreen({ navigation }: any) {
         });
       }, 200);
     } else {
-      setTimeout(() => {
-        flatListRef?.scrollToEnd();
-      }, 200);
+      scrollToTop();
     }
   }
 
@@ -54,7 +57,7 @@ function ExploreScreen({ navigation }: any) {
       return;
     }
     const newArray: Array<{[string: string]: string}> = [
-      ...this.picturesList.slice(0, picturesLimit * page)];//.reverse();
+      ...this.picturesList.slice(0, picturesLimit * page)];
     setPictures(newArray);
     setPicturesAux(newArray);
     setPage(page + 1);
@@ -120,6 +123,7 @@ function ExploreScreen({ navigation }: any) {
     if (!showFavourites) {
       const favourites = await Storage.getItem('@favourites');
       setPictures(JSON.parse(favourites));
+      scrollToTop();
     } else {
       setPictures(picturesAux);
     }
