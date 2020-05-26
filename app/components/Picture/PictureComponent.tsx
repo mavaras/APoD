@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Text, Animated,
   TouchableHighlight,
-  View, SafeAreaView, Platform,
+  View, SafeAreaView, Platform, Dimensions,
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -24,12 +24,14 @@ import styles from './style';
 import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 import Storage from '../../storage';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 function Picture({ attrs, similars, navigation }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openZoomModal, setOpenZoomModal] = useState(false);
   let [loadingImage, setLoadingImage] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const [isFavourite, setIsFavourite] = useState<Boolean>(false);
@@ -98,6 +100,10 @@ function Picture({ attrs, similars, navigation }: any) {
       .catch((err: string) => {
         console.log(err);
       });
+  }
+
+  function zoom() {
+    setOpenZoomModal(!openZoomModal);
   }
 
   async function _isFavourite() {
@@ -169,6 +175,18 @@ function Picture({ attrs, similars, navigation }: any) {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <Modal
+        visible={openZoomModal}
+        transparent={true}
+        style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height, margin: 0 }}
+      >
+        <ImageViewer
+          imageUrls={[{ url: attrs.url }]}
+          enableImageZoom={true}
+          enableSwipeDown={true}
+          onSwipeDown={zoom}
+        />
+      </Modal>
       <TouchableHighlight
         style={{
           borderColor: 'white',
@@ -321,6 +339,13 @@ function Picture({ attrs, similars, navigation }: any) {
         </View>
         <View style={styles.iconsView}>
           <View style={styles.iconsViewRow}>
+            <Icon.Button
+              name="expand"
+              size={18}
+              iconStyle={styles.iconStyle}
+              style={styles.iconButtonStyle}
+              onPress={zoom}
+            />
             <Icon.Button
               name="heart"
               size={18}
