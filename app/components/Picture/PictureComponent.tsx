@@ -338,7 +338,7 @@ function Picture({ attrs, similars, navigation }: any) {
           </View>
         </View>
         <View style={styles.iconsView}>
-          <View style={styles.iconsViewRow}>
+          <View style={styles.iconsViewRowLeft}>
             <Icon.Button
               name="expand"
               size={18}
@@ -346,6 +346,8 @@ function Picture({ attrs, similars, navigation }: any) {
               style={styles.iconButtonStyle}
               onPress={zoom}
             />
+          </View>
+          <View style={styles.iconsViewRowRight}>
             <Icon.Button
               name="heart"
               size={18}

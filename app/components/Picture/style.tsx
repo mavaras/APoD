@@ -153,7 +153,7 @@ export default StyleSheet.create({
   viewSimilars: {
     marginLeft: '5%',
     marginRight: '5%',
-    marginTop: 10,
+    marginTop: 35,
   },
   textSimilars: {
     fontWeight: '600',
@@ -174,11 +174,18 @@ export default StyleSheet.create({
 
   iconsView: {
     marginRight: '5%',
+    marginLeft: '5%',
+    marginTop: 0,
+    flexDirection: 'row',
+    height: 40,
   },
-  iconsViewRow: {
+  iconsViewRowRight: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    height: 50,
+    width: '92%',
+  },
+  iconsViewRowLeft: {
+    width: '8%',
   },
   iconStyle: {
     color: '#5c5c5c',
