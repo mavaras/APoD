@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import colors from '../../themes';
 
 
 export default StyleSheet.create({
@@ -6,7 +7,7 @@ export default StyleSheet.create({
     height: Dimensions.get('window').height,
     flex: 1,
     overflow: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
   },
 
   video: {
@@ -18,11 +19,11 @@ export default StyleSheet.create({
   touchableHighlight: {
     height: 0,
     marginTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
   },
 
   scrollView: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
     height: Dimensions.get('window').height + 400,
     marginTop: 370,
     borderTopLeftRadius: 20,
@@ -76,7 +77,7 @@ export default StyleSheet.create({
   innerShimmer: {
     height: 500,
     width: 500,
-    backgroundColor: '#dadadae8',
+    backgroundColor: colors.shimmerColor,
   },
 
   dialogContent: {
@@ -98,7 +99,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   viewDateIcon: {
-    color: 'black',
+    color: colors.highlightColor,
   },
   textDate: {
     marginLeft: 10, marginTop: 3, fontSize: 17,
@@ -115,7 +116,7 @@ export default StyleSheet.create({
     marginBottom: 30,
   },
   scrollViewSimilars: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
   },
   touchableHighlightSimilars: {
     marginRight: 5,
@@ -142,11 +143,11 @@ export default StyleSheet.create({
     width: '8%',
   },
   iconStyle: {
-    color: '#5c5c5c',
+    color: colors.iconColor,
     marginRight: -3,
   },
   iconButtonStyle: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
     height: '100%',
   },
 
@@ -156,7 +157,7 @@ export default StyleSheet.create({
     marginBottom: 30,
   },
   authorIcon: {
-    color: 'black',
+    color: colors.highlightColor,
     marginTop: 2,
   },
   authorText: {

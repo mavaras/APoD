@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../themes';
 
 
 export default StyleSheet.create({
@@ -8,7 +9,7 @@ export default StyleSheet.create({
   },
   safeAreaView: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
   },
 
   layoutPopoverView: {
@@ -19,46 +20,46 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   layoutButton: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
     height: '100%',
     borderLeftWidth: 1,
-    borderLeftColor: '#f2f2ff',
+    borderLeftColor: colors.borderColor,
     borderRightWidth: 1,
-    borderRightColor: '#f2f2ff',
+    borderRightColor: colors.borderColor,
   },
   layoutButtonIcon: {
-    color: 'gray',
+    color: colors.buttonColor,
     marginLeft: 10,
   },
 
   layoutDisplayButtonView: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
     width: '12%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 2.5,
-    borderBottomColor: '#f2f2ff',
+    borderBottomColor: colors.borderColor,
   },
   layoutDisplayButton: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
   },
 
   layoutUpperView: {
     flexDirection: 'row',
-    backgroundColor: '#f2f2ff',
+    backgroundColor: colors.borderColor,
   },
   searchBar: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
     borderBottomWidth: 2.5,
-    borderBottomColor: '#f2f2ff',
-    borderTopColor: 'white',
+    borderBottomColor: colors.borderColor,
+    borderTopColor: colors.bgColor,
   },
 
   listLayoutItem: {
     flexDirection: 'row',
     height: 60,
-    borderBottomColor: '#f2f2ff',
+    borderBottomColor: colors.borderColor,
     borderBottomWidth: 1,
     flex: 1,
     justifyContent: 'center',

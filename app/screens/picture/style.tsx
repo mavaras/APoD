@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../themes';
 
 
 export default StyleSheet.create({
   scrollView: {
-    backgroundColor: 'white',
+    backgroundColor: colors.bgColor,
     height: '100%',
   },
 });
