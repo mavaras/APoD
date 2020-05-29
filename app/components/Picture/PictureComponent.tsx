@@ -273,39 +273,6 @@ function Picture({ attrs, similars, navigation }: any) {
           },
         )}
       >
-        <Modal
-          isVisible={isModalOpen}
-          style={styles.modal}
-          onBackdropPress={closeModal.bind(this)}
-        >
-          <View style={styles.modalMainView}>
-            <View style={styles.modalContentView}>
-              <Text style={styles.modalTitle}>{attrs.title}</Text>
-            </View>
-            <View style={styles.modalFooterView}>
-              <View style={styles.modalButtonGroupView}>
-                <Icon.Button
-                  disabled={downloading}
-                  name="download"
-                  style={styles.button}
-                  onPress={() => { download(); }}
-                >
-                  <Text style={styles.buttonLabel}>Download</Text>
-                </Icon.Button>
-              </View>
-              <View style={styles.modalButtonGroupView}>
-                <Icon.Button
-                  disabled={downloading}
-                  name="share-alt"
-                  style={styles.button}
-                  onPress={() => { share(); }}
-                >
-                  <Text style={styles.buttonLabel}>Share</Text>
-                </Icon.Button>
-              </View>
-            </View>
-          </View>
-        </Modal>
         { attrs.date !== undefined
           ? (
             <View>

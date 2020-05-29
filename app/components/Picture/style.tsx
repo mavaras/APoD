@@ -20,52 +20,6 @@ export default StyleSheet.create({
     marginTop: 20,
     backgroundColor: 'white',
   },
-  modal: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalTitle: {
-    fontSize: 19,
-  },
-  modalMainView: {
-    flex: 1,
-    height: 140,
-    backgroundColor: 'white',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-  },
-  modalContentView: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    flexShrink: 1,
-    width: '80%',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-    marginBottom: 25,
-    marginTop: 10,
-  },
-  modalFooterView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalButtonGroupView: {
-    paddingRight: 5,
-    paddingLeft: 5,
-    width: '35%',
-    marginBottom: 15,
-  },
-  button: {
-    backgroundColor: '#5b84c2',
-  },
-  buttonLabel: {
-    color: 'white',
-  },
 
   scrollView: {
     backgroundColor: 'white',
