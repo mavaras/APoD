@@ -1,46 +1,39 @@
 import React from 'react';
-import {
-  Text, View, StyleSheet, TouchableHighlight,
-} from 'react-native';
+import { TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
+import styled from "styled-components";
 
 
-const styles = StyleSheet.create({
-  rowView: {
-    width: '90%',
-    alignSelf: 'center',
-    backgroundColor: 'white',
-    borderRadius: 10,
-    marginTop: 30,
-  },
-  rowTouchable: {
-    width: '90%', alignSelf: 'center',
-    height: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rowTouchableView: {
-    flexDirection: 'row',
-  },
-  rowText: {
-    fontSize: 17,
-    width: '92%',
-  },
-  rowIcon: {
-    width: '8%',
-  },
-});
+const RowView = styled.View`
+  width: 90%;
+  alignSelf: center;
+  backgroundColor: white;
+  borderRadius: 10;
+  marginTop: 30;
+`;
+const RowTouchableView = styled.View`
+  flexDirection: row;
+`;
+const RowText = styled.Text`
+  fontSize: 17;
+  width: 92%;
+`;
 
 function SectionsMenu({ items }) {
   return (
     <ScrollView>
-      {items.map((sectionItems) => (
-        <View style={styles.rowView}>
+      {items.map((sectionItems: Array<Object>) => (
+        <RowView>
           {sectionItems.map((item, index) => (
             <TouchableHighlight
-              style={[
-                styles.rowTouchable,
+              style={[{
+                width: '90%',
+                alignSelf: 'center',
+                height: 60,
+                flexDirection: 'row',
+                alignItems: 'center',
+              },
                 index % 2 === 0 && sectionItems.length > 1
                   ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
                   : {},
@@ -48,13 +41,13 @@ function SectionsMenu({ items }) {
               onPress={item.action}
               underlayColor="none"
             >
-              <View style={styles.rowTouchableView}>
-                <Text style={styles.rowText}>{item.title}</Text>
-                <Icon name={item.iconName} size={26} style={[styles.rowIcon, item.extraStyle]} />
-              </View>
+              <RowTouchableView>
+                <RowText>{item.title}</RowText>
+                <Icon name={item.iconName} size={26} style={[{ width: '8%'}, item.extraStyle]} />
+              </RowTouchableView>
             </TouchableHighlight>
           ))}
-        </View>
+        </RowView>
       ))}
     </ScrollView>
   );
