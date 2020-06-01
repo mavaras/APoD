@@ -3,6 +3,7 @@ import Shimmer from 'react-native-shimmer';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../themes';
+import FastImage from 'react-native-fast-image';
 
 
 export const SafeAreaView = styled.SafeAreaView`
@@ -52,7 +53,7 @@ export const Image = styled.Image`
   marginTop: 20;
   borderRadius: 0;
 `;
-export const ImageSmall = styled.TouchableHighlight`
+export const FastImageSmall = styled(FastImage)`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -62,6 +63,9 @@ export const ImageSmall = styled.TouchableHighlight`
 export const ImageShimmer = styled(Shimmer)`
   justifyContent: center;
   marginTop: 20;
+`;
+export const ImageSmallShimmer = styled(Shimmer)`
+  justifyContent: center;
 `;
 export const ShimmerInner = styled.Text`
   height: 500;

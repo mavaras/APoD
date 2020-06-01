@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  TouchableHighlight, View, Text
+  TouchableHighlight, View, Text,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import Shimmer from 'react-native-shimmer';
-import styles from './style';
+import * as _ from './style';
 
 
 function PictureComponentSmall({
@@ -42,15 +41,13 @@ function PictureComponentSmall({
       }}
     >
       <View>
-        <Shimmer
+        <_.ImageSmallShimmer
           pauseDuration={580}
           opacity={0.55}
-          style={{ justifyContent: 'center' }}
         >
           <Text style={{ height: imgHeight - imgSep, width: '50%', backgroundColor: '#dadadae8' }} />
-        </Shimmer>
-        <FastImage
-          style={styles.imageSmall}
+        </_.ImageSmallShimmer>
+        <_.FastImageSmall
           source={{ uri: picture.url }}
         />
       </View>

@@ -7,7 +7,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SearchBar } from 'react-native-elements';
 import FirebaseDB from '../../config';
-import styles from './style';
+import * as _ from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import PictureListItem from '../../components/common/PictureListItem';
 import { filterByWord, shuffleArray } from '../../utils';
@@ -23,7 +23,7 @@ function ExploreScreen({ navigation }: any) {
   const [showFavourites, setShowFavourites] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
   const [searching, setSearching] = useState<Boolean>(false);
-  const [loadMore, _] = useState<Boolean>(false);
+  const [loadMore, ] = useState<Boolean>(false);
   const [showPopover, setShowPopover] = useState<Boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [pictures, setPictures] = useState<Array<{[string: string]: string}>>([]);
@@ -112,9 +112,7 @@ function ExploreScreen({ navigation }: any) {
   function renderFooter() {
     if (showFavourites || (!refreshing || searching)) return null;
     return (
-      <ActivityIndicator
-        style={{ color: '#000', height: 100, marginBottom: 50 }}
-      />
+      <_.ActivityIndicator />
     );
   }
 
@@ -131,78 +129,76 @@ function ExploreScreen({ navigation }: any) {
 
   if (!loading) {
     return (
-      <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.layoutUpperView}>
-          <View style={{ width: '87%' }}>
+      <_.SafeAreaView>
+        <_.TopLayoutView>
+          <_.SearchInputView>
             <SearchBar
               lightTheme
               round
-              containerStyle={styles.searchBar}
               inputStyle={{}}
+              containerStyle={_.styles.searchBar}
               searchIcon={{ size: 24 }}
-              onChangeText={(text) => searchFilterFunction(text)}
+              onChangeText={(text: string) => searchFilterFunction(text)}
               onClear={() => searchFilterFunction('')}
               placeholder="Search pictures..."
               value={search}
             />
-          </View>
-          <View style={styles.layoutDisplayButtonView}>
+          </_.SearchInputView>
+          <_.ButtonDisplayLayoutView>
             <Icon.Button
               name="sliders-h"
               size={20}
               iconStyle={{ color: 'gray' }}
-              style={styles.layoutDisplayButton}
+              style={_.styles.layoutDisplayButton}
               onPress={() => { setShowPopover(!showPopover); }}
             />
-          </View>
-        </View>
+          </_.ButtonDisplayLayoutView>
+        </_.TopLayoutView>
         <View
           style={[{ justifyContent: 'space-between', flexDirection: 'row' },
             showPopover ? { height: 45 } : { height: 0 }]}
         >
-          <View
-            style={{ flexDirection: 'row', alignContent: 'flex-start', marginLeft: 6 }}
-          >
+          <_.LayoutButtonsView>
             <Icon.Button
               name="grip-vertical"
               size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
+              iconStyle={_.styles.layoutButtonIcon}
+              style={_.styles.layoutButton}
               onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-horizontal"
               size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
+              iconStyle={_.styles.layoutButtonIcon}
+              style={_.styles.layoutButton}
               onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-lines"
               size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
+              iconStyle={_.styles.layoutButtonIcon}
+              style={_.styles.layoutButton}
               onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="list-ul"
               size={18}
-              iconStyle={styles.layoutButtonIcon}
-              style={styles.layoutButton}
+              iconStyle={_.styles.layoutButtonIcon}
+              style={_.styles.layoutButton}
               onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
             />
-          </View>
-          <View style={{ marginRight: 6, flexDirection: 'row', justifyContent: 'flex-end' }}>
+          </_.LayoutButtonsView>
+          <_.HeartButtonView>
             <Icon.Button
               name="heart"
               size={18}
-              iconStyle={[styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
-              style={styles.layoutButton}
+              iconStyle={[_.styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
+              style={_.styles.layoutButton}
               onPress={handleShowFavourites}
             />
-          </View>
+          </_.HeartButtonView>
         </View>
-        <FlatList
+        <_.FlatList
           inverted={searching || showFavourites}
           ListFooterComponent={renderFooter.bind(this)}
           onEndReached={() => {
@@ -213,13 +209,12 @@ function ExploreScreen({ navigation }: any) {
           }}
           onEndReachedThreshold={0.1}
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
-          ref={(ref) => {
+          ref={(ref: typeof FlatList) => {
             if (ref) {
               setTimeout(() => flatListRef = ref, 100);
             }
           }}
           key={cols}
-          style={styles.flatList}
           data={pictures}
           extraData={pictures}
           getItemLayout={(data, indx) => ({
@@ -227,13 +222,6 @@ function ExploreScreen({ navigation }: any) {
             offset: ([400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1]) * indx,
             index: indx,
           })}
-          /*refreshControl={(
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={getNextItems.bind(this)}
-              tintColor="#5b84c2"
-            />
-          )}*/
           renderItem={({ item, index }) => {
             return (
               displayStyle === 'list'
@@ -254,7 +242,7 @@ function ExploreScreen({ navigation }: any) {
           keyExtractor={(item) => item.title.toString()}
           numColumns={cols}
         />
-      </SafeAreaView>
+      </_.SafeAreaView>
     );
   }
 
