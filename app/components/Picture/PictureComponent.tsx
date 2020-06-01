@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Text, Animated,
   TouchableHighlight,
-  View, SafeAreaView, Platform, Dimensions,
+  View, Platform, Dimensions,
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -11,7 +11,6 @@ import Dialog, {
   DialogTitle,
   SlideAnimation,
 } from 'react-native-popup-dialog';
-import Shimmer from 'react-native-shimmer';
 import FastImage from 'react-native-fast-image';
 import CameraRoll from '@react-native-community/cameraroll';
 import Share from 'react-native-share';
@@ -20,7 +19,7 @@ import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
 import { ScrollView } from 'react-native-gesture-handler';
-import styles from './style';
+import * as _ from './style';
 import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 import Storage from '../../storage';
@@ -29,7 +28,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
-function Picture({ attrs, similars, navigation }: any) {
+function Picture({ attrs, similars, navigation }: any) {console.log("!!");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openZoomModal, setOpenZoomModal] = useState(false);
   let [loadingImage, setLoadingImage] = useState(true);
@@ -174,7 +173,7 @@ function Picture({ attrs, similars, navigation }: any) {
   });
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
+    <_.SafeAreaView>
       <Modal
         visible={openZoomModal}
         transparent={true}
@@ -188,7 +187,7 @@ function Picture({ attrs, similars, navigation }: any) {
         />
       </Modal>
       <TouchableHighlight
-        style={{
+        style={{backgroundColor: 'red',
           borderColor: 'white',
           marginLeft: '90%',
           width: 10,
@@ -223,25 +222,23 @@ function Picture({ attrs, similars, navigation }: any) {
         }}
       >
         <DialogContent>
-          <Text style={styles.dialogContent}>Photo succesfully downloaded!</Text>
+          <_.DialogContent>Photo succesfully downloaded!</_.DialogContent>
         </DialogContent>
       </Dialog>
       {!['youtube', 'vimeo'].some((aux) => attrs.url.split(/[/.]/).includes(aux))
         ? (
-          <TouchableHighlight
+          <_.TouchableHighlight
             ref={(r) => { imageRef = r; }}
             onPress={showPopover.bind(this)}
             underlayColor="none"
-            style={styles.touchableHighlight}
           >
             <View>
-              <Shimmer
+              <_.ImageShimmer
                 pauseDuration={580}
                 opacity={0.55}
-                style={styles.shimmer}
               >
-                <Text style={styles.innerShimmer} />
-              </Shimmer>
+                <_.ShimmerInner />
+              </_.ImageShimmer>
               <AnimatedFastImage
                 style={{
                   width: '100%',
@@ -254,18 +251,24 @@ function Picture({ attrs, similars, navigation }: any) {
                 onLoad={() => setLoadingImage(false)}
               />
             </View>
-          </TouchableHighlight>
+          </_.TouchableHighlight>
         )
         : (
           <Video
-            style={[styles.video,
+            style={[{ width: '100%', height: 350, marginBottom: -360 },
               { marginTop: attrs.explorePicture !== undefined ? 0 : 20 }]}
             url={attrs.url}
           />
         )}
       <Animated.ScrollView
+        contentContainerStyle={{
+          backgroundColor: 'white',
+          height: Dimensions.get('window').height + 400,
+          marginTop: 370,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}
         overScrollMode="always"
-        contentContainerStyle={styles.scrollView}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           {
@@ -276,76 +279,75 @@ function Picture({ attrs, similars, navigation }: any) {
         { attrs.date !== undefined
           ? (
             <View>
-              <View style={styles.viewPictureText}>
-                <Text style={styles.textPictureTitle}>
+              <_.PictureInfoView>
+                <_.PictureTitle>
                   {attrs.title}
-                </Text>
+                </_.PictureTitle>
                 {attrs.author
                   ? (
-                    <View style={styles.authorView}>
-                      <Icon name="camera" size={14} style={styles.authorIcon} />
-                      <Text style={styles.authorText}>
+                    <_.PictureAuthorView>
+                      <_.PictureAuthorIcon name="camera" size={14} />
+                      <_.PictureAuthorText>
                         {attrs.author}
-                      </Text>
-                    </View>
+                      </_.PictureAuthorText>
+                    </_.PictureAuthorView>
                   ) : undefined}
-                <Text style={styles.textPictureExplanation}>
+                <_.PictureDescription>
                   {attrs.explanation}
-                </Text>
-              </View>
+                </_.PictureDescription>
+              </_.PictureInfoView>
             </View>
           )
           : undefined }
-        <View style={styles.viewDate}>
-          <View style={styles.viewDate2}>
-            <Icon name="calendar" size={26} style={styles.viewDateIcon} />
-            <Text style={styles.textDate}>
+        <_.PictureDateView>
+          <_.PictureDateView2>
+            <Icon name="calendar" size={26} style={{ color: 'black' }} />
+            <_.PictureDateText>
               {formatDate(attrs.date)}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.iconsView}>
-          <View style={styles.iconsViewRowLeft}>
+            </_.PictureDateText>
+          </_.PictureDateView2>
+        </_.PictureDateView>
+        <_.PictureIconsView>
+          <_.PictureIconsViewLeft>
             <Icon.Button
               name="expand"
               size={18}
-              iconStyle={styles.iconStyle}
-              style={styles.iconButtonStyle}
+              iconStyle={_.styles.iconStyle}
+              style={_.styles.iconButtonStyle}
               onPress={zoom}
             />
-          </View>
-          <View style={styles.iconsViewRowRight}>
+          </_.PictureIconsViewLeft>
+          <_.PictureIconsViewRight>
             <Icon.Button
               name="heart"
               size={18}
               iconStyle={
-                [styles.iconStyle, isFavourite ? { color: '#f134d2' } : { color: '#5c5c5c' }]
+                [_.styles.iconStyle, isFavourite ? { color: '#f134d2' } : { color: '#5c5c5c' }]
               }
-              style={styles.iconButtonStyle}
+              style={_.styles.iconButtonStyle}
               onPress={() => handleFavourite()}
             />
             <Icon.Button
               name="download"
               size={18}
-              iconStyle={styles.iconStyle}
-              style={styles.iconButtonStyle}
+              iconStyle={_.styles.iconStyle}
+              style={_.styles.iconButtonStyle}
               onPress={download}
             />
             <Icon.Button
               name="share-alt"
               size={18}
-              iconStyle={styles.iconStyle}
-              style={styles.iconButtonStyle}
+              iconStyle={_.styles.iconStyle}
+              style={_.styles.iconButtonStyle}
               onPress={share}
             />
-          </View>
-        </View>
+          </_.PictureIconsViewRight>
+        </_.PictureIconsView>
         {Object.keys(similars).length !== 0
           ? (
-            <View style={styles.viewSimilars}>
-              <Text style={styles.textSimilars}>Similar Pictures</Text>
-              <ScrollView
-                style={styles.scrollViewSimilars}
+            <_.SimilarsView>
+              <_.SimilarsText>Similar Pictures</_.SimilarsText>
+              <_.SimilarsScrollView
                 horizontal={true}
                 contentContainerStyle={{ height: 300 }}
                 showsHorizontalScrollIndicator={false}
@@ -354,25 +356,21 @@ function Picture({ attrs, similars, navigation }: any) {
                 pagingEnabled
               >
                 {similars?.map((picture) => (
-                  <TouchableHighlight
-                    style={styles.touchableHighlightSimilars}
+                  <_.SimilarsTouchableHighlight
                     underlayColor="none"
                     onPress={() => {
                       navigation.push('Explore Picture', { attrs: picture });
                     }}
                   >
-                    <FastImage
-                      style={[styles.imageSmall, styles.imageSimilars]}
-                      source={{ uri: picture.url }}
-                    />
-                  </TouchableHighlight>
+                    <_.ImageSimilars source={{ uri: picture.url }} />
+                  </_.SimilarsTouchableHighlight>
                 ))}
-              </ScrollView>
-            </View>
+              </_.SimilarsScrollView>
+            </_.SimilarsView>
           )
           : undefined}
       </Animated.ScrollView>
-    </SafeAreaView>
+    </_.SafeAreaView>
   );
 }
 
