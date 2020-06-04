@@ -7,6 +7,7 @@ import React from 'react';
 import PictureScreen from './screens/picture/Picture';
 import SettingsScreen from './screens/settings/Settings';
 import ExploreScreen from './screens/explore/Explore';
+import { useTheme, ThemeHandler } from './themes';
 
 
 console.disableYellowBox = true;
@@ -46,27 +47,30 @@ function BottomTabNavigator() {
 }
 
 function StackNavigator() {
+  const theme = useTheme();
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Back"
-          component={BottomTabNavigator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Explore Picture"
-          component={PictureScreen}
-          options={{
-            headerTitleStyle: { color: 'white' },
-          }}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={SettingsScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeHandler>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Back"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Explore Picture"
+            component={PictureScreen}
+            options={{
+              headerTitleStyle: { color: 'white' },
+            }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeHandler>
   );
 }
 

@@ -1,14 +1,19 @@
 import React from 'react';
 import { TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView } from 'react-native-gesture-handler';
 import styled from "styled-components";
+import ThemeManager, { useTheme } from '../../themes';
+import { ThemeProvider } from 'styled-components/native';
 
+
+const ScrollView = styled.ScrollView`
+  /*backgroundColor: ${({ theme }) => theme.bgColor};*/
+`;
 
 const RowView = styled.View`
   width: 90%;
   alignSelf: center;
-  backgroundColor: white;
+  backgroundColor: ${({ theme }) => theme.bgColor};
   borderRadius: 10;
   marginTop: 30;
 `;
@@ -16,11 +21,14 @@ const RowTouchableView = styled.View`
   flexDirection: row;
 `;
 const RowText = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
   fontSize: 17;
   width: 92%;
 `;
 
 function SectionsMenu({ items }) {
+  const theme = useTheme();console.log(theme.getTheme());
+
   return (
     <ScrollView>
       {items.map((sectionItems: Array<Object>) => (
@@ -34,9 +42,9 @@ function SectionsMenu({ items }) {
                 flexDirection: 'row',
                 alignItems: 'center',
               },
-                index % 2 === 0 && sectionItems.length > 1
-                  ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
-                  : {},
+              index % 2 === 0 && sectionItems.length > 1
+                ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
+                : {},
               ]}
               onPress={item.action}
               underlayColor="none"

@@ -5,10 +5,13 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import SectionsMenu from '../../components/common/SectionsMenu';
+import { useTheme } from '../../themes';
 
 
 function SettingsScreen() {
+  const theme = useTheme();
   let [notifications] = useState<Boolean>(false);
+  let [currTheme, setCurrTheme] = useState<string>();
   const [items, setItems] = useState<Array<Array<Object>>>([
     [
       {
@@ -21,7 +24,7 @@ function SettingsScreen() {
         title: 'appearance',
         iconName: 'map',
         extraStyle: { color: '#719259e8' },
-        action: () => handleNotifications(),
+        action: () => changeTheme(),
       },
     ],
     [
@@ -55,12 +58,18 @@ function SettingsScreen() {
     setItems(auxItems);
   }
 
+  async function changeTheme() {
+    console.log(theme.getTheme());
+    theme.setTheme(theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme');
+    console.log(theme.getTheme());
+  }
+console.log("rerender");
   return (
-    <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: '#ececece8' }}>
-      <ScrollView>
-        <SectionsMenu items={items} />
-      </ScrollView>
-    </SafeAreaView>
+      <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: '#ececece8' }}>
+        <ScrollView>
+          <SectionsMenu items={items} />
+        </ScrollView>
+      </SafeAreaView>
   );
 }
 

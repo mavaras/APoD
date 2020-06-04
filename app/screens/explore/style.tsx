@@ -11,15 +11,15 @@ export const FlatList = styled.FlatList`
 `;
 export const SafeAreaView = styled.SafeAreaView`
   flex: 1;
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
 `;
 export const LayoutButton = styled(Icon.Button)`
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
   height: 100%;
   borderLeftWidth: 1;
-  borderLeftColor: ${colors.borderColor};
+  borderLeftColor: ${({ theme }) => theme.borderColor};
   borderRightWidth: 1;
-  borderRightColor: ${colors.borderColor};
+  borderRightColor: ${({ theme }) => theme.borderColor};
 `;
 export const ButtonDisplayLayoutView = styled.View`
   backgroundColor: ${colors.bgColor};
@@ -28,10 +28,10 @@ export const ButtonDisplayLayoutView = styled.View`
   justifyContent: center;
   alignItems: center;
   borderBottomWidth: 2.5;
-  borderBottomColor: ${colors.borderColor};
+  borderBottomColor: ${({ theme }) => theme.borderColor};
 `;
 export const ButtonDisplayLayout = styled(Icon.Button)`
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
 `;
 export const LayoutButtonsView = styled.View`
   flexDirection: row;
@@ -45,7 +45,7 @@ export const HeartButtonView = styled.View`
 `;
 export const TopLayoutView = styled.View`
   flexDirection: row;
-  backgroundColor: ${colors.borderColor};
+  backgroundColor: ${({ theme }) => theme.borderColor};
 `;
 export const SearchInputView = styled.View`
   width: 87%;

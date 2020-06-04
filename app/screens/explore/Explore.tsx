@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
   FlatList, View,
-  SafeAreaView,
-  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 import FirebaseDB from '../../config';
 import * as _ from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import PictureListItem from '../../components/common/PictureListItem';
-import { filterByWord, shuffleArray } from '../../utils';
+import { filterByWord } from '../../utils';
 import Storage from '../../storage';
 
 
@@ -23,7 +21,6 @@ function ExploreScreen({ navigation }: any) {
   const [showFavourites, setShowFavourites] = useState<Boolean>(false);
   const [refreshing, setRefreshing] = useState<Boolean>(false);
   const [searching, setSearching] = useState<Boolean>(false);
-  const [loadMore, ] = useState<Boolean>(false);
   const [showPopover, setShowPopover] = useState<Boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [pictures, setPictures] = useState<Array<{[string: string]: string}>>([]);
@@ -66,7 +63,7 @@ function ExploreScreen({ navigation }: any) {
   }
 
   async function loadData() {
-    if (loadMore || pictures.length === picturesList.length) {
+    if (pictures.length === picturesList.length) {
       return;
     }
     setLoading(true);
@@ -81,7 +78,6 @@ function ExploreScreen({ navigation }: any) {
             return picture;
           }
         });
-        //this.picturesList = shuffleArray(this.picturesList);
         getNextItems();
       });
     setLoading(false);
@@ -93,8 +89,6 @@ function ExploreScreen({ navigation }: any) {
 
   function setNumberOfColumns(nCols: number) {
     setCols(nCols);
-    //setShowPopover(false);
-    //setTimeout(() => { flatListRef?.scrollToEnd(); }, 200);
   }
 
   function searchFilterFunction(text: string) {

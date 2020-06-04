@@ -18,17 +18,18 @@ import ImgToBase64 from 'react-native-image-base64';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
-import { ScrollView } from 'react-native-gesture-handler';
 import * as _ from './style';
 import Video from '../Video/VideoComponent';
 import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 import Storage from '../../storage';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import { useTheme } from '../../themes';
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
-function Picture({ attrs, similars, navigation }: any) {console.log("!!");
+function Picture({ attrs, similars, navigation }: any) {
+  const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openZoomModal, setOpenZoomModal] = useState(false);
   let [loadingImage, setLoadingImage] = useState(true);
@@ -198,8 +199,12 @@ function Picture({ attrs, similars, navigation }: any) {console.log("!!");
         <Icon
           name="cog"
           size={22}
-          iconStyle={{ color: 'black' }}
-          style={{ backgroundColor: 'white', width: 60 }}
+          iconStyle={{ color: 'white' }}
+          style={{
+            color: theme.getColors().fontColor,
+            backgroundColor: theme.getColors().bgColor,
+            width: 60,
+          }}
           onPress={() => navigation.navigate('Settings')}
         />
       </TouchableHighlight>
@@ -261,13 +266,9 @@ function Picture({ attrs, similars, navigation }: any) {console.log("!!");
           />
         )}
       <Animated.ScrollView
-        contentContainerStyle={{
-          backgroundColor: 'white',
-          height: Dimensions.get('window').height + 400,
-          marginTop: 370,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
+        contentContainerStyle={
+          [_.styles.animatedScrollView, { backgroundColor: theme.getColors().bgColor }]
+        }
         overScrollMode="always"
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -301,7 +302,7 @@ function Picture({ attrs, similars, navigation }: any) {console.log("!!");
           : undefined }
         <_.PictureDateView>
           <_.PictureDateView2>
-            <Icon name="calendar" size={26} style={{ color: 'black' }} />
+            <Icon name="calendar" size={26} style={{ color: theme.getColors().fontColor }} />
             <_.PictureDateText>
               {formatDate(attrs.date)}
             </_.PictureDateText>
@@ -309,36 +310,33 @@ function Picture({ attrs, similars, navigation }: any) {console.log("!!");
         </_.PictureDateView>
         <_.PictureIconsView>
           <_.PictureIconsViewLeft>
-            <Icon.Button
+            <_.PictureIconsIcon
               name="expand"
               size={18}
-              iconStyle={_.styles.iconStyle}
-              style={_.styles.iconButtonStyle}
+              iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
               onPress={zoom}
             />
           </_.PictureIconsViewLeft>
           <_.PictureIconsViewRight>
-            <Icon.Button
+            <_.PictureIconsIcon
               name="heart"
               size={18}
-              iconStyle={
-                [_.styles.iconStyle, isFavourite ? { color: '#f134d2' } : { color: '#5c5c5c' }]
-              }
-              style={_.styles.iconButtonStyle}
+              iconStyle={[
+                _.styles.iconStyle,
+                isFavourite ? { color: '#f134d2' } : { color: theme.getColors().iconColor },
+              ]}
               onPress={() => handleFavourite()}
             />
-            <Icon.Button
+            <_.PictureIconsIcon
               name="download"
               size={18}
-              iconStyle={_.styles.iconStyle}
-              style={_.styles.iconButtonStyle}
+              iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
               onPress={download}
             />
-            <Icon.Button
+            <_.PictureIconsIcon
               name="share-alt"
               size={18}
-              iconStyle={_.styles.iconStyle}
-              style={_.styles.iconButtonStyle}
+              iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
               onPress={share}
             />
           </_.PictureIconsViewRight>

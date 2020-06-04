@@ -10,7 +10,8 @@ export const SafeAreaView = styled.SafeAreaView`
   height: ${Dimensions.get('window').height};
   flex: 1;
   overflow: hidden;
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
+  
 `;
 export const Video = styled.View`
   width: 100%;
@@ -20,10 +21,10 @@ export const Video = styled.View`
 export const TouchableHighlight = styled.View`
   height: 0;
   marginTop: 20;
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
 `;
 export const AnimatedScrollView = styled(Animated.ScrollView)`
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
   height: ${Dimensions.get('window').height + 400};
   marginTop: 370;
   borderTopLeftRadius: 20;
@@ -34,12 +35,14 @@ export const PictureInfoView = styled.View`
   alignItems: center;
 `;
 export const PictureDescription = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
   fontSize: 15.7;
   width: 90%;
   alignItems: center;
   textAlign: justify;
 `;
 export const PictureTitle = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
   marginTop: 40;
   width: 90%;
   marginBottom: 30;
@@ -66,11 +69,12 @@ export const ImageShimmer = styled(Shimmer)`
 `;
 export const ImageSmallShimmer = styled(Shimmer)`
   justifyContent: center;
+  borderRadius: 5;
 `;
 export const ShimmerInner = styled.Text`
   height: 500;
   width: 500;
-  backgroundColor: ${colors.shimmerColor};
+  backgroundColor: ${({ theme }) => theme.shimmerColor};
 `;
 export const DialogContent = styled.Text`
   marginTop: 20;
@@ -80,7 +84,7 @@ export const PictureDateView = styled.View`
   borderTopLeftRadius: 15;
   borderBottomRightRadius: 15;
   alignItems: center;
-  backgroundColor: #dcdcdcb8;
+  backgroundColor: ${({ theme }) => theme.shimmerColor};
   marginLeft: 5%;
   marginTop: 37;
   width: 90%;
@@ -91,6 +95,7 @@ export const PictureDateView2 = styled.View`
 `;
 export const PictureDateIcon = styled.View``;
 export const PictureDateText = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
   marginLeft: 10;
   marginTop: 3;
   fontSize: 17;
@@ -101,12 +106,13 @@ export const SimilarsView = styled.View`
   marginTop: 35;
 `;
 export const SimilarsText = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
   fontWeight: 600;
   fontSize: 20;
   marginBottom: 30;
 `;
 export const SimilarsScrollView = styled.ScrollView`
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
 `;
 export const SimilarsTouchableHighlight = styled.TouchableHighlight`
   marginRight: 5;
@@ -135,9 +141,9 @@ export const PictureIconsViewRight = styled.View`
 export const PictureIconsViewLeft = styled.View`
   width: 8%;
 `;
-export const PictureIconsIcon = styled(Icon)`
-  color: ${colors.iconColor};
-  marginRight: -3;
+export const PictureIconsIcon = styled(Icon.Button)`
+  backgroundColor: ${({ theme }) => theme.bgColor};
+  height: 100%;
 `;
 export const PictureAuthorView = styled.View`
   flexDirection: row;
@@ -145,10 +151,11 @@ export const PictureAuthorView = styled.View`
   marginBottom: 30;
 `;
 export const PictureAuthorIcon = styled(Icon)`
-  color: ${colors.highlightColor};
+  color: ${({ theme }) => theme.highlightColor};
   marginTop: 2;
 `;
 export const PictureAuthorText = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
   marginLeft: 10;
 `;
 
@@ -161,5 +168,11 @@ export const styles = StyleSheet.create({
   iconButtonStyle: {
     backgroundColor: colors.bgColor,
     height: '100%',
+  },
+  animatedScrollView: {
+    height: Dimensions.get('window').height + 400,
+    marginTop: 370,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
 });
