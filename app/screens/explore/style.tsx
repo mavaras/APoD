@@ -22,13 +22,13 @@ export const LayoutButton = styled(Icon.Button)`
   borderRightColor: ${({ theme }) => theme.borderColor};
 `;
 export const ButtonDisplayLayoutView = styled.View`
-  backgroundColor: ${colors.bgColor};
+  backgroundColor: ${({ theme }) => theme.bgColor};
   width: 12%;
   flex: 1;
   justifyContent: center;
   alignItems: center;
   borderBottomWidth: 2.5;
-  borderBottomColor: ${({ theme }) => theme.borderColor};
+  borderBottomColor: ${({ theme }) => theme.shimmerColor};
 `;
 export const ButtonDisplayLayout = styled(Icon.Button)`
   backgroundColor: ${({ theme }) => theme.bgColor};
@@ -68,14 +68,5 @@ export const styles = StyleSheet.create({
   layoutButtonIcon: {
     color: colors.buttonColor,
     marginLeft: 10,
-  },
-  searchBar: {
-    backgroundColor: colors.bgColor,
-    borderBottomWidth: 2.5,
-    borderBottomColor: colors.borderColor,
-    borderTopColor: colors.bgColor,
-  },
-  layoutDisplayButton: {
-    backgroundColor: colors.bgColor,
   },
 });

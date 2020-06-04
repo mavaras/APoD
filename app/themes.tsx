@@ -12,15 +12,17 @@ const colors = new ThemeManager({
     fontColor: 'black',
     shimmerColor: '#dadadae8',
     iconColor: '#5c5c5c',
+    activeSectionMenuColor: '#007AFF',
   },
   darkTheme: {
-    bgColor: 'red',
+    bgColor: '#131415',
     buttonColor: 'gray',
     borderColor: '#f2f2ff',
     highlightColor: 'blue',
-    fontColor: 'green',
-    shimmerColor: '#dadadae8',
-    iconColor: '#5c5c5c',
+    fontColor: '#fffcf6',
+    shimmerColor: '#2a2f38',
+    iconColor: '#fafaff',
+    activeSectionMenuColor: '#007AFF',
   },
 });
 
@@ -33,15 +35,17 @@ const c = {
     fontColor: 'black',
     shimmerColor: '#dadadae8',
     iconColor: '#5c5c5c',
+    activeSectionMenuColor: '#007AFF',
   },
   darkTheme: {
     bgColor: '#131415',
     buttonColor: 'gray',
-    borderColor: '#f2f2ff',
+    borderColor: '#dadadae8',
     highlightColor: 'blue',
     fontColor: '#fffcf6',
     shimmerColor: '#2a2f38',
     iconColor: '#fafaff',
+    activeSectionMenuColor: '#007AFF',
   },
 };
 
@@ -59,13 +63,14 @@ function ManageThemeProvider({ children }) {
 
   function setTheme(theme: string) {
     setThemeStyle(theme);
+    colors.setTheme(theme);
   }
 
   function getTheme() {
     return themeStyle;
   }
 
-  function getColors() {
+  function getColors() {console.log("-"+getTheme());
     return getTheme() === 'lightTheme' ? c.lightTheme : c.darkTheme;
   }
 

@@ -3,17 +3,19 @@ import {
   FlatList, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, ThemeConsumer } from 'react-native-elements';
 import FirebaseDB from '../../config';
 import * as _ from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import PictureListItem from '../../components/common/PictureListItem';
 import { filterByWord } from '../../utils';
 import Storage from '../../storage';
+import { useTheme } from '../../themes';
 
 
 let flatListRef: typeof FlatList = FlatList;
 function ExploreScreen({ navigation }: any) {
+  const theme = useTheme();
   const DB = FirebaseDB.instance;
   let picturesList: Array<string> = ['notempty'];
   const [picturesLimit, setPicturesLimit] = useState<number>(18);
@@ -130,7 +132,12 @@ function ExploreScreen({ navigation }: any) {
               lightTheme
               round
               inputStyle={{}}
-              containerStyle={_.styles.searchBar}
+              containerStyle={{
+                borderBottomWidth: 2.5,
+                backgroundColor: theme.getColors().bgColor,
+                borderBottomColor: theme.getColors().shimmerColor,
+                borderTopColor: theme.getColors().bgColor,
+              }}
               searchIcon={{ size: 24 }}
               onChangeText={(text: string) => searchFilterFunction(text)}
               onClear={() => searchFilterFunction('')}
@@ -142,8 +149,8 @@ function ExploreScreen({ navigation }: any) {
             <Icon.Button
               name="sliders-h"
               size={20}
-              iconStyle={{ color: 'gray' }}
-              style={_.styles.layoutDisplayButton}
+              iconStyle={{ color: theme.getColors().iconColor }}
+              style={{ backgroundColor: theme.getColors().bgColor }}
               onPress={() => { setShowPopover(!showPopover); }}
             />
           </_.ButtonDisplayLayoutView>
