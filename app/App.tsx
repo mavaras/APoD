@@ -16,15 +16,16 @@ const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function BottomTabNavigator() {
+  const theme = useTheme();
   return (
     <Tabs.Navigator
       tabBarVisible={false}
       tabBarOptions={{
-        activeTintColor: '#007AFF',
+        activeTintColor: theme.getColors().activeSectionMenuColor,
         style: {
-          backgroundColor: 'white',
+          backgroundColor: theme.getColors().bgColor,
           position: 'absolute',
-          borderTopColor: 'white',
+          borderTopColor: theme.getColors().bgColor,
         },
       }}
     >
