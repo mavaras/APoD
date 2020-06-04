@@ -69,6 +69,11 @@ export const ImageShimmer = styled(Shimmer)`
 `;
 export const ImageSmallShimmer = styled(Shimmer)`
   justifyContent: center;
+`;
+export const ImageSmallShimmerInner = styled.Text`
+  width: 100%;
+  backgroundColor: ${({ theme }) => theme.shimmerColor};
+  overflow: hidden;
   borderRadius: 5;
 `;
 export const ShimmerInner = styled.Text`
