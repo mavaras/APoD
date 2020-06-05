@@ -149,7 +149,7 @@ function ExploreScreen({ navigation }: any) {
             <Icon.Button
               name="sliders-h"
               size={20}
-              iconStyle={{ color: theme.getColors().iconColor }}
+              iconStyle={{ color: theme.getColors().buttonColor }}
               style={{ backgroundColor: theme.getColors().bgColor }}
               onPress={() => { setShowPopover(!showPopover); }}
             />
@@ -164,28 +164,56 @@ function ExploreScreen({ navigation }: any) {
               name="grip-vertical"
               size={18}
               iconStyle={_.styles.layoutButtonIcon}
-              style={_.styles.layoutButton}
+              style={[
+                _.styles.layoutButton,
+                {
+                  backgroundColor: theme.getColors().bgColor,
+                  borderRightColor: theme.getColors().bgColor,
+                  borderLeftColor: theme.getColors().bgColor,
+                },
+              ]}
               onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-horizontal"
               size={18}
               iconStyle={_.styles.layoutButtonIcon}
-              style={_.styles.layoutButton}
+              style={[
+                _.styles.layoutButton,
+                {
+                  backgroundColor: theme.getColors().bgColor,
+                  borderRightColor: theme.getColors().bgColor,
+                  borderLeftColor: theme.getColors().bgColor,
+                },
+              ]}
               onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="grip-lines"
               size={18}
               iconStyle={_.styles.layoutButtonIcon}
-              style={_.styles.layoutButton}
+              style={[
+                _.styles.layoutButton,
+                {
+                  backgroundColor: theme.getColors().bgColor,
+                  borderRightColor: theme.getColors().bgColor,
+                  borderLeftColor: theme.getColors().bgColor,
+                },
+              ]}
               onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
             />
             <Icon.Button
               name="list-ul"
               size={18}
               iconStyle={_.styles.layoutButtonIcon}
-              style={_.styles.layoutButton}
+              style={[
+                _.styles.layoutButton,
+                {
+                  backgroundColor: theme.getColors().bgColor,
+                  borderRightColor: theme.getColors().bgColor,
+                  borderLeftColor: theme.getColors().bgColor,
+                },
+              ]}
               onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
             />
           </_.LayoutButtonsView>
@@ -194,7 +222,14 @@ function ExploreScreen({ navigation }: any) {
               name="heart"
               size={18}
               iconStyle={[_.styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
-              style={_.styles.layoutButton}
+              style={[
+                _.styles.layoutButton,
+                {
+                  backgroundColor: theme.getColors().bgColor,
+                  borderRightColor: theme.getColors().bgColor,
+                  borderLeftColor: theme.getColors().bgColor,
+                },
+              ]}
               onPress={handleShowFavourites}
             />
           </_.HeartButtonView>

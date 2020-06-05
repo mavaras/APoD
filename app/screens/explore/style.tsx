@@ -58,12 +58,9 @@ export const ActivityIndicator = styled.ActivityIndicator`
 
 export const styles = StyleSheet.create({
   layoutButton: {
-    backgroundColor: colors.bgColor,
     height: '100%',
     borderLeftWidth: 1,
-    borderLeftColor: colors.borderColor,
     borderRightWidth: 1,
-    borderRightColor: colors.borderColor,
   },
   layoutButtonIcon: {
     color: colors.buttonColor,
