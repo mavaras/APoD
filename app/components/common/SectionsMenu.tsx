@@ -42,7 +42,7 @@ function SectionsMenu({ items }) {
                 flexDirection: 'row',
                 alignItems: 'center',
               },
-              index % 2 === 0 && sectionItems.length > 1
+              index < sectionItems.length - 1 && sectionItems.length > 1
                 ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
                 : {},
               ]}
@@ -51,7 +51,7 @@ function SectionsMenu({ items }) {
             >
               <RowTouchableView>
                 <RowText>{item.title}</RowText>
-                <Icon name={item.iconName} size={26} style={[{ width: '8%'}, item.extraStyle]} />
+                <Icon name={item.iconName} size={26} style={[{ width: '8%' }, item.extraStyle]} />
               </RowTouchableView>
             </TouchableHighlight>
           ))}

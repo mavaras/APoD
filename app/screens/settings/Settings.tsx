@@ -15,13 +15,7 @@ function SettingsScreen() {
   const [items, setItems] = useState<Array<Array<Object>>>([
     [
       {
-        title: 'notifications',
-        iconName: 'bell',
-        extraStyle: { color: '#5b84c2' },
-        action: () => handleNotifications(),
-      },
-      {
-        title: 'appearance',
+        title: 'Appearance',
         iconName: 'map',
         extraStyle: { color: '#719259e8' },
         action: () => changeTheme(),
@@ -29,21 +23,27 @@ function SettingsScreen() {
     ],
     [
       {
-        title: 'github',
-        iconName: 'github',
-        extraStyle: {},
-        action: () => Linking.openURL('https://www.github.com/mavaras/APoD'),
-      },
-      {
-        title: 'buy me a coffee',
+        title: 'Buy me a coffee',
         iconName: 'coffee',
         extraStyle: { color: 'brown' },
         action: () => Linking.openURL('https://www.buymeacoffee.com/mavaras'),
       },
+      {
+        title: 'Source code',
+        iconName: 'github',
+        extraStyle: { color: '#2a2f38' },
+        action: () => Linking.openURL('https://www.github.com/mavaras/APoD'),
+      },
+      {
+        title: 'Report an issue',
+        iconName: 'wrench',
+        extraStyle: { color: '#384f7e' },
+        action: () => Linking.openURL('https://www.github.com/mavaras/APoD/issues'),
+      },
     ],
     [
       {
-        title: 'rate this app',
+        title: 'Rate this app',
         iconName: 'star',
         extraStyle: { color: 'orange' },
         action: () => Linking.openURL(''),
@@ -51,25 +51,16 @@ function SettingsScreen() {
     ],
   ]);
 
-  async function handleNotifications() {
-    notifications = !notifications;
-    let auxItems: Array<Array<Object>> = [...items];
-    auxItems[0][0].iconName = notifications ? 'bell-slash' : 'bell';
-    setItems(auxItems);
+  async function changeTheme() {
+    theme.setTheme(theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme');
   }
 
-  async function changeTheme() {
-    console.log(theme.getTheme());
-    theme.setTheme(theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme');
-    console.log(theme.getTheme());
-  }
-console.log("rerender");
   return (
-      <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: '#ececece8' }}>
-        <ScrollView>
-          <SectionsMenu items={items} />
-        </ScrollView>
-      </SafeAreaView>
+    <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: '#ececece8' }}>
+      <ScrollView>
+        <SectionsMenu items={items} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
