@@ -27,7 +27,7 @@ const RowText = styled.Text`
 `;
 
 function SectionsMenu({ items }) {
-  const theme = useTheme();console.log(theme.getTheme());
+  const theme = useTheme();
 
   return (
     <ScrollView>

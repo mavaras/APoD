@@ -29,6 +29,7 @@ const colors = new ThemeManager({
 const c = {
   lightTheme: {
     bgColor: 'white',
+    bgColor2: '#ececece8',
     buttonColor: 'gray',
     borderColor: '#f2f2ff',
     highlightColor: 'black',
@@ -39,6 +40,7 @@ const c = {
   },
   darkTheme: {
     bgColor: '#131415',
+    bgColor2: '#2a2f38',
     buttonColor: 'gray',
     borderColor: '#dadadae8',
     highlightColor: 'blue',
@@ -59,24 +61,27 @@ const ThemeContext = createContext({
 export const useTheme = () => useContext(ThemeContext);
 
 function ManageThemeProvider({ children }) {
-  const [themeStyle, setThemeStyle] = useState('lightTheme');
+  const theme = useTheme();
+  const [themeStyle, setThemeStyle] = useState(theme.getTheme());
 
-  function setTheme(theme: string) {
-    setThemeStyle(theme);
-    colors.setTheme(theme);
+  function setTheme(newTheme: string) {
+    theme.setTheme(newTheme);
+    setThemeStyle(newTheme);
   }
 
   function getTheme() {
-    return themeStyle;
+    return theme.getTheme();
   }
 
-  function getColors() {console.log("-"+getTheme());
-    return getTheme() === 'lightTheme' ? c.lightTheme : c.darkTheme;
+  function getColors() {
+    return theme.getTheme() === 'lightTheme' ? c.lightTheme : c.darkTheme;
   }
 
   return (
     <ThemeContext.Provider
-      value={{ theme: themeStyle, setTheme, getTheme, getColors }}
+      value={{
+        themeStyle, setTheme, getTheme, getColors,
+      }}
     >
       <ThemeProvider theme={themeStyle === 'lightTheme' ? c.lightTheme : c.darkTheme}>
         {children}
