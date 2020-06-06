@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Text, Animated,
+  Animated,
   TouchableHighlight,
   View, Platform, Dimensions,
 } from 'react-native';
@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
 import * as _ from './style';
 import Video from '../Video/VideoComponent';
-import { requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
+import { capitalize, requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 import Storage from '../../storage';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { useTheme } from '../../themes';
@@ -188,7 +188,7 @@ function Picture({ attrs, similars, navigation }: any) {
         />
       </Modal>
       <TouchableHighlight
-        style={{backgroundColor: 'red',
+        style={{
           borderColor: 'white',
           marginLeft: '90%',
           width: 10,
@@ -230,7 +230,7 @@ function Picture({ attrs, similars, navigation }: any) {
           <_.DialogContent>Photo succesfully downloaded!</_.DialogContent>
         </DialogContent>
       </Dialog>
-      {!['youtube', 'vimeo'].some((aux) => attrs.url.split(/[/.]/).includes(aux))
+      {!['youtube', 'vimeo'].some((aux) => attrs.url?.split(/[/.]/).includes(aux))
         ? (
           <_.TouchableHighlight
             ref={(r) => { imageRef = r; }}
@@ -294,7 +294,7 @@ function Picture({ attrs, similars, navigation }: any) {
                     </_.PictureAuthorView>
                   ) : undefined}
                 <_.PictureDescription>
-                  {attrs.explanation}
+                  {capitalize(attrs.explanation)}
                 </_.PictureDescription>
               </_.PictureInfoView>
             </View>
@@ -304,7 +304,7 @@ function Picture({ attrs, similars, navigation }: any) {
           <_.PictureDateView2>
             <Icon name="calendar" size={26} style={{ color: theme.getColors().fontColor }} />
             <_.PictureDateText>
-              {formatDate(attrs.date)}
+              {attrs.date ? formatDate(attrs.date) : undefined}
             </_.PictureDateText>
           </_.PictureDateView2>
         </_.PictureDateView>

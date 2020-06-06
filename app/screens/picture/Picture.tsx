@@ -3,7 +3,9 @@ import { NASA_API_KEY } from 'react-native-dotenv';
 import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
+import WaitingScreen from '../loading/WaitinScreen';
 import { filterByWord, shuffleArray } from '../../utils';
+import { saveToCameraRoll } from '@react-native-community/cameraroll';
 
 
 function usePrevious(value) {
@@ -17,6 +19,7 @@ function usePrevious(value) {
 function PictureScreen({ route, navigation }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   const [loading, setLoading] = useState<Boolean>(true);
+  const [error, setError] = useState<Boolean>(true);
   const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
   const [response, setResponse] = useState<{[string: string]: string}>({});
   const responseAux = usePrevious(response);
@@ -36,12 +39,12 @@ function PictureScreen({ route, navigation }: any) {
             // eslint-disable-next-line prefer-template
             const todayDate: string = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
             mustQuery = todayDate !== lastPicture.date;
-          });console.log(mustQuery);
+          });
         if (mustQuery) {
           fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
             .then((_response) => _response.json())
             .then((responseJson) => {
-              if (!('error' in responseJson)) {
+              if (!('error' in responseJson) && responseJson) {
                 setResponse(responseJson);
                 DB.pictures
                   .orderByChild('title')
@@ -60,10 +63,11 @@ function PictureScreen({ route, navigation }: any) {
                     }
                   });
               } else {
+                setError(true);
                 throw new Error('error in response');
               }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.log('error' + error));
         } else {
           setResponse(lastPicture);
         }
@@ -98,6 +102,11 @@ function PictureScreen({ route, navigation }: any) {
     }
   }, [response]);
 
+  if (error) {
+    return (
+      <WaitingScreen />
+    );
+  }
   if (loading) {
     return (
       <LoadingScreen />

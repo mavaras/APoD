@@ -30,6 +30,10 @@ export function filterByWord(array: any[], text: string) {
     element.title.toLowerCase().includes(text.toLowerCase()));
 }
 
+export function capitalize(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
 export async function requestStorageRuntimePermissionAndroid() {
   try {
     const granted = await PermissionsAndroid.request(
