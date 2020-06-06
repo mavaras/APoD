@@ -47,30 +47,41 @@ function BottomTabNavigator() {
   );
 }
 
-function StackNavigator() {
+function StackNavigatorContainer() {
   const theme = useTheme();
   return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Back"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Explore Picture"
+          component={PictureScreen}
+          options={{
+            headerTitleStyle: { color: theme.getColors().fontColor },
+            headerStyle: { backgroundColor: theme.getColors().bgColor },
+          }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            headerTitleStyle: { color: theme.getColors().fontColor },
+            headerStyle: { backgroundColor: theme.getColors().bgColor },
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function StackNavigator() {
+  return (
     <ThemeHandler>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Back"
-            component={BottomTabNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Explore Picture"
-            component={PictureScreen}
-            options={{
-              headerTitleStyle: { color: 'white' },
-            }}
-          />
-          <Stack.Screen
-            name="Settings"
-            component={SettingsScreen}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <StackNavigatorContainer />
     </ThemeHandler>
   );
 }
