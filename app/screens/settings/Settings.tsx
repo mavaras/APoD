@@ -56,7 +56,7 @@ function SettingsScreen() {
   }
 
   return (
-    <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: '#ececece8' }}>
+    <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: theme.getColors().bgColor2 }}>
       <ScrollView>
         <SectionsMenu items={items} />
       </ScrollView>
