@@ -19,7 +19,7 @@ function usePrevious(value) {
 function PictureScreen({ route, navigation }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   const [loading, setLoading] = useState<Boolean>(true);
-  const [error, setError] = useState<Boolean>(true);
+  const [error, setError] = useState<Boolean>(false);
   const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
   const [response, setResponse] = useState<{[string: string]: string}>({});
   const responseAux = usePrevious(response);
