@@ -3,7 +3,7 @@ import { NASA_API_KEY } from 'react-native-dotenv';
 import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
-import WaitingScreen from '../loading/WaitinScreen';
+import WaitingScreen from '../loading/WaitingScreen';
 import { filterByWord, shuffleArray } from '../../utils';
 import { saveToCameraRoll } from '@react-native-community/cameraroll';
 
