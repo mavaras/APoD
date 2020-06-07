@@ -6,7 +6,7 @@ import { useTheme } from '../../themes';
 
 function WaitingScreen() {
   const theme = useTheme();
-  let animation = require('../../res/animations/planet.json');
+  let animation = require('../../res/animations/planet.json'); // eslint-disable-line global-require
 
   useEffect(() => {
     animation.play();

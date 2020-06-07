@@ -31,13 +31,13 @@ const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 function Picture({ attrs, similars, navigation }: any) {
   const theme = useTheme();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [openZoomModal, setOpenZoomModal] = useState(false);
-  let [loadingImage, setLoadingImage] = useState(true);
-  const [downloading, setDownloading] = useState(false);
-  const [isFavourite, setIsFavourite] = useState<Boolean>(false);
-  const [showAlert, setShowAlert] = useState(false);
-  const [, setButtonRect] = useState({
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
+  let [loadingImage, setLoadingImage] = useState<boolean>(true);
+  const [downloading, setDownloading] = useState<boolean>(false);
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [, setButtonRect] = useState<object>({
     x: 0, y: 0, width: 0, height: 0,
   });
   const [scrollY] = useState(new Animated.Value(0));

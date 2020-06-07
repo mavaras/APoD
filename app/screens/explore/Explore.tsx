@@ -20,10 +20,10 @@ function ExploreScreen({ navigation }: any) {
   let picturesList: Array<string> = ['notempty'];
   const [picturesLimit, setPicturesLimit] = useState<number>(18);
   const [loading, setLoading] = useState<Boolean>(false);
-  const [showFavourites, setShowFavourites] = useState<Boolean>(false);
-  const [refreshing, setRefreshing] = useState<Boolean>(false);
-  const [searching, setSearching] = useState<Boolean>(false);
-  const [showPopover, setShowPopover] = useState<Boolean>(false);
+  const [showFavourites, setShowFavourites] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [searching, setSearching] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [pictures, setPictures] = useState<Array<{[string: string]: string}>>([]);
   const [picturesAux, setPicturesAux] = useState<Array<{[string: string]: string}>>([]);

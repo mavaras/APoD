@@ -5,7 +5,7 @@ import styles from './style';
 
 
 function LoadingScreen() {
-  let animation = require('../../res/animations/loading_line.json'); // eslint-disable-line no-undef
+  let animation = require('../../res/animations/loading_line.json'); // eslint-disable-line no-undef, global-require
 
   useEffect(() => {
     animation.play();
