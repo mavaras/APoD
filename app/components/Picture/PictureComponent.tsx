@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
 import * as _ from './style';
 import Video from '../Video/VideoComponent';
+import CarouselPictureList from '../common/CarouselImageList';
 import { capitalize, requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
 import Storage from '../../storage';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -341,32 +342,7 @@ function Picture({ attrs, similars, navigation }: any) {
             />
           </_.PictureIconsViewRight>
         </_.PictureIconsView>
-        {Object.keys(similars).length !== 0
-          ? (
-            <_.SimilarsView>
-              <_.SimilarsText>Similar Pictures</_.SimilarsText>
-              <_.SimilarsScrollView
-                horizontal={true}
-                contentContainerStyle={{ height: 300 }}
-                showsHorizontalScrollIndicator={false}
-                scrollEventThrottle={200}
-                decelerationRate="fast"
-                pagingEnabled
-              >
-                {similars?.map((picture) => (
-                  <_.SimilarsTouchableHighlight
-                    underlayColor="none"
-                    onPress={() => {
-                      navigation.push('Explore Picture', { attrs: picture });
-                    }}
-                  >
-                    <_.ImageSimilars source={{ uri: picture.url }} />
-                  </_.SimilarsTouchableHighlight>
-                ))}
-              </_.SimilarsScrollView>
-            </_.SimilarsView>
-          )
-          : undefined}
+        <CarouselPictureList navigation={navigation} list={similars} />
       </Animated.ScrollView>
     </_.SafeAreaView>
   );
