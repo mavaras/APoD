@@ -201,7 +201,7 @@ function Picture({ attrs, similars, navigation }: any) {
           size={22}
           iconStyle={{ color: 'white' }}
           style={{
-            color: theme.getColors().fontColor,
+            color: theme.getColors().buttonColor,
             backgroundColor: theme.getColors().bgColor,
             width: 60,
           }}

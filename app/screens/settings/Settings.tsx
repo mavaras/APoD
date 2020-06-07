@@ -10,8 +10,6 @@ import { useTheme } from '../../themes';
 
 function SettingsScreen() {
   const theme = useTheme();
-  let [notifications] = useState<Boolean>(false);
-  let [currTheme, setCurrTheme] = useState<string>();
   const [items, setItems] = useState<Array<Array<Object>>>([
     [
       {

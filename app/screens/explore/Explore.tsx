@@ -3,7 +3,7 @@ import {
   FlatList, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SearchBar, ThemeConsumer } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 import FirebaseDB from '../../config';
 import * as _ from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';

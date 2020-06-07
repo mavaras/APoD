@@ -5,16 +5,7 @@ import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
 import WaitingScreen from '../loading/WaitingScreen';
 import { filterByWord, shuffleArray } from '../../utils';
-import { saveToCameraRoll } from '@react-native-community/cameraroll';
 
-
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
 
 function PictureScreen({ route, navigation }: any) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
@@ -22,7 +13,6 @@ function PictureScreen({ route, navigation }: any) {
   const [error, setError] = useState<Boolean>(false);
   const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
   const [response, setResponse] = useState<{[string: string]: string}>({});
-  const responseAux = usePrevious(response);
   const [similars, setSimilars] = useState<{[string: string]: string}>({});
 
   async function fetchData() {

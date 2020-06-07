@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import ThemeManager from 'react-native-color-theme';
 import { ThemeProvider } from 'styled-components/native';
 

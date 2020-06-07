@@ -2,8 +2,6 @@ import React from 'react';
 import { TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
-import ThemeManager, { useTheme } from '../../themes';
-import { ThemeProvider } from 'styled-components/native';
 
 
 const ScrollView = styled.ScrollView`
@@ -27,8 +25,6 @@ const RowText = styled.Text`
 `;
 
 function SectionsMenu({ items }) {
-  const theme = useTheme();
-
   return (
     <ScrollView>
       {items.map((sectionItems: Array<Object>) => (
