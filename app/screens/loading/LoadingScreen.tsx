@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
-import Animation from 'lottie-react-native';
-import styles from './style';
+import * as _ from './style';
 
 
 function LoadingScreen() {
@@ -12,13 +10,12 @@ function LoadingScreen() {
   }, []);
 
   return (
-    <View style={styles.animationView}>
-      <Animation
-        ref={(animationn) => { animation = animationn; }}
-        style={styles.lottieComponent}
+    <_.AnimationView>
+      <_.LottieComponent
+        ref={(animationRef) => { animation = animationRef; }}
         source={animation}
       />
-    </View>
+    </_.AnimationView>
   );
 }
 

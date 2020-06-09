@@ -1,14 +1,14 @@
-import { StyleSheet } from 'react-native';
+import Animation from 'lottie-react-native';
+import styled from 'styled-components';
 
 
-export default StyleSheet.create({
-  animationView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  lottieComponent: {
-    width: 700,
-    height: 300,
-  },
-});
+export const AnimationView = styled.View`
+  backgroundColor: ${({ theme }) => theme.bgColor};
+  flex: 1;
+  justifyContent: center;
+  alignItems: center;
+`;
+export const LottieComponent = styled(Animation)`
+  width: 700;
+  height: 300;
+`;
