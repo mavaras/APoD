@@ -11,6 +11,7 @@ import PictureListItem from '../../components/common/PictureListItem';
 import { filterByWord } from '../../utils';
 import Storage from '../../storage';
 import { useTheme } from '../../themes';
+import LoadingScreen from '../loading/LoadingScreen';
 
 
 let flatListRef: typeof FlatList = FlatList;
@@ -126,7 +127,9 @@ function ExploreScreen({ navigation }: any) {
   }
 
   if (loading) {
-    return null;
+    return (
+      <LoadingScreen />
+    );
   }
   return (
     <_.SafeAreaView>
