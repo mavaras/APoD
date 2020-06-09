@@ -4,7 +4,7 @@ import FirebaseDB from '../../config';
 import Picture from '../../components/Picture/PictureComponent';
 import LoadingScreen from '../loading/LoadingScreen';
 import WaitingScreen from '../loading/WaitingScreen';
-import { filterByWord, shuffleArray } from '../../utils';
+import { filterByWord, shuffleArray } from '../../utils/utils';
 
 
 function PictureScreen({ route, navigation }: any) {

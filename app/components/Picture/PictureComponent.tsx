@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Animated,
   TouchableHighlight,
-  View, Platform, Dimensions,
+  View, Platform, Dimensions, Text,
 } from 'react-native';
 import Dialog, {
   DialogButton,
@@ -21,7 +21,8 @@ import RNFetchBlob from 'rn-fetch-blob';
 import * as _ from './style';
 import Video from '../Video/VideoComponent';
 import CarouselPictureList from '../common/CarouselImageList';
-import { capitalize, requestStorageRuntimePermissionAndroid, formatDate } from '../../utils';
+import AnimationLayout from '../common/AnimationLayout';
+import { capitalize, requestStorageRuntimePermissionAndroid, formatDate } from '../../utils/utils';
 import Storage from '../../storage';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { useTheme } from '../../themes';
@@ -30,6 +31,7 @@ import { useTheme } from '../../themes';
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 function Picture({ attrs, similars, navigation }: any) {
+  const downloadingAnimation = require('../../res/animations/planet.json');
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
@@ -176,6 +178,11 @@ function Picture({ attrs, similars, navigation }: any) {
 
   return (
     <_.SafeAreaView>
+      <AnimationLayout
+        animation={downloadingAnimation}
+        text="Downloading picture..."
+        render={downloading}
+      />
       <Modal
         visible={openZoomModal}
         transparent={true}

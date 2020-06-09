@@ -8,7 +8,7 @@ import FirebaseDB from '../../config';
 import * as _ from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import PictureListItem from '../../components/common/PictureListItem';
-import { filterByWord } from '../../utils';
+import { filterByWord } from '../../utils/utils';
 import Storage from '../../storage';
 import { useTheme } from '../../themes';
 import LoadingScreen from '../loading/LoadingScreen';
