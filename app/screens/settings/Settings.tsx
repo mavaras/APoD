@@ -4,44 +4,46 @@ import {
   SafeAreaView, Dimensions,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
 import SectionsMenu from '../../components/common/SectionsMenu';
 import { useTheme } from '../../themes';
 
 
 function SettingsScreen() {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [items, setItems] = useState<Array<Array<Object>>>([
     [
       {
-        title: 'Appearance',
-        iconName: 'map',
-        extraStyle: { color: '#719259e8' },
+        title: t('settings.labels.appearance'),
+        iconName: 'circle',
+        extraStyle: { color: theme.getTheme() === 'lightTheme' ? 'black' : 'white'},
         action: () => changeTheme(),
       },
     ],
     [
       {
-        title: 'Buy me a coffee',
+        title: t('settings.labels.buyMeACoffee'),
         iconName: 'coffee',
         extraStyle: { color: 'brown' },
-        action: () => Linking.openURL('https://www.buymeacoffee.com/mavaras'),
+        action: () => Linking.openURL(t('settings.links.buyMeACoffee')),
       },
       {
-        title: 'Source code',
+        title: t('settings.labels.repo'),
         iconName: 'github',
         extraStyle: { color: '#2a2f38' },
-        action: () => Linking.openURL('https://www.github.com/mavaras/APoD'),
+        action: () => Linking.openURL(t('settings.links.repo')),
       },
       {
-        title: 'Report an issue',
+        title: t('settings.labels.issues'),
         iconName: 'wrench',
         extraStyle: { color: '#384f7e' },
-        action: () => Linking.openURL('https://www.github.com/mavaras/APoD/issues'),
+        action: () => Linking.openURL(t('settings.links.issues')),
       },
     ],
     [
       {
-        title: 'Rate this app',
+        title: t('settings.labels.rateApp'),
         iconName: 'star',
         extraStyle: { color: 'orange' },
         action: () => Linking.openURL(''),
