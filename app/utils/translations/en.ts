@@ -25,4 +25,7 @@ export const enTranslations: ResourceLanguage = {
     downloadPictureSuccess: 'Image succesfully downloaded!',
     similarsLabel: 'Similar Pictures',
   },
+  others: {
+    waitingScreen: "Today's APoD will appear soon.\nStay tuned!",
+  },
 };
