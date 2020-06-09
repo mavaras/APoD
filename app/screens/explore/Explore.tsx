@@ -113,176 +113,177 @@ function ExploreScreen({ navigation }: any) {
   }
 
   async function handleShowFavourites() {
-    setShowFavourites(!showFavourites);
-    if (!showFavourites) {
-      const favourites = await Storage.getItem('@favourites');
-      setPictures(JSON.parse(favourites));
-      scrollToTop();
-    } else {
-      setPictures(picturesAux);
-    }
+    setTimeout(async () => {
+      setShowFavourites(!showFavourites);
+      if (!showFavourites) {
+        const favourites = await Storage.getItem('@favourites');
+        setPictures(JSON.parse(favourites));
+        scrollToTop();
+      } else {
+        setPictures(picturesAux);
+      }
+    }, 200);
   }
 
-  if (!loading) {
-    return (
-      <_.SafeAreaView>
-        <_.TopLayoutView>
-          <_.SearchInputView>
-            <SearchBar
-              lightTheme
-              round
-              inputStyle={{}}
-              containerStyle={{
-                borderBottomWidth: 2.5,
+  if (loading) {
+    return null;
+  }
+  return (
+    <_.SafeAreaView>
+      <_.TopLayoutView>
+        <_.SearchInputView>
+          <SearchBar
+            lightTheme
+            round
+            inputStyle={{}}
+            containerStyle={{
+              borderBottomWidth: 2.5,
+              backgroundColor: theme.getColors().bgColor,
+              borderBottomColor: theme.getColors().shimmerColor,
+              borderTopColor: theme.getColors().bgColor,
+            }}
+            searchIcon={{ size: 24 }}
+            onChangeText={(text: string) => searchFilterFunction(text)}
+            onClear={() => searchFilterFunction('')}
+            placeholder="Search pictures..."
+            value={search}
+          />
+        </_.SearchInputView>
+        <_.ButtonDisplayLayoutView>
+          <Icon.Button
+            name="sliders-h"
+            size={20}
+            iconStyle={{ color: theme.getColors().buttonColor }}
+            style={{ backgroundColor: theme.getColors().bgColor }}
+            onPress={() => { setShowPopover(!showPopover); }}
+          />
+        </_.ButtonDisplayLayoutView>
+      </_.TopLayoutView>
+      <View
+        style={[{ justifyContent: 'space-between', flexDirection: 'row' },
+          showPopover ? { height: 45 } : { height: 0 }]}
+      >
+        <_.LayoutButtonsView>
+          <Icon.Button
+            name="grip-vertical"
+            size={18}
+            iconStyle={_.styles.layoutButtonIcon}
+            style={[
+              _.styles.layoutButton,
+              {
                 backgroundColor: theme.getColors().bgColor,
-                borderBottomColor: theme.getColors().shimmerColor,
-                borderTopColor: theme.getColors().bgColor,
-              }}
-              searchIcon={{ size: 24 }}
-              onChangeText={(text: string) => searchFilterFunction(text)}
-              onClear={() => searchFilterFunction('')}
-              placeholder="Search pictures..."
-              value={search}
-            />
-          </_.SearchInputView>
-          <_.ButtonDisplayLayoutView>
-            <Icon.Button
-              name="sliders-h"
-              size={20}
-              iconStyle={{ color: theme.getColors().buttonColor }}
-              style={{ backgroundColor: theme.getColors().bgColor }}
-              onPress={() => { setShowPopover(!showPopover); }}
-            />
-          </_.ButtonDisplayLayoutView>
-        </_.TopLayoutView>
-        <View
-          style={[{ justifyContent: 'space-between', flexDirection: 'row' },
-            showPopover ? { height: 45 } : { height: 0 }]}
-        >
-          <_.LayoutButtonsView>
-            <Icon.Button
-              name="grip-vertical"
-              size={18}
-              iconStyle={_.styles.layoutButtonIcon}
-              style={[
-                _.styles.layoutButton,
-                {
-                  backgroundColor: theme.getColors().bgColor,
-                  borderRightColor: theme.getColors().bgColor,
-                  borderLeftColor: theme.getColors().bgColor,
-                },
-              ]}
-              onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
-            />
-            <Icon.Button
-              name="grip-horizontal"
-              size={18}
-              iconStyle={_.styles.layoutButtonIcon}
-              style={[
-                _.styles.layoutButton,
-                {
-                  backgroundColor: theme.getColors().bgColor,
-                  borderRightColor: theme.getColors().bgColor,
-                  borderLeftColor: theme.getColors().bgColor,
-                },
-              ]}
-              onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
-            />
-            <Icon.Button
-              name="grip-lines"
-              size={18}
-              iconStyle={_.styles.layoutButtonIcon}
-              style={[
-                _.styles.layoutButton,
-                {
-                  backgroundColor: theme.getColors().bgColor,
-                  borderRightColor: theme.getColors().bgColor,
-                  borderLeftColor: theme.getColors().bgColor,
-                },
-              ]}
-              onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
-            />
-            <Icon.Button
-              name="list-ul"
-              size={18}
-              iconStyle={_.styles.layoutButtonIcon}
-              style={[
-                _.styles.layoutButton,
-                {
-                  backgroundColor: theme.getColors().bgColor,
-                  borderRightColor: theme.getColors().bgColor,
-                  borderLeftColor: theme.getColors().bgColor,
-                },
-              ]}
-              onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
-            />
-          </_.LayoutButtonsView>
-          <_.HeartButtonView>
-            <Icon.Button
-              name="heart"
-              size={18}
-              iconStyle={[_.styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
-              style={[
-                _.styles.layoutButton,
-                {
-                  backgroundColor: theme.getColors().bgColor,
-                  borderRightColor: theme.getColors().bgColor,
-                  borderLeftColor: theme.getColors().bgColor,
-                },
-              ]}
-              onPress={handleShowFavourites}
-            />
-          </_.HeartButtonView>
-        </View>
-        <_.FlatList
-          inverted={searching || showFavourites}
-          ListFooterComponent={renderFooter.bind(this)}
-          onEndReached={() => {
-            if (!refreshing && !searching && !showFavourites) {
-              setRefreshing(true);
-              setTimeout(() => getNextItems(), 3000);
-            }
-          }}
-          onEndReachedThreshold={0.1}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
-          ref={(ref: typeof FlatList) => {
-            if (ref) {
-              setTimeout(() => flatListRef = ref, 100);
-            }
-          }}
-          key={cols}
-          data={pictures}
-          extraData={pictures}
-          getItemLayout={(data, indx) => ({
-            length: [400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1],
-            offset: ([400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1]) * indx,
-            index: indx,
-          })}
-          renderItem={({ item, index }) => {
-            return (
-              displayStyle === 'list'
-                ? (
-                  <PictureListItem
-                    navigation={navigation}
-                    item={item}
-                  />
-                ) : (
-                  <PictureSmall
-                    picture={item}
-                    cols={cols}
-                    index={index}
-                    navigation={navigation}
-                  />
-                ));
-          }}
-          keyExtractor={(item) => item.title.toString()}
-          numColumns={cols}
-        />
-      </_.SafeAreaView>
-    );
-  }
-
-  return null; // temporary call
+                borderRightColor: theme.getColors().bgColor,
+                borderLeftColor: theme.getColors().bgColor,
+              },
+            ]}
+            onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
+          />
+          <Icon.Button
+            name="grip-horizontal"
+            size={18}
+            iconStyle={_.styles.layoutButtonIcon}
+            style={[
+              _.styles.layoutButton,
+              {
+                backgroundColor: theme.getColors().bgColor,
+                borderRightColor: theme.getColors().bgColor,
+                borderLeftColor: theme.getColors().bgColor,
+              },
+            ]}
+            onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
+          />
+          <Icon.Button
+            name="grip-lines"
+            size={18}
+            iconStyle={_.styles.layoutButtonIcon}
+            style={[
+              _.styles.layoutButton,
+              {
+                backgroundColor: theme.getColors().bgColor,
+                borderRightColor: theme.getColors().bgColor,
+                borderLeftColor: theme.getColors().bgColor,
+              },
+            ]}
+            onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
+          />
+          <Icon.Button
+            name="list-ul"
+            size={18}
+            iconStyle={_.styles.layoutButtonIcon}
+            style={[
+              _.styles.layoutButton,
+              {
+                backgroundColor: theme.getColors().bgColor,
+                borderRightColor: theme.getColors().bgColor,
+                borderLeftColor: theme.getColors().bgColor,
+              },
+            ]}
+            onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
+          />
+        </_.LayoutButtonsView>
+        <_.HeartButtonView>
+          <Icon.Button
+            name="heart"
+            size={18}
+            iconStyle={[_.styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
+            style={[
+              _.styles.layoutButton,
+              {
+                backgroundColor: theme.getColors().bgColor,
+                borderRightColor: theme.getColors().bgColor,
+                borderLeftColor: theme.getColors().bgColor,
+              },
+            ]}
+            onPress={handleShowFavourites}
+          />
+        </_.HeartButtonView>
+      </View>
+      <_.FlatList
+        inverted={searching || showFavourites}
+        ListFooterComponent={renderFooter.bind(this)}
+        onEndReached={() => {
+          if (!refreshing && !searching && !showFavourites) {
+            setRefreshing(true);
+            setTimeout(() => getNextItems(), 3000);
+          }
+        }}
+        onEndReachedThreshold={0.1}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
+        ref={(ref: typeof FlatList) => {
+          if (ref) {
+            setTimeout(() => flatListRef = ref, 100);
+          }
+        }}
+        key={cols}
+        data={pictures}
+        extraData={pictures}
+        getItemLayout={(data, indx) => ({
+          length: [400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1],
+          offset: ([400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1]) * indx,
+          index: indx,
+        })}
+        renderItem={({ item, index }) => {
+          return (
+            displayStyle === 'list'
+              ? (
+                <PictureListItem
+                  navigation={navigation}
+                  item={item}
+                />
+              ) : (
+                <PictureSmall
+                  picture={item}
+                  cols={cols}
+                  index={index}
+                  navigation={navigation}
+                />
+              ));
+        }}
+        keyExtractor={(item) => item.title.toString()}
+        numColumns={cols}
+      />
+    </_.SafeAreaView>
+  );
 }
 
 export default ExploreScreen;
