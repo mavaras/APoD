@@ -22,7 +22,7 @@ export const enTranslations: ResourceLanguage = {
   },
   picture: {
     downloadingPicture: 'Downloading picture...',
-    downloadPictureSuccess: 'Photo succesfully downloaded!',
+    downloadPictureSuccess: 'Image succesfully downloaded!',
     similarsLabel: 'Similar Pictures',
   },
 };
