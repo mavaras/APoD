@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../themes';
 
 
@@ -32,13 +33,14 @@ export const ImageSimilars = styled.Image`
 
 function CarouselPictureList({ navigation, list }) {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   if (Object.keys(list).length === 0) {
     return (null);
   }
   return (
     <SimilarsView>
-      <SimilarsText>Similar Pictures</SimilarsText>
+      <SimilarsText>{t('picture.similarsLabel')}</SimilarsText>
       <SimilarsScrollView
         horizontal={true}
         contentContainerStyle={{ height: 300 }}

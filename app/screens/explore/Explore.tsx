@@ -5,6 +5,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SearchBar } from 'react-native-elements';
 import FirebaseDB from '../../config';
+import { useTranslation } from 'react-i18next';
 import * as _ from './style';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import PictureListItem from '../../components/common/PictureListItem';
@@ -17,7 +18,9 @@ import LoadingScreen from '../loading/LoadingScreen';
 let flatListRef: typeof FlatList = FlatList;
 function ExploreScreen({ navigation }: any) {
   const theme = useTheme();
+  const { t } = useTranslation();
   const DB = FirebaseDB.instance;
+
   let picturesList: Array<string> = ['notempty'];
   const [picturesLimit, setPicturesLimit] = useState<number>(18);
   const [loading, setLoading] = useState<Boolean>(false);
@@ -148,7 +151,7 @@ function ExploreScreen({ navigation }: any) {
             searchIcon={{ size: 24 }}
             onChangeText={(text: string) => searchFilterFunction(text)}
             onClear={() => searchFilterFunction('')}
-            placeholder="Search pictures..."
+            placeholder={t('explore.searchBarPlaceholder')}
             value={search}
           />
         </_.SearchInputView>

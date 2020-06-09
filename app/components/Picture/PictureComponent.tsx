@@ -18,6 +18,7 @@ import ImgToBase64 from 'react-native-image-base64';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
+import { useTranslation } from 'react-i18next';
 import * as _ from './style';
 import Video from '../Video/VideoComponent';
 import CarouselPictureList from '../common/CarouselImageList';
@@ -31,8 +32,10 @@ import { useTheme } from '../../themes';
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 function Picture({ attrs, similars, navigation }: any) {
-  const downloadingAnimation = require('../../res/animations/planet.json');
   const theme = useTheme();
+  const { t } = useTranslation();
+  const downloadingAnimation = require('../../res/animations/planet.json');
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
   let [loadingImage, setLoadingImage] = useState<boolean>(true);
@@ -180,7 +183,7 @@ function Picture({ attrs, similars, navigation }: any) {
     <_.SafeAreaView>
       <AnimationLayout
         animation={downloadingAnimation}
-        text="Downloading picture..."
+        text={t('picture.downloadingPicture')}
         render={downloading}
       />
       <Modal
@@ -235,7 +238,7 @@ function Picture({ attrs, similars, navigation }: any) {
         }}
       >
         <DialogContent>
-          <_.DialogContent>Photo succesfully downloaded!</_.DialogContent>
+          <_.DialogContent>{t('picture.downloadPictureSuccess')}</_.DialogContent>
         </DialogContent>
       </Dialog>
       {!['youtube', 'vimeo'].some((aux) => attrs.url?.split(/[/.]/).includes(aux))

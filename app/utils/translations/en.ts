@@ -17,4 +17,12 @@ export const enTranslations: ResourceLanguage = {
       repo: 'https://www.github.com/mavaras/APoD',
     },
   },
+  explore: {
+    searchBarPlaceholder: 'Search pictures...',
+  },
+  picture: {
+    downloadingPicture: 'Downloading picture...',
+    downloadPictureSuccess: 'Photo succesfully downloaded!',
+    similarsLabel: 'Similar Pictures',
+  },
 };
