@@ -4,10 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { I18nextProvider } from 'react-i18next';
 import PictureScreen from './screens/picture/Picture';
 import SettingsScreen from './screens/settings/Settings';
 import ExploreScreen from './screens/explore/Explore';
 import { useTheme, ThemeHandler } from './themes';
+import { i18next } from './utils/translations/translate';
 
 
 console.disableYellowBox = true;
@@ -81,7 +83,9 @@ function StackNavigatorContainer() {
 function StackNavigator() {
   return (
     <ThemeHandler>
-      <StackNavigatorContainer />
+      <I18nextProvider i18n={i18next}>
+        <StackNavigatorContainer />
+      </I18nextProvider>
     </ThemeHandler>
   );
 }
