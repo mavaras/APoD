@@ -122,6 +122,7 @@ export const PictureIconsViewLeft = styled.View`
 `;
 export const PictureIconsIcon = styled(Icon.Button)`
   backgroundColor: ${({ theme }) => theme.bgColor};
+  borderRadius: 0;
   height: 100%;
 `;
 export const PictureAuthorView = styled.View`
