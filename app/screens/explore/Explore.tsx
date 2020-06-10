@@ -119,7 +119,7 @@ function ExploreScreen({ navigation }: any) {
     setTimeout(async () => {
       setShowFavourites(!showFavourites);
       if (!showFavourites) {
-        const favourites = await Storage.getItem('@favourites');
+        const favourites = await Storage.getItem('@APODapp:favourites');
         setPictures(JSON.parse(favourites));
         scrollToTop();
       } else {

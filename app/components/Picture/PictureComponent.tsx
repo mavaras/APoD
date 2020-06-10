@@ -1,5 +1,5 @@
 import CameraRoll from '@react-native-community/cameraroll';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Animated, Dimensions,
@@ -115,7 +115,7 @@ function Picture({ attrs, similars, navigation }: any) {
   }
 
   async function _isFavourite() {
-    const favourites = await Storage.getItem('@favourites');
+    const favourites = await Storage.getItem('@APODapp:favourites');
     const favouritesArray = JSON.parse(favourites);
     return favouritesArray.some((item: object) => item.title === attrs.title);
   }
