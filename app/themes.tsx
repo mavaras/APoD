@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import ThemeManager from 'react-native-color-theme';
 import { ThemeProvider } from 'styled-components/native';
+import Storage from './storage';
 
 
 const colors = new ThemeManager({
@@ -51,8 +52,16 @@ const c = {
   },
 };
 
+const defaultTheme: string = 'lightTheme';
+
+async function getCurrentTheme(): Promise<string> {
+  const currentTheme: string | undefined = await Storage.getItem('@APODapp:theme');
+  colors.setTheme(currentTheme);
+  return (currentTheme || defaultTheme);
+}
+
 const ThemeContext = createContext({
-  themeStyle: 'lightTheme',
+  themeStyle: getCurrentTheme(),
   setTheme: (theme: string) => colors.setTheme(theme),
   getTheme: (): string => colors.getTheme(),
   getColors: (): any => (colors.getTheme() === 'lightTheme' ? c.lightTheme : c.darkTheme),

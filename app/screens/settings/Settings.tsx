@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import SectionsMenu from '../../components/common/SectionsMenu';
 import { useTheme } from '../../themes';
+import Storage from '../../storage';
 
 
 function SettingsScreen() {
@@ -17,7 +18,7 @@ function SettingsScreen() {
       {
         title: t('settings.labels.appearance'),
         iconName: 'circle',
-        extraStyle: { color: theme.getTheme() === 'lightTheme' ? 'black' : 'white'},
+        extraStyle: { color: theme.getColors().fontColor },
         action: () => changeTheme(),
       },
     ],
@@ -52,7 +53,9 @@ function SettingsScreen() {
   ]);
 
   async function changeTheme() {
-    theme.setTheme(theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme');
+    const newTheme: string = theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme';
+    theme.setTheme(newTheme);
+    await Storage.setItem('@APODapp:theme', newTheme);
   }
 
   return (
