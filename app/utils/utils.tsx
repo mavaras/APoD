@@ -34,7 +34,7 @@ export function capitalize(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-export async function requestStorageRuntimePermissionAndroid() {
+export async function requestStoragePermissionAndroid() {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,

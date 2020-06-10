@@ -24,7 +24,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 import Storage from '../../storage';
 import { useTheme } from '../../themes';
-import { capitalize, formatDate, requestStorageRuntimePermissionAndroid } from '../../utils/utils';
+import { capitalize, formatDate, requestStoragePermissionAndroid } from '../../utils/utils';
 import AnimationLayout from '../common/AnimationLayout';
 import CarouselPictureList from '../common/CarouselImageList';
 import Video from '../Video/VideoComponent';
@@ -171,7 +171,7 @@ function Picture({ attrs, similars, navigation }: any) {
     auxIsFavourite();
     this.refs = React.createRef();
     if (Platform.OS === 'android') {
-      requestStorageRuntimePermissionAndroid();
+      requestStoragePermissionAndroid();
     }
   }, []);
 
