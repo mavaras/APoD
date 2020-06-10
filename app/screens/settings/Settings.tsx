@@ -55,6 +55,9 @@ function SettingsScreen() {
   async function changeTheme() {
     const newTheme: string = theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme';
     theme.setTheme(newTheme);
+    const itemsAux = items.slice();
+    itemsAux[0][0].extraStyle = { color: newTheme === 'lightTheme' ? '#131415' : '#fffcf6' };
+    setItems(itemsAux);
     await Storage.setItem('@APODapp:theme', newTheme);
   }
 
