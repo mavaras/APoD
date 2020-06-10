@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  TouchableHighlight, View,
-} from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
+
 import * as _ from './style';
 
 

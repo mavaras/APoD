@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { Text, SafeAreaView, View } from 'react-native';
 import Animation from 'lottie-react-native';
+import React, { useEffect } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
+
 import { useTheme } from '../../themes';
 
 

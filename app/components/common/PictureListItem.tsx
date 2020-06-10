@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 const styles = StyleSheet.create({

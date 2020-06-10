@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
+  Dimensions,
   Linking,
-  SafeAreaView, Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useTranslation } from 'react-i18next';
+
 import SectionsMenu from '../../components/common/SectionsMenu';
-import { useTheme } from '../../themes';
 import Storage from '../../storage';
+import { useTheme } from '../../themes';
 
 
 function SettingsScreen() {

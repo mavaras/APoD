@@ -1,9 +1,10 @@
 import { Animated, Dimensions, StyleSheet } from 'react-native';
-import Shimmer from 'react-native-shimmer';
-import styled from 'styled-components';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import colors from '../../themes';
 import FastImage from 'react-native-fast-image';
+import Shimmer from 'react-native-shimmer';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import styled from 'styled-components';
+
+import colors from '../../themes';
 
 
 export const SafeAreaView = styled.SafeAreaView`

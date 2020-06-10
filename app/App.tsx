@@ -1,14 +1,15 @@
-import 'react-native-gesture-handler';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+
+import ExploreScreen from './screens/explore/Explore';
 import PictureScreen from './screens/picture/Picture';
 import SettingsScreen from './screens/settings/Settings';
-import ExploreScreen from './screens/explore/Explore';
-import { useTheme, ThemeHandler } from './themes';
+import { ThemeHandler, useTheme } from './themes';
 import { i18next } from './utils/translations/translate';
 
 

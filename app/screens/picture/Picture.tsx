@@ -1,13 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
 import { NASA_API_KEY } from 'react-native-dotenv';
-import FirebaseDB from '../../config';
+
 import Picture from '../../components/Picture/PictureComponent';
+import FirebaseDB from '../../config';
+import { filterByWord, shuffleArray } from '../../utils/utils';
 import LoadingScreen from '../loading/LoadingScreen';
 import WaitingScreen from '../loading/WaitingScreen';
-import { filterByWord, shuffleArray } from '../../utils/utils';
 
 
-function PictureScreen({ route, navigation }: any) {
+type RootStackParamList = {
+  Explore: undefined;
+  Settings: undefined;
+  Picture: undefined;
+};
+interface Props {
+  route: any,
+  navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
+}
+function PictureScreen({ route, navigation }: Props) {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   const [loading, setLoading] = useState<Boolean>(true);
   const [error, setError] = useState<Boolean>(false);

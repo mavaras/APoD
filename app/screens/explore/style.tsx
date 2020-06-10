@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import styled from 'styled-components';
+
 import colors from '../../themes';
-import { SearchBar } from 'react-native-elements';
 
 
 export const FlatList = styled.FlatList`

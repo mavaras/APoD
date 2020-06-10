@@ -1,6 +1,6 @@
 import React from 'react';
-import WebView from 'react-native-webview';
 import { View } from 'react-native';
+import WebView from 'react-native-webview';
 
 
 function Video({ url, style }: any) {

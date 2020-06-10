@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import {
-  FlatList, View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SearchBar } from 'react-native-elements';
-import FirebaseDB from '../../config';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import * as _ from './style';
-import PictureSmall from '../../components/Picture/PictureComponentSmall';
+import { FlatList, View } from 'react-native';
+import { SearchBar } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 import PictureListItem from '../../components/common/PictureListItem';
-import { filterByWord } from '../../utils/utils';
+import PictureSmall from '../../components/Picture/PictureComponentSmall';
+import FirebaseDB from '../../config';
 import Storage from '../../storage';
 import { useTheme } from '../../themes';
+import { filterByWord } from '../../utils/utils';
 import LoadingScreen from '../loading/LoadingScreen';
+import * as _ from './style';
 
 
 let flatListRef: typeof FlatList = FlatList;

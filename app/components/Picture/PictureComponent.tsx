@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import CameraRoll from '@react-native-community/cameraroll';
+import React, { useEffect,useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  Animated,
+  Animated, Dimensions,
+  Platform,
   TouchableHighlight,
-  View, Platform, Dimensions, Text,
+  View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import ImgToBase64 from 'react-native-image-base64';
+import ImageViewer from 'react-native-image-zoom-viewer';
+import Modal from 'react-native-modal';
 import Dialog, {
   DialogButton,
   DialogContent,
@@ -11,22 +18,17 @@ import Dialog, {
   DialogTitle,
   SlideAnimation,
 } from 'react-native-popup-dialog';
-import FastImage from 'react-native-fast-image';
-import CameraRoll from '@react-native-community/cameraroll';
 import Share from 'react-native-share';
-import ImgToBase64 from 'react-native-image-base64';
-import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
-import { useTranslation } from 'react-i18next';
-import * as _ from './style';
-import Video from '../Video/VideoComponent';
-import CarouselPictureList from '../common/CarouselImageList';
-import AnimationLayout from '../common/AnimationLayout';
-import { capitalize, requestStorageRuntimePermissionAndroid, formatDate } from '../../utils/utils';
+
 import Storage from '../../storage';
-import ImageViewer from 'react-native-image-zoom-viewer';
 import { useTheme } from '../../themes';
+import { capitalize, formatDate, requestStorageRuntimePermissionAndroid } from '../../utils/utils';
+import AnimationLayout from '../common/AnimationLayout';
+import CarouselPictureList from '../common/CarouselImageList';
+import Video from '../Video/VideoComponent';
+import * as _ from './style';
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);

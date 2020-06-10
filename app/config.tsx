@@ -3,9 +3,9 @@ import {
   FB_API_KEY,
   FB_AUTH_DOMAIN,
   FB_DB_URL,
+  FB_MSS_SND_ID,
   FB_PROJ_ID,
   FB_ST_BUCKET,
-  FB_MSS_SND_ID,
 } from 'react-native-dotenv';
 
 
@@ -28,6 +28,7 @@ export default class FirebaseDB {
   pictures = this.db.ref('pictures');
 
   pictures_nItems = 0;
+
   picturesList = [];
 
   constructor() {
@@ -48,4 +49,19 @@ export default class FirebaseDB {
     this.pictures.on('value', (data) => { return data.numChildren(); });
     return 0;
   }
+
+  /*udpate(title: string) {
+    this.pictures
+      .orderByChild('title')
+      .equalTo(title)
+      .once('value')
+      .then((snapshot: any) => {
+        const pictureObject: Object = snapshot.val();console.log(pictureObject);
+        const pictureKey: string = Object.keys(pictureObject)[0];
+        const isFavourite: boolean = Object.values(pictureObject)[0].favourite | false;
+        DB.db.ref(`pictures/${pictureKey}`)
+          .update({ favourite: !isFavourite })
+          .catch((error: string) => console.log(error));
+      });
+  }*/
 }
