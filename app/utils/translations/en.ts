@@ -3,6 +3,17 @@ import { ResourceLanguage } from 'i18next';
 
 // eslint-disable-next-line import/prefer-default-export
 export const enTranslations: ResourceLanguage = {
+  explore: {
+    searchBarPlaceholder: 'Search pictures...',
+  },
+  others: {
+    waitingScreen: "Today's APoD will appear soon.\nStay tuned!",
+  },
+  picture: {
+    downloadingPicture: 'Downloading picture...',
+    downloadPictureSuccess: 'Image succesfully downloaded!',
+    similarsLabel: 'Similar Pictures',
+  },
   settings: {
     labels: {
       appearance: 'Appearance',
@@ -16,16 +27,5 @@ export const enTranslations: ResourceLanguage = {
       issues: 'https://www.github.com/mavaras/APoD/issues',
       repo: 'https://www.github.com/mavaras/APoD',
     },
-  },
-  explore: {
-    searchBarPlaceholder: 'Search pictures...',
-  },
-  picture: {
-    downloadingPicture: 'Downloading picture...',
-    downloadPictureSuccess: 'Image succesfully downloaded!',
-    similarsLabel: 'Similar Pictures',
-  },
-  others: {
-    waitingScreen: "Today's APoD will appear soon.\nStay tuned!",
   },
 };
