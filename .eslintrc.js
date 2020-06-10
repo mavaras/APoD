@@ -5,7 +5,12 @@ module.exports = {
   parserOptions: {
       project: './tsconfig.json',
   },
+  plugins: ["simple-import-sort"],
   rules: {
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react/jsx-pascal-case": "off",
+    "sort-imports": "off",
+    "import/order": "off",
+    "simple-import-sort/sort": "error"
   }
 };
