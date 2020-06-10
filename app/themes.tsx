@@ -41,15 +41,21 @@ async function getCurrentTheme(): Promise<string> {
 
 const ThemeContext = createContext({
   themeStyle: getCurrentTheme(),
-  setTheme: (theme: string) => themeManager.setTheme(theme),
+  setTheme: (theme: string): void => themeManager.setTheme(theme),
   getTheme: (): string => themeManager.getTheme(),
   getColors: (): any => (themeManager.getTheme() === 'lightTheme' ? colors.lightTheme : colors.darkTheme),
 });
 
-export const useTheme = () => useContext(ThemeContext);
+export type ThemeContext = {
+  themeStyle: Promise<String>;
+  setTheme: (theme: string) => void;
+  getTheme: () => string;
+  getColors: () => { [id: string] : string; };
+};
+export const useTheme = (): ThemeContext => useContext(ThemeContext);
 
 function ManageThemeProvider({ children }) {
-  const theme = useTheme();
+  const theme: ThemeContext = useTheme();
   const [themeStyle, setThemeStyle] = useState(theme.getTheme());
 
   function setTheme(newTheme: string) {

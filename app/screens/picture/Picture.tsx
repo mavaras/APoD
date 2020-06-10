@@ -13,6 +13,7 @@ type RootStackParamList = {
   Explore: undefined;
   Settings: undefined;
   Picture: undefined;
+  ExplorePicture: undefined;
 };
 interface Props {
   route: any,

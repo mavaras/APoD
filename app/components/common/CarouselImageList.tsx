@@ -33,7 +33,7 @@ export const ImageSimilars = styled.Image`
 `;
 
 function CarouselPictureList({ navigation, list }) {
-  const theme = useTheme();
+  const theme: ThemeContext = useTheme();
   const { t } = useTranslation();
 
   if (Object.keys(list).length === 0) {

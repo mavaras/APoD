@@ -13,7 +13,7 @@ import { useTheme } from '../../themes';
 
 
 function SettingsScreen() {
-  const theme = useTheme();
+  const theme: React.Context = useTheme();
   const { t } = useTranslation();
   const [items, setItems] = useState<Array<Array<Object>>>([
     [

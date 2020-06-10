@@ -1,4 +1,5 @@
 import CameraRoll from '@react-native-community/cameraroll';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -23,7 +24,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RNFetchBlob from 'rn-fetch-blob';
 
 import Storage from '../../storage';
-import { useTheme } from '../../themes';
+import { ThemeContext, useTheme } from '../../themes';
 import { capitalize, formatDate, requestStoragePermissionAndroid } from '../../utils/utils';
 import AnimationLayout from '../common/AnimationLayout';
 import CarouselPictureList from '../common/CarouselImageList';
@@ -33,8 +34,19 @@ import * as _ from './style';
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
-function Picture({ attrs, similars, navigation }: any) {
-  const theme = useTheme();
+type RootStackParamList = {
+  Explore: undefined;
+  Settings: undefined;
+  Picture: undefined;
+  ExplorePicture: undefined;
+};
+interface Props {
+  attrs: any,
+  similars: Array<object>,
+  navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
+}
+function Picture({ attrs, similars, navigation }: Props) {
+  const theme: ThemeContext = useTheme();
   const { t } = useTranslation();
   const downloadingAnimation = require('../../res/animations/planet.json');
 

@@ -9,7 +9,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import ExploreScreen from './screens/explore/Explore';
 import PictureScreen from './screens/picture/Picture';
 import SettingsScreen from './screens/settings/Settings';
-import { ThemeHandler, useTheme } from './themes';
+import { ThemeContext, ThemeHandler, useTheme } from './themes';
 import { i18next } from './utils/translations/translate';
 
 
@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 function BottomTabNavigator() {
-  const theme = useTheme();
+  const theme: ThemeContext = useTheme();
   return (
     <Tabs.Navigator
       tabBarVisible={false}
@@ -51,7 +51,7 @@ function BottomTabNavigator() {
 }
 
 function StackNavigatorContainer() {
-  const theme = useTheme();
+  const theme: ThemeContext = useTheme();
   return (
     <NavigationContainer>
       <Stack.Navigator>

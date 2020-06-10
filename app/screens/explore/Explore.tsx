@@ -1,3 +1,4 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
@@ -8,15 +9,25 @@ import PictureListItem from '../../components/common/PictureListItem';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import FirebaseDB from '../../config';
 import Storage from '../../storage';
-import { useTheme } from '../../themes';
+import { ThemeContext, useTheme } from '../../themes';
 import { filterByWord } from '../../utils/utils';
 import LoadingScreen from '../loading/LoadingScreen';
 import * as _ from './style';
 
 
 let flatListRef: typeof FlatList = FlatList;
-function ExploreScreen({ navigation }: any) {
-  const theme = useTheme();
+
+type RootStackParamList = {
+  Explore: undefined;
+  Settings: undefined;
+  Picture: undefined;
+  ExplorePicture: undefined;
+};
+interface Props {
+  navigation: StackNavigationProp<RootStackParamList, 'Explore'>,
+}
+function ExploreScreen({ navigation }: Props) {
+  const theme: ThemeContext = useTheme();
   const { t } = useTranslation();
   const DB = FirebaseDB.instance;
 

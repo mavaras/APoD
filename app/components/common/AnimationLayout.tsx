@@ -6,7 +6,7 @@ import { useTheme } from '../../themes';
 
 
 function AnimationLayout({ animation, text, render = true }) {
-  const theme = useTheme();
+  const theme: ThemeContext = useTheme();
   let animationAux = animation;
 
   useEffect(() => {

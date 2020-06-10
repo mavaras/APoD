@@ -1,12 +1,25 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { TouchableHighlight, View } from 'react-native';
 
 import * as _ from './style';
 
 
+type RootStackParamList = {
+  Explore: undefined;
+  Settings: undefined;
+  Picture: undefined;
+  ExplorePicture: undefined;
+};
+interface Props {
+  picture: any,
+  index: number,
+  cols: number,
+  navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
+}
 function PictureComponentSmall({
   picture, index, cols, navigation,
-}: any) {
+}: Props) {
   const imgHeight: number = [400, 200, 150][cols - 1];
   const imgSep: number = [2.2, 2.4, 2][cols - 1];
   function itemStyle(indx: number) {

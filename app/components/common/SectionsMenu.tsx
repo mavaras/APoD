@@ -26,8 +26,8 @@ const RowText = styled.Text`
   width: 92%;
 `;
 
-function SectionsMenu({ items }) {
-  const theme = useTheme();
+function SectionsMenu({ items }: Array<Array<Object>>) {
+  const theme: ThemeContext = useTheme();
 
   return (
     <ScrollView>
