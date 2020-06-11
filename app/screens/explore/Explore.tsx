@@ -5,7 +5,6 @@ import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import PictureListItem from '../../components/common/PictureListItem';
 import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import FirebaseDB from '../../config';
 import Storage from '../../storage';
@@ -218,20 +217,6 @@ function ExploreScreen({ navigation }: Props) {
             ]}
             onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
           />
-          <Icon.Button
-            name="list-ul"
-            size={18}
-            iconStyle={_.styles.layoutButtonIcon}
-            style={[
-              _.styles.layoutButton,
-              {
-                backgroundColor: theme.getColors().bgColor,
-                borderRightColor: theme.getColors().bgColor,
-                borderLeftColor: theme.getColors().bgColor,
-              },
-            ]}
-            onPress={() => { setNumberOfColumns(1); setDisplayStyle('list'); }}
-          />
         </_.LayoutButtonsView>
         <_.HeartButtonView>
           <Icon.Button
@@ -274,23 +259,14 @@ function ExploreScreen({ navigation }: Props) {
           offset: ([400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1]) * indx,
           index: indx,
         })}
-        renderItem={({ item, index }) => {
-          return (
-            displayStyle === 'list'
-              ? (
-                <PictureListItem
-                  navigation={navigation}
-                  item={item}
-                />
-              ) : (
-                <PictureSmall
-                  picture={item}
-                  cols={cols}
-                  index={index}
-                  navigation={navigation}
-                />
-              ));
-        }}
+        renderItem={({ item, index }) => (
+          <PictureSmall
+            picture={item}
+            cols={cols}
+            index={index}
+            navigation={navigation}
+          />
+        )}
         keyExtractor={(item) => item.title.toString()}
         numColumns={cols}
       />
