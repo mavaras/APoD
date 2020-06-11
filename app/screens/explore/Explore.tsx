@@ -12,6 +12,7 @@ import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
 import { filterByWord } from '../../utils/utils';
 import LoadingScreen from '../loading/LoadingScreen';
+import WaitingScreen from '../loading/WaitingScreen';
 import * as _ from './style';
 
 
@@ -32,7 +33,8 @@ function ExploreScreen({ navigation }: Props) {
   const DB = FirebaseDB.instance;
 
   let picturesList: Array<string> = ['notempty'];
-  const [picturesLimit, setPicturesLimit] = useState<number>(18);
+  const [error, setError] = useState<Boolean>(false);
+  const [picturesLimit, ] = useState<number>(18);
   const [loading, setLoading] = useState<Boolean>(false);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -51,18 +53,6 @@ function ExploreScreen({ navigation }: Props) {
     }, 200);
   }
 
-  function scrollToLastTop() {
-    if (page > 1 && displayStyle === 'grid') {
-      setTimeout(() => {
-        flatListRef?.scrollToIndex({
-          animated: true,
-          index: Math.floor(picturesLimit / cols) - 4,
-        });
-      }, 200);
-    } else {
-      scrollToTop();
-    }
-  }
 
   async function getNextItems() {
     if (this.picturesList.length === 0 || pictures.length === this.picturesList.length) {
@@ -75,7 +65,6 @@ function ExploreScreen({ navigation }: Props) {
     setPicturesAux(newArray);
     setPage(page + 1);
     setRefreshing(false);
-    //scrollToLastTop();
   }
 
   async function loadData() {
@@ -95,7 +84,8 @@ function ExploreScreen({ navigation }: Props) {
           }
         });
         getNextItems();
-      });
+      })
+      .catch(() => setError(true));
     setLoading(false);
   }
 
@@ -139,6 +129,12 @@ function ExploreScreen({ navigation }: Props) {
     }, 200);
   }
 
+  if (error) {
+    const text = t('explore.waitingScreen');
+    return (
+      <WaitingScreen text={text} />
+    );
+  }
   if (loading) {
     return (
       <LoadingScreen />

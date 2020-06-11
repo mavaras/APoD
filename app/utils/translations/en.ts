@@ -5,14 +5,13 @@ import { ResourceLanguage } from 'i18next';
 export const enTranslations: ResourceLanguage = {
   explore: {
     searchBarPlaceholder: 'Search pictures...',
-  },
-  others: {
-    waitingScreen: "Today's APoD will appear soon.\nStay tuned!",
+    waitingScreen: 'Some error occurred\nwhile loading pictures',
   },
   picture: {
     downloadingPicture: 'Downloading picture...',
     downloadPictureSuccess: 'Image succesfully downloaded!',
     similarsLabel: 'Similar Pictures',
+    waitingScreen: "Today's APoD will appear soon.\nStay tuned!",
   },
   settings: {
     labels: {
