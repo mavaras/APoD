@@ -134,7 +134,7 @@ function Picture({ attrs, similars, navigation }: Props) {
 
   async function addFavourite() {
     setIsFavourite(true);
-    const favourites = await Storage.getItem('@favourites');
+    const favourites = await Storage.getItem('@APODapp:favourites');
     let favouritesArray = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
@@ -144,15 +144,15 @@ function Picture({ attrs, similars, navigation }: Props) {
     } else {
       favouritesArray = [attrs];
     }
-    await Storage.setItem('@favourites', JSON.stringify(favouritesArray));
+    await Storage.setItem('@APODapp:favourites', JSON.stringify(favouritesArray));
   }
 
   async function removeFavourite() {
     setIsFavourite(false);
-    const favourites = await Storage.getItem('@favourites');
+    const favourites = await Storage.getItem('@APODapp:favourites');
     let favouritesArray = JSON.parse(favourites);
     favouritesArray = favouritesArray.filter((item: object) => attrs.title !== item.title);
-    await Storage.setItem('@favourites', JSON.stringify(favouritesArray));
+    await Storage.setItem('@APODapp:favourites', JSON.stringify(favouritesArray));
   }
 
   async function handleFavourite() {

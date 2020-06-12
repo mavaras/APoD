@@ -119,7 +119,10 @@ function ExploreScreen({ navigation }: Props) {
     setTimeout(async () => {
       setShowFavourites(!showFavourites);
       if (!showFavourites) {
-        const favourites = await Storage.getItem('@APODapp:favourites');
+        let favourites = await Storage.getItem('@APODapp:favourites');
+        if (favourites === undefined) {
+          favourites = '[]';
+        }
         setPictures(JSON.parse(favourites));
         scrollToTop();
       } else {
