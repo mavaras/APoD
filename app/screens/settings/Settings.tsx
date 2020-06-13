@@ -49,7 +49,7 @@ function SettingsScreen() {
         title: t('settings.labels.rateApp'),
         iconName: 'star',
         extraStyle: { color: 'orange' },
-        action: () => Linking.openURL(''),
+        action: () => {},
       },
     ],
   ]);
