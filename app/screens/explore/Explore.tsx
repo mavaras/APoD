@@ -34,7 +34,7 @@ function ExploreScreen({ navigation }: Props) {
   let picturesList: Array<string> = ['notempty'];
   const [error, setError] = useState<Boolean>(false);
   const [picturesLimit, ] = useState<number>(18);
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(true);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [searching, setSearching] = useState<boolean>(false);
