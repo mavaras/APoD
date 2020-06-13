@@ -2,7 +2,7 @@ import Animation from 'lottie-react-native';
 import React, { useEffect } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 
-import { useTheme } from '../../themes';
+import { ThemeContext, useTheme } from '../../themes';
 
 
 function AnimationLayout({ animation, text, render = true }) {

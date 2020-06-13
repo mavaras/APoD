@@ -3,7 +3,7 @@ import { TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
 
-import { useTheme } from '../../themes';
+import { ThemeContext, useTheme } from '../../themes';
 
 
 const ScrollView = styled.ScrollView`

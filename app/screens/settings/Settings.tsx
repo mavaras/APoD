@@ -9,11 +9,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import SectionsMenu from '../../components/common/SectionsMenu';
 import Storage from '../../storage';
-import { useTheme } from '../../themes';
+import { ThemeContext, useTheme } from '../../themes';
 
 
 function SettingsScreen() {
-  const theme: React.Context = useTheme();
+  const theme: ThemeContext = useTheme();
   const { t } = useTranslation();
   const [items, setItems] = useState<Array<Array<Object>>>([
     [
