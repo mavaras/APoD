@@ -44,7 +44,6 @@ function ExploreScreen({ navigation }: Props) {
   const [picturesAux, setPicturesAux] = useState<Array<{[string: string]: string}>>([]);
   const [search, setSearch] = useState<string>('');
   const [cols, setCols] = useState<number>(2);
-  const [displayStyle, setDisplayStyle] = useState<string>('grid');
 
   function scrollToTop() {
     setTimeout(() => {
@@ -190,7 +189,7 @@ function ExploreScreen({ navigation }: Props) {
                 borderLeftColor: theme.getColors().bgColor,
               },
             ]}
-            onPress={() => { setNumberOfColumns(2); setDisplayStyle('grid'); }}
+            onPress={() => { setNumberOfColumns(2); }}
           />
           <Icon.Button
             name="grip-horizontal"
@@ -204,7 +203,7 @@ function ExploreScreen({ navigation }: Props) {
                 borderLeftColor: theme.getColors().bgColor,
               },
             ]}
-            onPress={() => { setNumberOfColumns(3); setDisplayStyle('grid'); }}
+            onPress={() => { setNumberOfColumns(3); }}
           />
           <Icon.Button
             name="grip-lines"
@@ -218,7 +217,7 @@ function ExploreScreen({ navigation }: Props) {
                 borderLeftColor: theme.getColors().bgColor,
               },
             ]}
-            onPress={() => { setNumberOfColumns(1); setDisplayStyle('grid'); }}
+            onPress={() => { setNumberOfColumns(1); }}
           />
         </_.LayoutButtonsView>
         <_.HeartButtonView>
