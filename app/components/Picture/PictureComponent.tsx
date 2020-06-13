@@ -1,7 +1,7 @@
 import CameraRoll from '@react-native-community/cameraroll';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import {
   Animated, Dimensions,
   Platform,
@@ -47,7 +47,7 @@ interface Props {
 }
 function Picture({ attrs, similars, navigation }: Props) {
   const theme: ThemeContext = useTheme();
-  const { t } = useTranslation();
+  const { t }: UseTranslationResponse = useTranslation();
   const downloadingAnimation = require('../../res/animations/planet.json');
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

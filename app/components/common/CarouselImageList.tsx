@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import styled from 'styled-components';
 
-import { useTheme } from '../../themes';
+import { ThemeContext, useTheme } from '../../themes';
 
 
 export const SimilarsView = styled.View`
@@ -34,7 +34,7 @@ export const ImageSimilars = styled.Image`
 
 function CarouselPictureList({ navigation, list }) {
   const theme: ThemeContext = useTheme();
-  const { t } = useTranslation();
+  const { t }: UseTranslationResponse = useTranslation();
 
   if (Object.keys(list).length === 0) {
     return (null);

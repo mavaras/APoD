@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import { NASA_API_KEY } from 'react-native-dotenv';
 
 import Picture from '../../components/Picture/PictureComponent';
@@ -21,7 +21,7 @@ interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
 }
 function PictureScreen({ route, navigation }: Props) {
-  const { t } = useTranslation();
+  const { t }: UseTranslationResponse = useTranslation();
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   const [loading, setLoading] = useState<Boolean>(true);
   const [error, setError] = useState<Boolean>(false);

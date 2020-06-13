@@ -1,9 +1,12 @@
 /**
  * @format
  */
+import 'react-native-gesture-handler';
 
-import {AppRegistry} from 'react-native';
+import { AppRegistry } from 'react-native';
+
+import { name as appName } from './app.json';
 import StackNavigator from './app/App';
-import {name as appName} from './app.json';
+
 
 AppRegistry.registerComponent(appName, () => StackNavigator);

@@ -1,10 +1,12 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import AnimationLayout from '../../components/common/AnimationLayout';
 
 
-function WaitingScreen({ text }) {
+interface Props {
+  text: string;
+}
+function WaitingScreen({ text }: Props) {
   const animation = require('../../res/animations/planet.json'); // eslint-disable-line global-require
 
   return (

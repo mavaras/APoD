@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import {
   Dimensions,
   Linking,
@@ -14,7 +14,7 @@ import { ThemeContext, useTheme } from '../../themes';
 
 function SettingsScreen() {
   const theme: ThemeContext = useTheme();
-  const { t } = useTranslation();
+  const { t }: UseTranslationResponse = useTranslation();
   const [items, setItems] = useState<Array<Array<Object>>>([
     [
       {

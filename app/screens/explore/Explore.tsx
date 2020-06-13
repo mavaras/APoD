@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -28,7 +28,7 @@ interface Props {
 }
 function ExploreScreen({ navigation }: Props) {
   const theme: ThemeContext = useTheme();
-  const { t } = useTranslation();
+  const { t }: UseTranslationResponse = useTranslation();
   const DB = FirebaseDB.instance;
 
   let picturesList: Array<string> = ['notempty'];
