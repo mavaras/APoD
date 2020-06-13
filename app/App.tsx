@@ -73,6 +73,7 @@ function StackNavigatorContainer() {
           name="Settings"
           component={SettingsScreen}
           options={{
+            headerTintColor: theme.getColors().fontColor,
             headerTitleStyle: { color: theme.getColors().fontColor },
             headerStyle: { backgroundColor: theme.getColors().bgColor },
           }}
