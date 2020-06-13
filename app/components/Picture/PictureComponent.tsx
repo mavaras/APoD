@@ -61,7 +61,6 @@ function Picture({ attrs, similars, navigation }: Props) {
   });
   const [scrollY] = useState(new Animated.Value(0));
   let imageRef: any;
-  let refs = React.createRef();
 
   function download() {
     const { config, fs } = RNFetchBlob;
@@ -172,16 +171,11 @@ function Picture({ attrs, similars, navigation }: Props) {
     });
   }
 
-  function closeModal() {
-    setIsModalOpen(false);
-  }
-
   useEffect(() => {
     async function auxIsFavourite() {
       setIsFavourite(await _isFavourite());
     }
     auxIsFavourite();
-    this.refs = React.createRef();
     if (Platform.OS === 'android') {
       requestStoragePermissionAndroid();
     }
@@ -217,8 +211,8 @@ function Picture({ attrs, similars, navigation }: Props) {
           borderColor: 'white',
           marginLeft: '90%',
           width: 10,
-          marginTop: 39,
-          position: 'absolute',
+          marginTop: 0,
+          marginBottom: -20,
         }}
       >
         <Icon
