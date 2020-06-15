@@ -56,7 +56,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
   let [loadingImage, setLoadingImage] = useState<boolean>(true);
   const [downloading, setDownloading] = useState<boolean>(false);
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [alreadyFavourite, setAlreadyFavourite] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [, setButtonRect] = useState<object>({
     x: 0, y: 0, width: 0, height: 0,
@@ -127,19 +127,23 @@ function Picture({ attrs, similars, navigation }: Props) {
     setOpenZoomModal(!openZoomModal);
   }
 
-  async function _isFavourite() {
+  async function isFavourite() {
     const favourites = await Storage.getItem('@APODapp:favourites');
     const favouritesArray = JSON.parse(favourites);
     return favouritesArray.some((item: object) => item.title === attrs.title);
   }
 
+  function isVideo() {
+    return ['youtube', 'vimeo'].some((aux) => attrs.url?.split(/[/.]/).includes(aux));
+  }
+
   async function addFavourite() {
-    setIsFavourite(true);
+    setAlreadyFavourite(true);
     const favourites = await Storage.getItem('@APODapp:favourites');
     let favouritesArray = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
-      if (!await _isFavourite()) {
+      if (!await isFavourite()) {
         favouritesArray.push(attrs);
       }
     } else {
@@ -149,7 +153,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   }
 
   async function removeFavourite() {
-    setIsFavourite(false);
+    setAlreadyFavourite(false);
     const favourites = await Storage.getItem('@APODapp:favourites');
     let favouritesArray = JSON.parse(favourites);
     favouritesArray = favouritesArray.filter((item: object) => attrs.title !== item.title);
@@ -157,7 +161,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   }
 
   async function handleFavourite() {
-    if (isFavourite) {
+    if (alreadyFavourite) {
       removeFavourite();
     } else {
       addFavourite();
@@ -175,7 +179,7 @@ function Picture({ attrs, similars, navigation }: Props) {
 
   useEffect(() => {
     async function auxIsFavourite() {
-      setIsFavourite(await _isFavourite());
+      setAlreadyFavourite(await isFavourite());
     }
     auxIsFavourite();
     if (Platform.OS === 'android') {
@@ -254,7 +258,7 @@ function Picture({ attrs, similars, navigation }: Props) {
           <_.DialogContent>{t('picture.downloadPictureSuccess')}</_.DialogContent>
         </DialogContent>
       </Dialog>
-      {!['youtube', 'vimeo'].some((aux) => attrs.url?.split(/[/.]/).includes(aux))
+      {!isVideo()
         ? (
           <_.TouchableHighlight
             ref={(r) => { imageRef = r; }}
@@ -347,16 +351,19 @@ function Picture({ attrs, similars, navigation }: Props) {
               size={18}
               iconStyle={[
                 _.styles.iconStyle,
-                isFavourite ? { color: '#f134d2' } : { color: theme.getColors().iconColor },
+                alreadyFavourite ? { color: '#f134d2' } : { color: theme.getColors().iconColor },
               ]}
               onPress={() => handleFavourite()}
             />
-            <_.PictureIconsIcon
-              name="download"
-              size={18}
-              iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
-              onPress={download}
-            />
+            {!isVideo()
+              ? (
+                <_.PictureIconsIcon
+                  name="download"
+                  size={18}
+                  iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
+                  onPress={download}
+                />
+              ) : undefined}
             <_.PictureIconsIcon
               name="share-alt"
               size={18}
