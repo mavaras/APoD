@@ -5,13 +5,20 @@ import { SafeAreaView, Text, View } from 'react-native';
 import { ThemeContext, useTheme } from '../../themes';
 
 
-function AnimationLayout({ animation, text, render = true }) {
+interface Props {
+  animation: Animation,
+  text: string,
+  render: boolean,
+}
+function AnimationLayout({ animation, text, render = true }: Props) {
   const theme: ThemeContext = useTheme();
-  let animationAux = animation;
+  let animationAux: Animation = animation;
 
   useEffect(() => {
-    if (render) animationAux.play();
-  }, []);
+    if (render) {
+      animationAux.play();
+    }
+  });
 
   if (render) {
     return (
