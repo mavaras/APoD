@@ -65,7 +65,7 @@ function StackNavigatorContainer() {
           name="Explore Picture"
           component={PictureScreen}
           options={{
-            headerTitleStyle: { color: theme.getColors().fontColor },
+            headerTitleStyle: { color: theme.getColors().bgColor },
             headerStyle: { backgroundColor: theme.getColors().bgColor },
           }}
         />
