@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
+import { View } from 'react-native';
+import Shimmer from 'react-native-shimmer';
 import styled from 'styled-components';
 
 import { ThemeContext, useTheme } from '../../themes';
@@ -31,6 +33,16 @@ export const ImageSimilars = styled.Image`
   marginBottom: 0;
   borderRadius: 5;
 `;
+const ImageShimmer = styled(Shimmer)`
+  justifyContent: center;
+`;
+const ShimmerInner = styled.Text`
+  height: 130;
+  width: 100%;
+  backgroundColor: ${({ theme }) => theme.shimmerColor};
+  overflow: hidden;
+  borderRadius: 5;
+`;
 
 function CarouselPictureList({ navigation, list }) {
   const theme: ThemeContext = useTheme();
@@ -57,7 +69,15 @@ function CarouselPictureList({ navigation, list }) {
               navigation.push('Explore Picture', { attrs: item });
             }}
           >
-            <ImageSimilars source={{ uri: item.url }} />
+            <View>
+              <ImageShimmer
+                pauseDuration={580}
+                opacity={0.55}
+              >
+                <ShimmerInner />
+              </ImageShimmer>
+              <ImageSimilars source={{ uri: item.url }} />
+            </View>
           </SimilarsTouchableHighlight>
         ))}
       </SimilarsScrollView>
