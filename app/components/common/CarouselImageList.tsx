@@ -7,25 +7,25 @@ import styled from 'styled-components';
 import { ThemeContext, useTheme } from '../../themes';
 
 
-export const SimilarsView = styled.View`
+const SimilarsView = styled.View`
   marginLeft: 5%;
   marginRight: 5%;
   marginTop: 35;
 `;
-export const SimilarsText = styled.Text`
+const SimilarsText = styled.Text`
   color: ${({ theme }) => theme.fontColor};
   fontWeight: 600;
   fontSize: 20;
   marginBottom: 30;
 `;
-export const SimilarsScrollView = styled.ScrollView`
+const SimilarsScrollView = styled.ScrollView`
   backgroundColor: ${({ theme }) => theme.bgColor};
 `;
-export const SimilarsTouchableHighlight = styled.TouchableHighlight`
+const SimilarsTouchableHighlight = styled.TouchableHighlight`
   marginRight: 5;
   width: 130;
 `;
-export const ImageSimilars = styled.Image`
+const ImageSimilars = styled.Image`
   height: 130;
   borderRadius: 7;
   width: 100%;
