@@ -53,6 +53,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   const downloadingAnimation = require('../../res/animations/planet.json');
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
   const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
   let [loadingImage, setLoadingImage] = useState<boolean>(true);
   const [downloading, setDownloading] = useState<boolean>(false);
@@ -289,8 +290,10 @@ function Picture({ attrs, similars, navigation }: Props) {
         )
         : (
           <Video
-            style={[{ width: '100%', height: 350, marginBottom: -360 },
-              { marginTop: attrs.explorePicture !== undefined ? 0 : 20 }]}
+            style={[{
+              width: '100%', height: 350, marginBottom: -360, zIndex: isScrolling ? 0 : 1,
+            },
+            { marginTop: attrs.explorePicture !== undefined ? 0 : 20 }]}
             url={attrs.url}
           />
         )}
@@ -305,6 +308,8 @@ function Picture({ attrs, similars, navigation }: Props) {
             useNativeDriver: true,
           },
         )}
+        onScrollBeginDrag={() => { if (!isScrolling) setIsScrolling(true); }}
+        onScrollEndDrag={() => { if (isScrolling) setIsScrolling(false); }}
       >
         { attrs.date !== undefined
           ? (
@@ -339,31 +344,36 @@ function Picture({ attrs, similars, navigation }: Props) {
         </_.PictureDateView>
         <_.PictureIconsView>
           <_.PictureIconsViewLeft>
-            <_.PictureIconsIcon
-              name="expand"
-              size={18}
-              iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
-              onPress={zoom}
-            />
-          </_.PictureIconsViewLeft>
-          <_.PictureIconsViewRight>
-            <_.PictureIconsIcon
-              name="heart"
-              size={18}
-              iconStyle={[
-                _.styles.iconStyle,
-                alreadyFavourite ? { color: '#f134d2' } : { color: theme.getColors().iconColor },
-              ]}
-              onPress={() => handleFavourite()}
-            />
             {!isVideo()
               ? (
                 <_.PictureIconsIcon
-                  name="download"
+                  name="expand"
                   size={18}
                   iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
-                  onPress={download}
+                  onPress={zoom}
                 />
+              ) : undefined}
+          </_.PictureIconsViewLeft>
+          <_.PictureIconsViewRight>
+            {!isVideo()
+              ? (
+                <View>
+                  <_.PictureIconsIcon
+                    name="heart"
+                    size={18}
+                    iconStyle={[
+                      _.styles.iconStyle,
+                      alreadyFavourite ? { color: '#f134d2' } : { color: theme.getColors().iconColor },
+                    ]}
+                    onPress={() => handleFavourite()}
+                  />
+                  <_.PictureIconsIcon
+                    name="download"
+                    size={18}
+                    iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
+                    onPress={download}
+                  />
+                </View>
               ) : undefined}
             <_.PictureIconsIcon
               name="share-alt"
