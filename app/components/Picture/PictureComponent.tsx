@@ -218,8 +218,9 @@ function Picture({ attrs, similars, navigation }: Props) {
             style={{
               marginLeft: '90%',
               width: 10,
+              height: 30,
               marginTop: 0,
-              marginBottom: -20,
+              marginBottom: -13,
             }}
           >
             <Icon
