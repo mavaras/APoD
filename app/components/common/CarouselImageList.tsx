@@ -1,10 +1,9 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import { View } from 'react-native';
 import Shimmer from 'react-native-shimmer';
 import styled from 'styled-components';
-
-import { ThemeContext, useTheme } from '../../themes';
 
 
 const SimilarsView = styled.View`
@@ -44,8 +43,17 @@ const ShimmerInner = styled.Text`
   borderRadius: 5;
 `;
 
-function CarouselPictureList({ navigation, list }) {
-  const theme: ThemeContext = useTheme();
+type RootStackParamList = {
+  Explore: undefined;
+  Settings: undefined;
+  Picture: undefined;
+  ExplorePicture: undefined;
+};
+interface Props {
+  navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
+  list: Array<object>,
+}
+function CarouselPictureList({ navigation, list }: Props) {
   const { t }: UseTranslationResponse = useTranslation();
 
   if (Object.keys(list).length === 0) {

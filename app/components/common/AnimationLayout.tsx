@@ -8,7 +8,7 @@ import { ThemeContext, useTheme } from '../../themes';
 interface Props {
   animation: Animation,
   text: string,
-  render: boolean,
+  render?: boolean,
 }
 function AnimationLayout({ animation, text, render = true }: Props) {
   const theme: ThemeContext = useTheme();

@@ -61,18 +61,18 @@ function Picture({ attrs, similars, navigation }: Props) {
   const [, setButtonRect] = useState<object>({
     x: 0, y: 0, width: 0, height: 0,
   });
-  const [scrollY] = useState(new Animated.Value(0));
+  const [scrollY] = useState<Animated.Value>(new Animated.Value(0));
   let imageRef: any;
 
-  function download() {
-    const { config, fs } = RNFetchBlob;
-    const pictureDir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
-    const picturePath = `${pictureDir}/APoD/APoD_${attrs.title}.png`;
+  function download(): void {
+    const { config, fs }: RNFetchBlob = RNFetchBlob;
+    const pictureDir: string = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.PictureDir;
+    const picturePath: string = `${pictureDir}/APoD/APoD_${attrs.title}.png`;
 
     setDownloading(true);
 
     if (Platform.OS === 'android') {
-      const options = {
+      const options: object = {
         fileCache: true,
         addAndroidDownloads: {
           useDownloadManager: true,
@@ -107,10 +107,10 @@ function Picture({ attrs, similars, navigation }: Props) {
     }
   }
 
-  function share() {
+  function share(): void {
     ImgToBase64.getBase64String(attrs.url)
       .then((base64Url: string) => {
-        const options = {
+        const options: object = {
           url: `data:image/png;base64,${base64Url}`,
         };
         Share.open(options)
@@ -123,24 +123,24 @@ function Picture({ attrs, similars, navigation }: Props) {
       });
   }
 
-  function zoom() {
+  function zoom(): void {
     setOpenZoomModal(!openZoomModal);
   }
 
-  async function isFavourite() {
-    const favourites = await Storage.getItem('@APODapp:favourites');
-    const favouritesArray = JSON.parse(favourites);
+  async function isFavourite(): Promise<boolean> {
+    const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
+    const favouritesArray: Array<object> = JSON.parse(favourites);
     return favouritesArray.some((item: object) => item.title === attrs.title);
   }
 
-  function isVideo() {
-    return ['youtube', 'vimeo'].some((aux) => attrs.url?.split(/[/.]/).includes(aux));
+  function isVideo(): boolean {
+    return ['youtube', 'vimeo'].some((videoEvidence: string) => attrs.url?.split(/[/.]/).includes(videoEvidence));
   }
 
-  async function addFavourite() {
+  async function addFavourite(): Promise<void> {
     setAlreadyFavourite(true);
-    const favourites = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray = [];
+    const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
+    let favouritesArray: Array<object> = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
       if (!await isFavourite()) {
@@ -152,15 +152,15 @@ function Picture({ attrs, similars, navigation }: Props) {
     await Storage.setItem('@APODapp:favourites', JSON.stringify(favouritesArray));
   }
 
-  async function removeFavourite() {
+  async function removeFavourite(): Promise<void> {
     setAlreadyFavourite(false);
-    const favourites = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray = JSON.parse(favourites);
+    const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
+    let favouritesArray: Array<object> = JSON.parse(favourites);
     favouritesArray = favouritesArray.filter((item: object) => attrs.title !== item.title);
     await Storage.setItem('@APODapp:favourites', JSON.stringify(favouritesArray));
   }
 
-  async function handleFavourite() {
+  async function handleFavourite(): Promise<void> {
     if (alreadyFavourite) {
       removeFavourite();
     } else {
@@ -168,7 +168,7 @@ function Picture({ attrs, similars, navigation }: Props) {
     }
   }
 
-  function showPopover() {
+  function showPopover(): void {
     imageRef.measure((width: number, height: number, x: number, y: number) => {
       setIsModalOpen(true);
       setButtonRect({
@@ -187,7 +187,7 @@ function Picture({ attrs, similars, navigation }: Props) {
     }
   }, []);
 
-  const ImageScale = scrollY.interpolate({
+  const ImageScale: Animated.AnimatedInterpolation = scrollY.interpolate({
     inputRange: [-100, 0, 200],
     outputRange: [1.5, 1.1, 1],
     extrapolate: 'clamp',

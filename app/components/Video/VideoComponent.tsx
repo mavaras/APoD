@@ -3,7 +3,11 @@ import { View } from 'react-native';
 import WebView from 'react-native-webview';
 
 
-function Video({ url, style }: any) {
+interface Props {
+  url: string,
+  style: object,
+}
+function Video({ url, style }: Props) {
   return (
     <View style={style}>
       <WebView

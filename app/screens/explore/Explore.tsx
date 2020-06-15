@@ -29,10 +29,10 @@ interface Props {
 function ExploreScreen({ navigation }: Props) {
   const theme: ThemeContext = useTheme();
   const { t }: UseTranslationResponse = useTranslation();
-  const DB = FirebaseDB.instance;
+  const DB: FirebaseDB = FirebaseDB.instance;
 
   let picturesList: Array<string> = ['notempty'];
-  const [error, setError] = useState<Boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [picturesLimit, ] = useState<number>(18);
   const [loading, setLoading] = useState<Boolean>(true);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
@@ -45,14 +45,14 @@ function ExploreScreen({ navigation }: Props) {
   const [search, setSearch] = useState<string>('');
   const [cols, setCols] = useState<number>(2);
 
-  function scrollToTop() {
+  function scrollToTop(): void {
     setTimeout(() => {
       flatListRef?.scrollToEnd();
     }, 200);
   }
 
 
-  async function getNextItems() {
+  async function getNextItems(): Promise<void> {
     if (this.picturesList.length === 0 || pictures.length === this.picturesList.length) {
       setRefreshing(false);
       return;
@@ -65,7 +65,7 @@ function ExploreScreen({ navigation }: Props) {
     setRefreshing(false);
   }
 
-  async function loadData() {
+  async function loadData(): Promise<void> {
     if (pictures.length === picturesList.length) {
       return;
     }
@@ -91,11 +91,11 @@ function ExploreScreen({ navigation }: Props) {
     setTimeout(() => loadData(), 2000);
   }, []);
 
-  function setNumberOfColumns(nCols: number) {
+  function setNumberOfColumns(nCols: number): void {
     setCols(nCols);
   }
 
-  function searchFilterFunction(text: string) {
+  function searchFilterFunction(text: string): void {
     if (text !== '') {
       setSearching(true);
       const newData = filterByWord(this.picturesList, text);
@@ -107,14 +107,14 @@ function ExploreScreen({ navigation }: Props) {
     setSearch(text);
   }
 
-  function renderFooter() {
+  function renderFooter(): React.ReactNode {
     if (showFavourites || (!refreshing || searching)) return null;
     return (
       <_.ActivityIndicator />
     );
   }
 
-  async function handleShowFavourites() {
+  async function handleShowFavourites(): Promise<void> {
     setTimeout(async () => {
       setShowFavourites(!showFavourites);
       if (!showFavourites) {
@@ -131,7 +131,7 @@ function ExploreScreen({ navigation }: Props) {
   }
 
   if (error) {
-    const text = t('explore.waitingScreen');
+    const text: string = t('explore.waitingScreen');
     return (
       <WaitingScreen text={text} />
     );

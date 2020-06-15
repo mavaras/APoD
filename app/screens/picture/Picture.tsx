@@ -29,7 +29,7 @@ function PictureScreen({ route, navigation }: Props) {
   const [response, setResponse] = useState<{[string: string]: string}>({});
   const [similars, setSimilars] = useState<{[string: string]: string}>({});
 
-  async function fetchData() {
+  async function fetchData(): Promise<void> {
     if (!route.params) {
       let mustQuery: boolean = true;
       let lastPicture: any = null;
@@ -81,11 +81,12 @@ function PictureScreen({ route, navigation }: Props) {
     }
   }
 
-  async function getSimilars() {
-    const titleWords = response.title.split(' ').filter((word) => word.length > 3);
+  async function getSimilars(): Promise<void> {
+    const titleWords: Array<string> = response.title.split(' ').filter((word) => word.length > 3);
     const picturesList = DB.picturesList;
-    let similarsList = [];
-    let maxLen = 0;
+    let similarsList: Array<string> = [];
+    let maxLen: number = 0;
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const word in titleWords) {
       const wordFiltered = filterByWord(picturesList, word);
       if (wordFiltered.length > maxLen) {

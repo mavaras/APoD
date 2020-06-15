@@ -29,7 +29,7 @@ const colors = {
     activeSectionMenuColor: '#007AFF',
   },
 };
-const themeManager = new ThemeManager(colors);
+const themeManager: ThemeManager = new ThemeManager(colors);
 
 const defaultTheme: string = 'lightTheme';
 
@@ -56,7 +56,7 @@ export const useTheme = (): ThemeContext => useContext(ThemeContext);
 
 function ManageThemeProvider({ children }) {
   const theme: ThemeContext = useTheme();
-  const [themeStyle, setThemeStyle] = useState(theme.getTheme());
+  const [themeStyle, setThemeStyle] = useState<string>(theme.getTheme());
 
   function setTheme(newTheme: string) {
     theme.setTheme(newTheme);

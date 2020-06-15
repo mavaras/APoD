@@ -6,6 +6,5 @@ import colors from '../../themes';
 export default StyleSheet.create({
   scrollView: {
     backgroundColor: colors.bgColor,
-    height: '100%',
   },
 });
