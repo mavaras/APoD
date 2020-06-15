@@ -25,7 +25,9 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
-import { capitalize, formatDate, requestStoragePermissionAndroid } from '../../utils/utils';
+import {
+  capitalize, equalDates, formatDate, getTodayStringDate, requestStoragePermissionAndroid,
+} from '../../utils/utils';
 import AnimationLayout from '../common/AnimationLayout';
 import CarouselPictureList from '../common/CarouselImageList';
 import Video from '../Video/VideoComponent';
@@ -206,27 +208,30 @@ function Picture({ attrs, similars, navigation }: Props) {
           onSwipeDown={zoom}
         />
       </Modal>
-      <TouchableHighlight
-        style={{
-          borderColor: 'white',
-          marginLeft: '90%',
-          width: 10,
-          marginTop: 0,
-          marginBottom: -20,
-        }}
-      >
-        <Icon
-          name="cog"
-          size={22}
-          iconStyle={{ color: 'white' }}
-          style={{
-            color: theme.getColors().buttonColor,
-            backgroundColor: theme.getColors().bgColor,
-            width: 60,
-          }}
-          onPress={() => navigation.navigate('Settings')}
-        />
-      </TouchableHighlight>
+      { equalDates(attrs.date, getTodayStringDate())
+        ? (
+          <TouchableHighlight
+            style={{
+              marginLeft: '90%',
+              width: 10,
+              marginTop: 0,
+              marginBottom: -20,
+            }}
+          >
+            <Icon
+              name="cog"
+              size={22}
+              iconStyle={{ color: 'white' }}
+              style={{
+                color: theme.getColors().buttonColor,
+                backgroundColor: theme.getColors().bgColor,
+                width: 60,
+                overflow: 'hidden',
+              }}
+              onPress={() => navigation.navigate('Settings')}
+            />
+          </TouchableHighlight>
+        ) : undefined}
       <Dialog
         dialogAnimation={new SlideAnimation({
           slideFrom: 'bottom',
