@@ -226,7 +226,7 @@ function Picture({ attrs, similars, navigation }: Props) {
           >
             <Icon
               name="cog"
-              size={22}
+              size={24}
               iconStyle={{ color: 'white' }}
               style={{
                 color: theme.getColors().buttonColor,
@@ -357,7 +357,7 @@ function Picture({ attrs, similars, navigation }: Props) {
           <_.PictureIconsViewRight>
             {!isVideo()
               ? (
-                <View>
+                <>
                   <_.PictureIconsIcon
                     name="heart"
                     size={18}
@@ -373,7 +373,7 @@ function Picture({ attrs, similars, navigation }: Props) {
                     iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
                     onPress={download}
                   />
-                </View>
+                </>
               ) : undefined}
             <_.PictureIconsIcon
               name="share-alt"
