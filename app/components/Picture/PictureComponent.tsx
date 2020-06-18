@@ -51,12 +51,14 @@ function Picture({ attrs, similars, navigation }: Props) {
   const theme: ThemeContext = useTheme();
   const { t }: UseTranslationResponse = useTranslation();
   const downloadingAnimation = require('../../res/animations/planet.json');
+  const sharingAnimation = require('../../res/animations/planet2.json');
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
   const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
   let [loadingImage, setLoadingImage] = useState<boolean>(true);
   const [downloading, setDownloading] = useState<boolean>(false);
+  const [sharing, setSharing] = useState<boolean>(false);
   const [alreadyFavourite, setAlreadyFavourite] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [, setButtonRect] = useState<object>({
@@ -109,8 +111,10 @@ function Picture({ attrs, similars, navigation }: Props) {
   }
 
   function share(): void {
+    setSharing(true);
     ImgToBase64.getBase64String(attrs.url)
       .then((base64Url: string) => {
+        setSharing(false);
         const options: object = {
           url: `data:image/png;base64,${base64Url}`,
         };
@@ -119,9 +123,7 @@ function Picture({ attrs, similars, navigation }: Props) {
             console.log(err);
           });
       })
-      .catch((err: string) => {
-        console.log(err);
-      });
+      .catch((err: string) => console.log(err));
   }
 
   function zoom(): void {
@@ -200,6 +202,11 @@ function Picture({ attrs, similars, navigation }: Props) {
         animation={downloadingAnimation}
         text={t('picture.downloadingPicture')}
         render={downloading}
+      />
+      <AnimationLayout
+        animation={sharingAnimation}
+        text={t('picture.sharePicturePrev')}
+        render={sharing}
       />
       <Modal
         visible={openZoomModal}

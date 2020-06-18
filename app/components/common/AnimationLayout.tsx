@@ -26,7 +26,7 @@ function AnimationLayout({ animation, text, render = true }: Props) {
         <View style={{ marginTop: '55%', justifyContent: 'center', alignItems: 'center' }}>
           <Animation
             ref={(animationRef) => { animationAux = animationRef; }}
-            style={{ width: 100, height: 100 }}
+            style={{ width: 100, height: 100, backgroundColor: theme.getColors().fontColor, borderRadius: 60 }}
             source={animation}
           />
         </View>

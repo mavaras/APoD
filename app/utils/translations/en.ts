@@ -10,6 +10,7 @@ export const enTranslations: ResourceLanguage = {
   picture: {
     downloadingPicture: 'Downloading picture...',
     downloadPictureSuccess: 'Image succesfully downloaded!',
+    sharePicturePrev: 'Preparing picture for share',
     similarsLabel: 'Similar Pictures',
     waitingScreen: "Today's APoD will appear soon.\nStay tuned!",
   },
