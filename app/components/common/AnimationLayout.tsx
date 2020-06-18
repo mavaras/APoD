@@ -1,9 +1,31 @@
 import Animation from 'lottie-react-native';
 import React, { useEffect } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { View } from 'react-native';
+import styled from "styled-components";
 
 import { ThemeContext, useTheme } from '../../themes';
 
+
+const ScrollView = styled.SafeAreaView`
+  backgroundColor: ${({ theme }) => theme.bgColor};
+  height: 100%;
+`;
+const AnimationView = styled.View`
+  marginTop: 55%;
+  justifyContent: center;
+  alignItems: center;
+`;
+const AnimationComponent = styled(Animation)`
+  width: 100px;
+  height: 100px;
+  backgroundColor: ${({ theme }) => (theme.fontColor === 'black' ? theme.bgColor : theme.fontColor)};
+  borderRadius: 60px;
+`;
+const AnimationText = styled.Text`
+  color: ${({ theme }) => theme.fontColor};
+  fontSize: 21px;
+  textAlign: center;
+`;
 
 interface Props {
   animation: Animation,
@@ -11,7 +33,6 @@ interface Props {
   render?: boolean,
 }
 function AnimationLayout({ animation, text, render = true }: Props) {
-  const theme: ThemeContext = useTheme();
   let animationAux: Animation = animation;
 
   useEffect(() => {
@@ -22,20 +43,19 @@ function AnimationLayout({ animation, text, render = true }: Props) {
 
   if (render) {
     return (
-      <SafeAreaView style={{ backgroundColor: theme.getColors().bgColor, height: '100%' }}>
-        <View style={{ marginTop: '55%', justifyContent: 'center', alignItems: 'center' }}>
-          <Animation
+      <ScrollView>
+        <AnimationView>
+          <AnimationComponent
             ref={(animationRef) => { animationAux = animationRef; }}
-            style={{ width: 100, height: 100, backgroundColor: theme.getColors().fontColor, borderRadius: 60 }}
             source={animation}
           />
-        </View>
+        </AnimationView>
         <View>
-          <Text style={{ color: theme.getColors().fontColor, fontSize: 21, textAlign: 'center' }}>
+          <AnimationText>
             {text}
-          </Text>
+          </AnimationText>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     );
   }
   return (null);
