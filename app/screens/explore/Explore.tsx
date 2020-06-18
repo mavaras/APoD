@@ -10,7 +10,6 @@ import FirebaseDB from '../../config';
 import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
 import { filterByWord } from '../../utils/utils';
-import LoadingScreen from '../loading/LoadingScreen';
 import WaitingScreen from '../loading/WaitingScreen';
 import * as _ from './style';
 
@@ -34,7 +33,6 @@ function ExploreScreen({ navigation }: Props) {
   let picturesList: Array<string> = ['notempty'];
   const [error, setError] = useState<boolean>(false);
   const [picturesLimit, ] = useState<number>(18);
-  const [loading, setLoading] = useState<Boolean>(true);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [searching, setSearching] = useState<boolean>(false);
@@ -134,11 +132,6 @@ function ExploreScreen({ navigation }: Props) {
     const text: string = t('explore.waitingScreen');
     return (
       <WaitingScreen text={text} />
-    );
-  }
-  if (loading) {
-    return (
-      <LoadingScreen />
     );
   }
   return (
