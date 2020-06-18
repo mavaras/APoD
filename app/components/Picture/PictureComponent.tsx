@@ -192,7 +192,7 @@ function Picture({ attrs, similars, navigation }: Props) {
 
   const ImageScale: Animated.AnimatedInterpolation = scrollY.interpolate({
     inputRange: [-100, 0, 200],
-    outputRange: [1.5, 1.1, 1],
+    outputRange: [1.6, 1.1, 1],
     extrapolate: 'clamp',
   });
 
@@ -284,7 +284,7 @@ function Picture({ attrs, similars, navigation }: Props) {
               <AnimatedFastImage
                 style={{
                   width: '100%',
-                  height: 350,
+                  height: 360,
                   marginTop: attrs.explorePicture !== undefined ? 0 : 20,
                   position: 'absolute',
                   transform: [{ scale: ImageScale }],
