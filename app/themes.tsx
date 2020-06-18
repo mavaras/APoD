@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from 'react';
-import ThemeManager from 'react-native-color-theme';
 import { ThemeProvider } from 'styled-components/native';
 
 import Storage from './storage';
@@ -29,34 +28,36 @@ const colors = {
     activeSectionMenuColor: '#007AFF',
   },
 };
-const themeManager: ThemeManager = new ThemeManager(colors);
 
 const defaultTheme: string = 'lightTheme';
 
 async function getCurrentTheme(): Promise<string> {
   const currentTheme: string | undefined = await Storage.getItem('@APODapp:theme');
-  themeManager.setTheme(currentTheme);
   return (currentTheme || defaultTheme);
 }
 
 const ThemeContext = createContext({
-  themeStyle: getCurrentTheme(),
-  setTheme: (theme: string): void => themeManager.setTheme(theme),
-  getTheme: (): string => themeManager.getTheme(),
-  getColors: (): any => (themeManager.getTheme() === 'lightTheme' ? colors.lightTheme : colors.darkTheme),
+  themeStyle: defaultTheme,
+  // eslint-disable-next-line no-console
+  setTheme: (theme: string): void => console.log(theme),
+  getTheme: (): string => defaultTheme,
+  getColors: (): any => {},
 });
 
 export type ThemeContext = {
-  themeStyle: Promise<String>;
+  themeStyle: string;
   setTheme: (theme: string) => void;
   getTheme: () => string;
   getColors: () => { [id: string] : string; };
 };
 export const useTheme = (): ThemeContext => useContext(ThemeContext);
 
-function ManageThemeProvider({ children }) {
+interface Props {
+  children: React.ReactNode,
+}
+function ManageThemeProvider({ children }: Props) {
   const theme: ThemeContext = useTheme();
-  const [themeStyle, setThemeStyle] = useState<string>(theme.getTheme());
+  const [themeStyle, setThemeStyle] = useState<string>(defaultTheme);
 
   function setTheme(newTheme: string) {
     theme.setTheme(newTheme);
@@ -64,11 +65,11 @@ function ManageThemeProvider({ children }) {
   }
 
   function getTheme() {
-    return theme.getTheme();
+    return themeStyle;
   }
 
   function getColors() {
-    return theme.getTheme() === 'lightTheme' ? colors.lightTheme : colors.darkTheme;
+    return themeStyle === 'lightTheme' ? colors.lightTheme : colors.darkTheme;
   }
 
   return (
@@ -84,13 +85,11 @@ function ManageThemeProvider({ children }) {
   );
 }
 
-themeManager.setTheme('lightTheme');
-
 interface Props {
   children: React.ReactNode,
 }
-export const ThemeHandler = ({ children }: Props) => (
+const ThemeHandler = ({ children }: Props) => (
   <ManageThemeProvider>{children}</ManageThemeProvider>
 );
 
-export default themeManager;
+export default ThemeHandler;
