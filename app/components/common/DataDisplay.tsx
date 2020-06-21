@@ -1,7 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Linking, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
+
+import { ThemeContext, useTheme } from '../../themes';
 
 
 const RowView = styled.View`
@@ -16,22 +19,26 @@ const RowTextTitle = styled.Text`
   fontSize: 20px;
   fontWeight: 500;
   marginBottom: 15px;
-  width: 92%;
+  width: 90%;
 `;
 const RowTextPerson = styled.Text`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }) => theme.iconColor};
   fontSize: 18px;
-  width: 92%;
+  width: 95%;
 `;
 const SectionTitleText = styled.Text`
-  fontSize: 25px;
+  color: ${({ theme }) => theme.fontColor};
+  fontSize: 29px;
+  marginLeft: 18px;
   fontWeight: 600;
 `;
 
 interface Props {
   items: Array<Array<Object>>,
 }
-function DataDisplay({ items }: Props) {console.log(items);
+function DataDisplay({ items }: Props) {
+  const theme: ThemeContext = useTheme();
+
   return (
     <ScrollView>
       {items.map((sectionItems: Array<Object>) => (
@@ -51,14 +58,32 @@ function DataDisplay({ items }: Props) {console.log(items);
                   alignItems: 'center',
                 },
                 index < sectionItems.titles.length - 1 && sectionItems.titles.length > 1
-                  ? { borderBottomWidth: 1.5, borderBottomColor: '#ececece1' }
+                  ? { borderBottomWidth: 1.5, borderBottomColor: theme.getColors().bgColor2 }
                   : {},
                 ]}
               >
                 <View style={{ width: '100%' }}>
-                  <RowTextTitle>{item.title}</RowTextTitle>
-                  <RowTextPerson>{item.person}</RowTextPerson>
-                  <RowTextPerson>{item.url}</RowTextPerson>
+                  <View style={{ flexDirection: 'row' }}>
+                    <RowTextTitle>{item.title}</RowTextTitle>
+                    {item.url
+                      ? (
+                        <Icon.Button
+                          name="link"
+                          size={20}
+                          style={{
+                            height: 50,
+                            marginTop: -11,
+                            borderRadius: 0,
+                            backgroundColor: theme.getColors().bgColor,
+                          }}
+                          iconStyle={{
+                            color: theme.getColors().iconColor,
+                          }}
+                          onPress={() => Linking.openURL(item.url)}
+                        />
+                      ) : undefined}
+                  </View>
+                  <RowTextPerson>by {item.person}</RowTextPerson>
                 </View>
               </View>
             ))}

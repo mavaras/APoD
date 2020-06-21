@@ -11,7 +11,7 @@ import { ThemeContext, useTheme } from '../../themes';
 
 function MentionsScreen() {
   const theme: ThemeContext = useTheme();
-  const [items] = useState(require('../../res/credits.json'));
+  const items = require('../../res/credits.json');
 
   return (
     <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: theme.getColors().bgColor2 }}>
