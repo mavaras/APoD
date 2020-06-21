@@ -11,6 +11,10 @@ module.exports = {
     "react/jsx-pascal-case": "off",
     "sort-imports": "off",
     "import/order": "off",
-    "simple-import-sort/sort": "error"
+    "simple-import-sort/sort": "error",
+    "global-require": "off",
+  },
+  env: {
+    "jest": true
   }
 };
