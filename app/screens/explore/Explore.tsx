@@ -67,7 +67,6 @@ function ExploreScreen({ navigation }: Props) {
     if (pictures.length === picturesList.length) {
       return;
     }
-    setLoading(true);
     setRefreshing(true);
     await DB.pictures
       .once('value', (data: any) => {
@@ -82,7 +81,6 @@ function ExploreScreen({ navigation }: Props) {
         getNextItems();
       })
       .catch(() => setError(true));
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -173,7 +171,7 @@ function ExploreScreen({ navigation }: Props) {
           <Icon.Button
             name="grip-vertical"
             size={18}
-            iconStyle={_.styles.layoutButtonIcon}
+            iconStyle={{ marginLeft: 10, color: theme.getColors().buttonColor }}
             style={[
               _.styles.layoutButton,
               {
@@ -187,7 +185,7 @@ function ExploreScreen({ navigation }: Props) {
           <Icon.Button
             name="grip-horizontal"
             size={18}
-            iconStyle={_.styles.layoutButtonIcon}
+            iconStyle={{ marginLeft: 10, color: theme.getColors().buttonColor }}
             style={[
               _.styles.layoutButton,
               {
@@ -201,7 +199,7 @@ function ExploreScreen({ navigation }: Props) {
           <Icon.Button
             name="grip-lines"
             size={18}
-            iconStyle={_.styles.layoutButtonIcon}
+            iconStyle={{ marginLeft: 10, color: theme.getColors().buttonColor }}
             style={[
               _.styles.layoutButton,
               {
@@ -217,7 +215,10 @@ function ExploreScreen({ navigation }: Props) {
           <Icon.Button
             name="heart"
             size={18}
-            iconStyle={[_.styles.layoutButtonIcon, showFavourites ? { color: '#f134d2' } : undefined]}
+            iconStyle={[
+              { marginLeft: 10, color: theme.getColors().buttonColor },
+              showFavourites ? { color: '#f134d2' } : undefined
+            ]}
             style={[
               _.styles.layoutButton,
               {

@@ -4,8 +4,6 @@ import Shimmer from 'react-native-shimmer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components';
 
-import colors from '../../themes';
-
 
 export const SafeAreaView = styled.SafeAreaView`
   height: ${Dimensions.get('window').height};
@@ -143,11 +141,9 @@ export const PictureAuthorText = styled.Text`
 
 export const styles = StyleSheet.create({
   iconStyle: {
-    color: colors.iconColor,
     marginRight: -3,
   },
   iconButtonStyle: {
-    backgroundColor: colors.bgColor,
     height: '100%',
   },
   animatedScrollView: {

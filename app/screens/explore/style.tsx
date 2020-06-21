@@ -2,8 +2,6 @@ import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components';
 
-import colors from '../../themes';
-
 
 export const FlatList = styled.FlatList`
   marginTop: 6;
@@ -63,7 +61,6 @@ export const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   layoutButtonIcon: {
-    color: colors.buttonColor,
     marginLeft: 10,
   },
 });
