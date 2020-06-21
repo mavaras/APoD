@@ -63,7 +63,7 @@ function SettingsScreen({ navigation }) {
   ]);
 
   async function changeTheme(): Promise<void> {
-    const newTheme: string = theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme';
+    const newTheme: string = await theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme';
     theme.setTheme(newTheme);
     const itemsAux: Array<Array<Object>> = items.slice();
     itemsAux[0][0].extraStyle = { color: newTheme === 'lightTheme' ? '#131415' : '#fffcf6' };
@@ -77,7 +77,9 @@ function SettingsScreen({ navigation }) {
         <SectionsMenu items={items} />
       </ScrollView>
       <View style={{ alignItems: 'center', height: 100 }}>
-        <Text style={{ fontSize: 15 }}>2020 - Mario Varas</Text>
+        <Text style={{ fontSize: 15, color: theme.getColors().fontColor }}>
+          2020 - Mario Varas
+        </Text>
       </View>
     </SafeAreaView>
   );

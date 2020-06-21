@@ -40,14 +40,14 @@ const ThemeContext = createContext({
   themeStyle: defaultTheme,
   // eslint-disable-next-line no-console
   setTheme: (theme: string): void => console.log(theme),
-  getTheme: (): string => defaultTheme,
+  getTheme: (): Promise<string> | string => defaultTheme,
   getColors: (): any => {},
 });
 
 export type ThemeContext = {
   themeStyle: string;
   setTheme: (theme: string) => void;
-  getTheme: () => string;
+  getTheme: () => Promise<string> | string;
   getColors: () => { [id: string] : string; };
 };
 export const useTheme = (): ThemeContext => useContext(ThemeContext);
@@ -65,7 +65,7 @@ function ManageThemeProvider({ children }: Props) {
   }
 
   function getTheme() {
-    return themeStyle;
+    return getCurrentTheme();
   }
 
   function getColors() {
