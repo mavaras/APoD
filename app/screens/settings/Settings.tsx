@@ -4,6 +4,8 @@ import {
   Dimensions,
   Linking,
   SafeAreaView,
+  Text,
+  View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -12,7 +14,7 @@ import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
 
 
-function SettingsScreen() {
+function SettingsScreen({ navigation }) {
   const theme: ThemeContext = useTheme();
   const { t }: UseTranslationResponse = useTranslation();
   const [items, setItems] = useState<Array<Array<Object>>>([
@@ -51,6 +53,12 @@ function SettingsScreen() {
         extraStyle: { color: 'orange' },
         action: () => {},
       },
+      {
+        title: t('settings.labels.mentions'),
+        iconName: 'map-signs',
+        extraStyle: { color: '#5eb8dd' },
+        action: () => navigation.navigate('Mentions'),
+      },
     ],
   ]);
 
@@ -68,6 +76,9 @@ function SettingsScreen() {
       <ScrollView>
         <SectionsMenu items={items} />
       </ScrollView>
+      <View style={{ alignItems: 'center', height: 100 }}>
+        <Text style={{ fontSize: 15 }}>2020 - Mario Varas</Text>
+      </View>
     </SafeAreaView>
   );
 }

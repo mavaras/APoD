@@ -9,6 +9,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 import ExploreScreen from './screens/explore/Explore';
 import PictureScreen from './screens/picture/Picture';
+import MentionsScreen from './screens/settings/Mentions';
 import SettingsScreen from './screens/settings/Settings';
 import ThemeHandler, { ThemeContext, useTheme } from './themes';
 import { i18next } from './utils/translations/translate';
@@ -72,6 +73,15 @@ function StackNavigatorContainer() {
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
+          options={{
+            headerTintColor: theme.getColors().fontColor,
+            headerTitleStyle: { color: theme.getColors().fontColor },
+            headerStyle: { backgroundColor: theme.getColors().bgColor },
+          }}
+        />
+        <Stack.Screen
+          name="Mentions"
+          component={MentionsScreen}
           options={{
             headerTintColor: theme.getColors().fontColor,
             headerTitleStyle: { color: theme.getColors().fontColor },

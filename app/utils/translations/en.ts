@@ -19,6 +19,7 @@ export const enTranslations: ResourceLanguage = {
       appearance: 'Appearance',
       buyMeACoffee: 'Buy me a coffee',
       issues: 'Report an issue',
+      mentions: 'Mentions',
       rateApp: 'Rate this app',
       repo: 'Source code',
     },

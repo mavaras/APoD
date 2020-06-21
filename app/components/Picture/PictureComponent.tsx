@@ -241,7 +241,7 @@ function Picture({ attrs, similars, navigation }: Props) {
                 width: 60,
                 overflow: 'hidden',
               }}
-              onPress={() => navigation.navigate('Settings')}
+              onPress={() => navigation.navigate('Settings', { navigation })}
             />
           </TouchableHighlight>
         ) : undefined}
