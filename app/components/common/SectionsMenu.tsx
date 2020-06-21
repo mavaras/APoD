@@ -3,8 +3,6 @@ import { TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
 
-import { ThemeContext, useTheme } from '../../themes';
-
 
 const ScrollView = styled.ScrollView`
   /*backgroundColor: ${({ theme }) => theme.bgColor};*/
@@ -26,9 +24,10 @@ const RowText = styled.Text`
   width: 92%;
 `;
 
-function SectionsMenu({ items }: Array<Array<Object>>) {
-  const theme: ThemeContext = useTheme();
-
+interface Props {
+  items: Array<Array<Object>>,
+}
+function SectionsMenu({ items }: Props) {
   return (
     <ScrollView>
       {items.map((sectionItems: Array<Object>) => (
