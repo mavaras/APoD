@@ -14,15 +14,15 @@ const RowView = styled.View`
   width: 90%;
   alignSelf: center;
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
-  borderRadius: 10;
-  marginTop: 30;
+  borderRadius: 10px;
+  marginTop: 30px;
 `;
 const RowTouchableView = styled.View`
   flexDirection: row;
 `;
 const RowText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  fontSize: 17;
+  fontSize: 17px;
   width: 92%;
 `;
 

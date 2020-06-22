@@ -6,8 +6,8 @@ import { ThemeColors } from '../../themes';
 
 
 export const FlatList = styled.FlatList`
-  marginTop: 6;
-  marginBottom: 0;
+  marginTop: 6px;
+  marginBottom: 0px;
 `;
 export const SafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -16,9 +16,9 @@ export const SafeAreaView = styled.SafeAreaView`
 export const LayoutButton = styled(Icon.Button)`
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   height: 100%;
-  borderLeftWidth: 1;
+  borderLeftWidth: 1px;
   borderLeftColor: ${({ theme }: ThemeColors) => theme.borderColor};
-  borderRightWidth: 1;
+  borderRightWidth: 1px;
   borderRightColor: ${({ theme }: ThemeColors) => theme.borderColor};
 `;
 export const ButtonDisplayLayoutView = styled.View`
@@ -27,7 +27,7 @@ export const ButtonDisplayLayoutView = styled.View`
   flex: 1;
   justifyContent: center;
   alignItems: center;
-  borderBottomWidth: 2.5;
+  borderBottomWidth: 2.5px;
   borderBottomColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
 `;
 export const ButtonDisplayLayout = styled(Icon.Button)`
@@ -36,10 +36,10 @@ export const ButtonDisplayLayout = styled(Icon.Button)`
 export const LayoutButtonsView = styled.View`
   flexDirection: row;
   alignContent: flex-start;
-  marginLeft: 6;
+  marginLeft: 6px;
 `;
 export const HeartButtonView = styled.View`
-  marginRight: 6;
+  marginRight: 6px;
   flexDirection: row;
   justifyContent: flex-end;
 `;
@@ -52,8 +52,8 @@ export const SearchInputView = styled.View`
 `;
 export const ActivityIndicator = styled.ActivityIndicator`
   color: #000;
-  height: 100;
-  marginBottom: 50;
+  height: 100px;
+  marginBottom: 50px;
 `;
 
 export const styles = StyleSheet.create({

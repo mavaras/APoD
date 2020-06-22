@@ -11,38 +11,38 @@ import { ThemeColors } from '../../themes';
 const SimilarsView = styled.View`
   marginLeft: 5%;
   marginRight: 5%;
-  marginTop: 35;
+  marginTop: 35px;
 `;
 const SimilarsText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontWeight: 600;
-  fontSize: 20;
-  marginBottom: 30;
+  fontSize: 20px;
+  marginBottom: 30px;
 `;
 const SimilarsScrollView = styled.ScrollView`
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
 `;
 const SimilarsTouchableHighlight = styled.TouchableHighlight`
-  marginRight: 5;
-  width: 130;
+  marginRight: 5px;
+  width: 130px;
 `;
 const ImageSimilars = styled.Image`
-  height: 130;
-  borderRadius: 7;
+  height: 130px;
+  borderRadius: 7px;
   width: 100%;
   position: absolute;
-  marginBottom: 0;
-  borderRadius: 5;
+  marginBottom: 0px;
+  borderRadius: 5px;
 `;
 const ImageShimmer = styled(Shimmer)`
   justifyContent: center;
 `;
 const ShimmerInner = styled.Text`
-  height: 130;
+  height: 130px;
   width: 100%;
   backgroundColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
   overflow: hidden;
-  borderRadius: 5;
+  borderRadius: 5px;
 `;
 
 type RootStackParamList = {

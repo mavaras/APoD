@@ -11,6 +11,6 @@ export const AnimationView = styled.View`
   alignItems: center;
 `;
 export const LottieComponent = styled(Animation)`
-  width: 700;
-  height: 300;
+  width: 700px;
+  height: 300px;
 `;

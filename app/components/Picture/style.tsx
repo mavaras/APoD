@@ -16,20 +16,20 @@ export const SafeAreaView = styled.SafeAreaView`
 `;
 export const Video = styled.View`
   width: 100%;
-  height: 350;
-  marginBottom: -360;
+  height: 350px;
+  marginBottom: -360px;
 `;
 export const TouchableHighlight = styled.View`
-  height: 0;
-  marginTop: 20;
+  height: 0px;
+  marginTop: 20px;
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
 `;
 export const AnimatedScrollView = styled(Animated.ScrollView)`
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   height: ${Dimensions.get('window').height + 400};
-  marginTop: 370;
-  borderTopLeftRadius: 20;
-  borderTopRightRadius: 20;
+  marginTop: 370px;
+  borderTopLeftRadius: 20px;
+  borderTopRightRadius: 20px;
 `;
 export const PictureInfoView = styled.View`
   justifyContent: center;
@@ -37,36 +37,36 @@ export const PictureInfoView = styled.View`
 `;
 export const PictureDescription = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  fontSize: 15.7;
+  fontSize: 15.7px;
   width: 90%;
   alignItems: center;
   textAlign: justify;
 `;
 export const PictureTitle = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  marginTop: 40;
+  marginTop: 40px;
   width: 90%;
-  marginBottom: 30;
-  fontSize: 22.5;
+  marginBottom: 30px;
+  fontSize: 22.5px;
   textAlign: center;
   fontWeight: bold;
 `;
 export const Image = styled.Image`
   width: 100%;
-  height: 300;
-  marginTop: 20;
-  borderRadius: 0;
+  height: 300px;
+  marginTop: 20px;
+  borderRadius: 0px;
 `;
 export const FastImageSmall = styled(FastImage)`
   width: 100%;
   height: 100%;
   position: absolute;
-  marginBottom: 0;
-  borderRadius: 5;
+  marginBottom: 0px;
+  borderRadius: 5px;
 `;
 export const ImageShimmer = styled(Shimmer)`
   justifyContent: center;
-  marginTop: 20;
+  marginTop: 20px;
 `;
 export const ImageSmallShimmer = styled(Shimmer)`
   justifyContent: center;
@@ -75,44 +75,43 @@ export const ImageSmallShimmerInner = styled.Text`
   width: 100%;
   backgroundColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
   overflow: hidden;
-  borderRadius: 5;
+  borderRadius: 5px;
 `;
 export const ShimmerInner = styled.Text`
-  height: 500;
-  width: 500;
+  height: 500px;
+  width: 500px;
   backgroundColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
 `;
 export const DialogContent = styled.Text`
-  marginTop: 20;
+  marginTop: 20px;
 `;
 export const PictureDateView = styled.View`
   justifyContent: center;
-  borderTopLeftRadius: 15;
-  borderBottomRightRadius: 15;
+  borderTopLeftRadius: 15px;
+  borderBottomRightRadius: 15px;
   alignItems: center;
   backgroundColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
   marginLeft: 5%;
-  marginTop: 37;
+  marginTop: 37px;
   width: 90%;
-  height: 70;
+  height: 70px;
 `;
 export const PictureDateView2 = styled.View`
   flexDirection: row;
 `;
-export const PictureDateIcon = styled.View``;
 export const PictureDateText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  marginLeft: 13;
+  marginLeft: 13px;
   marginTop: 2.5;
-  fontSize: 17;
+  fontSize: 17px;
   fontWeight: 500;
 `;
 export const PictureIconsView = styled.View`
   marginRight: 5%;
   marginLeft: 5%;
-  marginTop: 0;
+  marginTop: 0px;
   flexDirection: row;
-  height: 40;
+  height: 40px;
 `;
 export const PictureIconsViewRight = styled.View`
   flexDirection: row;
@@ -124,21 +123,21 @@ export const PictureIconsViewLeft = styled.View`
 `;
 export const PictureIconsIcon = styled(Icon.Button)`
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
-  borderRadius: 0;
+  borderRadius: 0px;
   height: 100%;
 `;
 export const PictureAuthorView = styled.View`
   flexDirection: row;
-  marginTop: -23;
-  marginBottom: 30;
+  marginTop: -23px;
+  marginBottom: 30px;
 `;
 export const PictureAuthorIcon = styled(Icon)`
   color: ${({ theme }: ThemeColors) => theme.highlightColor};
-  marginTop: 2;
+  marginTop: 2px;
 `;
 export const PictureAuthorText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  marginLeft: 10;
+  marginLeft: 10px;
 `;
 
 
