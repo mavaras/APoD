@@ -4,30 +4,30 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
 
-import { ThemeContext, useTheme } from '../../themes';
+import { ThemeColors, ThemeContext, useTheme } from '../../themes';
 
 
 const RowView = styled.View`
   width: 90%;
   alignSelf: center;
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   borderRadius: 10px;
   marginTop: 30px;
 `;
 const RowTextTitle = styled.Text`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontSize: 20px;
   fontWeight: 500;
   marginBottom: 15px;
   width: 90%;
 `;
 const RowTextPerson = styled.Text`
-  color: ${({ theme }) => theme.iconColor};
+  color: ${({ theme }: ThemeColors) => theme.iconColor};
   fontSize: 18px;
   width: 95%;
 `;
 const SectionTitleText = styled.Text`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontSize: 29px;
   marginLeft: 18px;
   fontWeight: 600;

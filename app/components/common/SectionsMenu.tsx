@@ -3,17 +3,17 @@ import { TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
 
-import { ThemeContext, useTheme } from '../../themes';
+import { ThemeColors, ThemeContext, useTheme } from '../../themes';
 
 
 const ScrollView = styled.ScrollView`
-  /*backgroundColor: ${({ theme }) => theme.bgColor};*/
+  /*backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};*/
 `;
 
 const RowView = styled.View`
   width: 90%;
   alignSelf: center;
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   borderRadius: 10;
   marginTop: 30;
 `;
@@ -21,7 +21,7 @@ const RowTouchableView = styled.View`
   flexDirection: row;
 `;
 const RowText = styled.Text`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontSize: 17;
   width: 92%;
 `;

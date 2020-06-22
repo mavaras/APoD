@@ -44,11 +44,18 @@ const ThemeContext = createContext({
   getColors: (): any => {},
 });
 
+interface Item {
+  id: string;
+  color: string;
+}
+export interface ThemeColors {
+  theme: Record<string, Item>;
+}
 export type ThemeContext = {
   themeStyle: string;
   setTheme: (theme: string) => void;
   getTheme: () => Promise<string> | string;
-  getColors: () => { [id: string] : string; };
+  getColors: () => ThemeColors;
 };
 export const useTheme = (): ThemeContext => useContext(ThemeContext);
 

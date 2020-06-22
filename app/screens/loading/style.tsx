@@ -1,9 +1,11 @@
 import Animation from 'lottie-react-native';
 import styled from 'styled-components';
 
+import { ThemeColors } from '../../themes';
+
 
 export const AnimationView = styled.View`
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   flex: 1;
   justifyContent: center;
   alignItems: center;

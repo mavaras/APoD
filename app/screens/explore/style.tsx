@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components';
 
+import { ThemeColors } from '../../themes';
+
 
 export const FlatList = styled.FlatList`
   marginTop: 6;
@@ -9,27 +11,27 @@ export const FlatList = styled.FlatList`
 `;
 export const SafeAreaView = styled.SafeAreaView`
   flex: 1;
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
 `;
 export const LayoutButton = styled(Icon.Button)`
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   height: 100%;
   borderLeftWidth: 1;
-  borderLeftColor: ${({ theme }) => theme.borderColor};
+  borderLeftColor: ${({ theme }: ThemeColors) => theme.borderColor};
   borderRightWidth: 1;
-  borderRightColor: ${({ theme }) => theme.borderColor};
+  borderRightColor: ${({ theme }: ThemeColors) => theme.borderColor};
 `;
 export const ButtonDisplayLayoutView = styled.View`
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   width: 12%;
   flex: 1;
   justifyContent: center;
   alignItems: center;
   borderBottomWidth: 2.5;
-  borderBottomColor: ${({ theme }) => theme.shimmerColor};
+  borderBottomColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
 `;
 export const ButtonDisplayLayout = styled(Icon.Button)`
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
 `;
 export const LayoutButtonsView = styled.View`
   flexDirection: row;
@@ -43,7 +45,7 @@ export const HeartButtonView = styled.View`
 `;
 export const TopLayoutView = styled.View`
   flexDirection: row;
-  backgroundColor: ${({ theme }) => theme.borderColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.borderColor};
 `;
 export const SearchInputView = styled.View`
   width: 87%;

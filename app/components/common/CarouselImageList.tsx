@@ -5,6 +5,8 @@ import { View } from 'react-native';
 import Shimmer from 'react-native-shimmer';
 import styled from 'styled-components';
 
+import { ThemeColors } from '../../themes';
+
 
 const SimilarsView = styled.View`
   marginLeft: 5%;
@@ -12,13 +14,13 @@ const SimilarsView = styled.View`
   marginTop: 35;
 `;
 const SimilarsText = styled.Text`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontWeight: 600;
   fontSize: 20;
   marginBottom: 30;
 `;
 const SimilarsScrollView = styled.ScrollView`
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
 `;
 const SimilarsTouchableHighlight = styled.TouchableHighlight`
   marginRight: 5;
@@ -38,7 +40,7 @@ const ImageShimmer = styled(Shimmer)`
 const ShimmerInner = styled.Text`
   height: 130;
   width: 100%;
-  backgroundColor: ${({ theme }) => theme.shimmerColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
   overflow: hidden;
   borderRadius: 5;
 `;

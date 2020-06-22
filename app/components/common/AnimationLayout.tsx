@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import styled from "styled-components";
 
-import { ThemeContext, useTheme } from '../../themes';
+import { ThemeColors } from '../../themes';
 
 
 const ScrollView = styled.SafeAreaView`
-  backgroundColor: ${({ theme }) => theme.bgColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
   height: 100%;
 `;
 const AnimationView = styled.View`
@@ -18,11 +18,11 @@ const AnimationView = styled.View`
 const AnimationComponent = styled(Animation)`
   width: 100px;
   height: 100px;
-  backgroundColor: ${({ theme }) => (theme.fontColor === 'black' ? theme.bgColor : theme.fontColor)};
+  backgroundColor: ${({ theme }: ThemeColors) => (theme.fontColor === 'black' ? theme.bgColor : theme.fontColor)};
   borderRadius: 60px;
 `;
 const AnimationText = styled.Text`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontSize: 21px;
   textAlign: center;
 `;
