@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import {
   Animated, Dimensions,
+  LayoutChangeEvent,
   Platform,
   TouchableHighlight,
   View,
@@ -64,6 +65,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   const [, setButtonRect] = useState<object>({
     x: 0, y: 0, width: 0, height: 0,
   });
+  const [descriptionHeight, setDescriptionHeight] = useState<number>(400);
   const [scrollY] = useState<Animated.Value>(new Animated.Value(0));
   let imageRef: any;
 
@@ -306,7 +308,8 @@ function Picture({ attrs, similars, navigation }: Props) {
         )}
       <Animated.ScrollView
         contentContainerStyle={
-          [_.styles.animatedScrollView, { backgroundColor: theme.getColors().bgColor }]
+          [_.styles.animatedScrollView,
+            { backgroundColor: theme.getColors().bgColor, height: Dimensions.get('window').height + descriptionHeight }]
         }
         overScrollMode="always"
         onScroll={Animated.event(
@@ -321,7 +324,11 @@ function Picture({ attrs, similars, navigation }: Props) {
         { attrs.date !== undefined
           ? (
             <View>
-              <_.PictureInfoView>
+              <_.PictureInfoView
+                onLayout={(event: LayoutChangeEvent) => {
+                  setDescriptionHeight(event.nativeEvent.layout.height - 100);
+                }}
+              >
                 <_.PictureTitle>
                   {attrs.title}
                 </_.PictureTitle>

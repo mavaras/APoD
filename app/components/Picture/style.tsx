@@ -149,7 +149,6 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   animatedScrollView: {
-    height: Dimensions.get('window').height + 400,
     marginTop: 370,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
