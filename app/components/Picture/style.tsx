@@ -102,9 +102,10 @@ export const PictureDateView2 = styled.View`
 export const PictureDateIcon = styled.View``;
 export const PictureDateText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  marginLeft: 10;
-  marginTop: 3;
+  marginLeft: 13;
+  marginTop: 2.5;
   fontSize: 17;
+  fontWeight: 500;
 `;
 export const PictureIconsView = styled.View`
   marginRight: 5%;
