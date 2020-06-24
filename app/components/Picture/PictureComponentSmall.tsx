@@ -15,7 +15,7 @@ interface Props {
   picture: any,
   index: number,
   cols: number,
-  navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
+  navigation: StackNavigationProp<RootStackParamList, 'Picture' | 'Explore'>,
 }
 function PictureComponentSmall({
   picture, index, cols, navigation,
