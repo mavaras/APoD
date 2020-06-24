@@ -15,9 +15,11 @@ interface Colors {
   iconColor: string;
   activeSectionMenuColor: string;
 }
+
 export interface ThemeColors {
   theme: Colors;
 }
+
 interface ThemeModes {
   lightTheme: Colors;
   darkTheme: Colors;
@@ -70,7 +72,7 @@ export type ThemeContext = {
   themeStyle: string;
   setTheme: (theme: string) => void;
   getTheme: () => Promise<string> | string;
-  getColors: () => ThemeColors;
+  getColors: () => Colors;
 };
 export const useTheme = (): ThemeContext => useContext(ThemeContext);
 
