@@ -62,7 +62,6 @@ function PictureScreen({ route, navigation }: Props) {
                         explanation: response.explanation,
                         url: response.url,
                         date: response.date,
-                        author: response.author,
                       });
                     }
                   });
