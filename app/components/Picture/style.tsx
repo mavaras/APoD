@@ -67,6 +67,7 @@ export const FastImageSmall = styled(FastImage)`
 export const ImageShimmer = styled(Shimmer)`
   justifyContent: center;
   marginTop: 20px;
+  position: absolute;
 `;
 export const ImageSmallShimmer = styled(Shimmer)`
   justifyContent: center;
@@ -78,9 +79,10 @@ export const ImageSmallShimmerInner = styled.Text`
   borderRadius: 5px;
 `;
 export const ShimmerInner = styled.Text`
-  height: 500px;
+  height: 360px;
   width: 500px;
   backgroundColor: ${({ theme }: ThemeColors) => theme.shimmerColor};
+  overflow: hidden;
 `;
 export const DialogContent = styled.Text`
   marginTop: 20px;
