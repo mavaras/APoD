@@ -4,29 +4,51 @@ import { ThemeProvider } from 'styled-components/native';
 import Storage from './storage';
 
 
-const colors = {
-  lightTheme: {
-    bgColor: 'white',
-    bgColor2: '#ececece8',
-    buttonColor: 'gray',
-    borderColor: '#f2f2ff',
-    highlightColor: 'black',
-    fontColor: 'black',
-    shimmerColor: '#dadadae8',
-    iconColor: '#5c5c5c',
-    activeSectionMenuColor: '#007AFF',
-  },
-  darkTheme: {
-    bgColor: '#131415',
-    bgColor2: '#2a2f38',
-    buttonColor: 'gray',
-    borderColor: '#dadadae8',
-    highlightColor: 'blue',
-    fontColor: '#fffcf6',
-    shimmerColor: '#2a2f38',
-    iconColor: '#fafaff',
-    activeSectionMenuColor: '#007AFF',
-  },
+interface Colors {
+  bgColor: string;
+  bgColor2: string;
+  buttonColor: string;
+  borderColor: string;
+  highlightColor: string;
+  fontColor: string;
+  shimmerColor: string;
+  iconColor: string;
+  activeSectionMenuColor: string;
+}
+export interface ThemeColors {
+  theme: Colors;
+}
+interface ThemeModes {
+  lightTheme: Colors;
+  darkTheme: Colors;
+}
+
+const lightThemeColors: Colors = {
+  bgColor: 'white',
+  bgColor2: '#ececece8',
+  buttonColor: 'gray',
+  borderColor: '#f2f2ff',
+  highlightColor: 'black',
+  fontColor: 'black',
+  shimmerColor: '#dadadae8',
+  iconColor: '#5c5c5c',
+  activeSectionMenuColor: '#007AFF',
+};
+const darkThemeColors: Colors = {
+  bgColor: '#131415',
+  bgColor2: '#2a2f38',
+  buttonColor: 'gray',
+  borderColor: '#dadadae8',
+  highlightColor: 'blue',
+  fontColor: '#fffcf6',
+  shimmerColor: '#2a2f38',
+  iconColor: '#fafaff',
+  activeSectionMenuColor: '#007AFF',
+};
+
+const colors: ThemeModes = {
+  lightTheme: lightThemeColors,
+  darkTheme: darkThemeColors,
 };
 
 const defaultTheme: string = 'lightTheme';
@@ -44,13 +66,6 @@ const ThemeContext = createContext({
   getColors: (): any => {},
 });
 
-interface Item {
-  id: string;
-  color: string;
-}
-export interface ThemeColors {
-  theme: Record<string, Item>;
-}
 export type ThemeContext = {
   themeStyle: string;
   setTheme: (theme: string) => void;
