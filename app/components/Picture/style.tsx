@@ -130,16 +130,18 @@ export const PictureIconsIcon = styled(Icon.Button)`
 `;
 export const PictureAuthorView = styled.View`
   flexDirection: row;
-  marginTop: -23px;
+  marginTop: -18px;
   marginBottom: 30px;
 `;
 export const PictureAuthorIcon = styled(Icon)`
-  color: ${({ theme }: ThemeColors) => theme.highlightColor};
-  marginTop: 2px;
+  color: ${({ theme }: ThemeColors) => theme.iconColor};
+  marginTop: 2.7px;
 `;
 export const PictureAuthorText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
   marginLeft: 10px;
+  fontSize: 15px;
+  fontStyle: italic;
 `;
 
 

@@ -336,7 +336,7 @@ function Picture({ attrs, similars, navigation }: Props) {
                 {attrs.author
                   ? (
                     <_.PictureAuthorView>
-                      <_.PictureAuthorIcon name="camera" size={14} />
+                      <_.PictureAuthorIcon name="camera" size={13} />
                       <_.PictureAuthorText>
                         {attrs.author}
                       </_.PictureAuthorText>

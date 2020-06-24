@@ -57,11 +57,14 @@ function PictureScreen({ route, navigation }: Props) {
                   .then((snapshot: any) => {
                     setDataSource(responseJson);
                     if (!snapshot.val()) {
+                      // eslint-disable-next-line no-nested-ternary
+                      const anyAuthor: string = 'author' in response ? response.author : ('copyright' in response) ? response.copyright : '';
                       DB.pictures.push({
                         title: response.title,
                         explanation: response.explanation,
                         url: response.url,
                         date: response.date,
+                        author: anyAuthor,
                       });
                     }
                   });
