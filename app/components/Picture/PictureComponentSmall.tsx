@@ -46,6 +46,7 @@ function PictureComponentSmall({
 
   return (
     <TouchableHighlight
+      underlayColor="none"
       style={itemStyle(index)}
       onPress={() => {
         navigation.navigate('Explore Picture', { attrs: picture });
