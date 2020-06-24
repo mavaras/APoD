@@ -155,6 +155,7 @@ function ExploreScreen({ navigation }: Props) {
         </_.SearchInputView>
         <_.ButtonDisplayLayoutView>
           <Icon.Button
+            activeOpacity={1}
             name="sliders-h"
             size={20}
             iconStyle={{ color: theme.getColors().buttonColor }}
@@ -169,6 +170,7 @@ function ExploreScreen({ navigation }: Props) {
       >
         <_.LayoutButtonsView>
           <Icon.Button
+            activeOpacity={1}
             name="grip-vertical"
             size={18}
             iconStyle={{ marginLeft: 10, color: theme.getColors().buttonColor }}
@@ -183,6 +185,7 @@ function ExploreScreen({ navigation }: Props) {
             onPress={() => { setNumberOfColumns(2); }}
           />
           <Icon.Button
+            activeOpacity={1}
             name="grip-horizontal"
             size={18}
             iconStyle={{ marginLeft: 10, color: theme.getColors().buttonColor }}
@@ -197,6 +200,7 @@ function ExploreScreen({ navigation }: Props) {
             onPress={() => { setNumberOfColumns(3); }}
           />
           <Icon.Button
+            activeOpacity={1}
             name="grip-lines"
             size={18}
             iconStyle={{ marginLeft: 10, color: theme.getColors().buttonColor }}
@@ -213,6 +217,7 @@ function ExploreScreen({ navigation }: Props) {
         </_.LayoutButtonsView>
         <_.HeartButtonView>
           <Icon.Button
+            activeOpacity={1}
             name="heart"
             size={18}
             iconStyle={[

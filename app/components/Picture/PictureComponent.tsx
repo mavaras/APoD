@@ -222,9 +222,10 @@ function Picture({ attrs, similars, navigation }: Props) {
           onSwipeDown={zoom}
         />
       </Modal>
-      { equalDates(attrs.date, getTodayStringDate())
+      {equalDates(attrs.date, getTodayStringDate())
         ? (
           <TouchableHighlight
+            underlayColor="none"
             style={{
               marginLeft: '90%',
               width: 10,
@@ -232,6 +233,7 @@ function Picture({ attrs, similars, navigation }: Props) {
               marginTop: 0,
               marginBottom: -13,
             }}
+            onPress={() => navigation.navigate('Settings', { navigation })}
           >
             <Icon
               name="cog"
@@ -243,7 +245,6 @@ function Picture({ attrs, similars, navigation }: Props) {
                 width: 60,
                 overflow: 'hidden',
               }}
-              onPress={() => navigation.navigate('Settings', { navigation })}
             />
           </TouchableHighlight>
         ) : undefined}
@@ -361,6 +362,7 @@ function Picture({ attrs, similars, navigation }: Props) {
             {!isVideo()
               ? (
                 <_.PictureIconsIcon
+                  activeOpacity={1}
                   name="expand"
                   size={18}
                   iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
@@ -373,6 +375,7 @@ function Picture({ attrs, similars, navigation }: Props) {
               ? (
                 <>
                   <_.PictureIconsIcon
+                    activeOpacity={1}
                     name="heart"
                     size={18}
                     iconStyle={[
@@ -382,6 +385,7 @@ function Picture({ attrs, similars, navigation }: Props) {
                     onPress={() => handleFavourite()}
                   />
                   <_.PictureIconsIcon
+                    activeOpacity={1}
                     name="download"
                     size={18}
                     iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
@@ -390,6 +394,7 @@ function Picture({ attrs, similars, navigation }: Props) {
                 </>
               ) : undefined}
             <_.PictureIconsIcon
+              activeOpacity={1}
               name="share-alt"
               size={18}
               iconStyle={[_.styles.iconStyle, { color: theme.getColors().iconColor }]}
