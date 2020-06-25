@@ -27,7 +27,8 @@ import RNFetchBlob from 'rn-fetch-blob';
 import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
 import {
-  capitalize, equalDates, formatDate, getTodayStringDate, requestStoragePermissionAndroid,
+  capitalize, equalDates, formatDate,
+  getTodayStringDate, requestStoragePermissionAndroid,
 } from '../../utils/utils';
 import AnimationLayout from '../common/AnimationLayout';
 import CarouselPictureList from '../common/CarouselImageList';
@@ -54,10 +55,9 @@ function Picture({ attrs, similars, navigation }: Props) {
   const downloadingAnimation = require('../../res/animations/planet.json');
   const sharingAnimation = require('../../res/animations/planet2.json');
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
   const [openZoomModal, setOpenZoomModal] = useState<boolean>(false);
-  let [loadingImage, setLoadingImage] = useState<boolean>(true);
+  const [, setLoadingImage] = useState<boolean>(true);
   const [downloading, setDownloading] = useState<boolean>(false);
   const [sharing, setSharing] = useState<boolean>(false);
   const [alreadyFavourite, setAlreadyFavourite] = useState<boolean>(false);
@@ -67,6 +67,11 @@ function Picture({ attrs, similars, navigation }: Props) {
   });
   const [descriptionHeight, setDescriptionHeight] = useState<number>(400);
   const [scrollY] = useState<Animated.Value>(new Animated.Value(0));
+  const ImageScale: Animated.AnimatedInterpolation = scrollY.interpolate({
+    inputRange: [-100, 0, 200],
+    outputRange: [1.6, 1.1, 1],
+    extrapolate: 'clamp',
+  });
   let imageRef: any;
 
   function download(): void {
@@ -93,7 +98,6 @@ function Picture({ attrs, similars, navigation }: Props) {
         .then((res) => {
           console.log(`Success downloading photo to path: ${res.path()}`);
           setDownloading(false);
-          setIsModalOpen(false);
         })
         .catch((err) => {
           console.log(`Error occurred when trying to download picture: ${err}`);
@@ -103,7 +107,6 @@ function Picture({ attrs, similars, navigation }: Props) {
         .then(() => {
           console.log('Success downloading photo to camera roll');
           setDownloading(false);
-          setIsModalOpen(false);
           setShowAlert(true);
         })
         .catch((err) => {
@@ -175,7 +178,6 @@ function Picture({ attrs, similars, navigation }: Props) {
 
   function showPopover(): void {
     imageRef.measure((width: number, height: number, x: number, y: number) => {
-      setIsModalOpen(true);
       setButtonRect({
         x, y, width, height,
       });
@@ -192,14 +194,8 @@ function Picture({ attrs, similars, navigation }: Props) {
     }
   }, []);
 
-  const ImageScale: Animated.AnimatedInterpolation = scrollY.interpolate({
-    inputRange: [-100, 0, 200],
-    outputRange: [1.6, 1.1, 1],
-    extrapolate: 'clamp',
-  });
-
   return (
-    <_.SafeAreaView>
+    <View style={{ height: '100%', marginTop: 0 }}>
       <AnimationLayout
         animation={downloadingAnimation}
         text={t('picture.downloadingPicture')}
@@ -222,32 +218,6 @@ function Picture({ attrs, similars, navigation }: Props) {
           onSwipeDown={zoom}
         />
       </Modal>
-      {equalDates(attrs.date, getTodayStringDate())
-        ? (
-          <TouchableHighlight
-            underlayColor="none"
-            style={{
-              marginLeft: '90%',
-              width: 10,
-              height: 30,
-              marginTop: 0,
-              marginBottom: -13,
-            }}
-            onPress={() => navigation.navigate('Settings', { navigation })}
-          >
-            <Icon
-              name="cog"
-              size={24}
-              iconStyle={{ color: 'white' }}
-              style={{
-                color: theme.getColors().buttonColor,
-                backgroundColor: theme.getColors().bgColor,
-                width: 60,
-                overflow: 'hidden',
-              }}
-            />
-          </TouchableHighlight>
-        ) : undefined}
       <Dialog
         dialogAnimation={new SlideAnimation({
           slideFrom: 'bottom',
@@ -308,9 +278,15 @@ function Picture({ attrs, similars, navigation }: Props) {
           />
         )}
       <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={
           [_.styles.animatedScrollView,
-            { backgroundColor: theme.getColors().bgColor, height: Dimensions.get('window').height + descriptionHeight }]
+            {
+              backgroundColor: theme.getColors().bgColor,
+              height: Dimensions.get('window').height + descriptionHeight
+                + (!equalDates(attrs.date, getTodayStringDate()) ? -100 : 0),
+            }]
         }
         overScrollMode="always"
         onScroll={Animated.event(
@@ -327,7 +303,7 @@ function Picture({ attrs, similars, navigation }: Props) {
             <View>
               <_.PictureInfoView
                 onLayout={(event: LayoutChangeEvent) => {
-                  setDescriptionHeight(event.nativeEvent.layout.height - 100);
+                  setDescriptionHeight(event.nativeEvent.layout.height);
                 }}
               >
                 <_.PictureTitle>
@@ -404,7 +380,7 @@ function Picture({ attrs, similars, navigation }: Props) {
         </_.PictureIconsView>
         <CarouselPictureList navigation={navigation} list={similars} />
       </Animated.ScrollView>
-    </_.SafeAreaView>
+    </View>
   );
 }
 

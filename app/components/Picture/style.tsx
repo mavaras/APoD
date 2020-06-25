@@ -12,7 +12,6 @@ export const SafeAreaView = styled.SafeAreaView`
   flex: 1;
   overflow: hidden;
   backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
-  
 `;
 export const Video = styled.View`
   width: 100%;
@@ -104,7 +103,7 @@ export const PictureDateView2 = styled.View`
 export const PictureDateText = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
   marginLeft: 13px;
-  marginTop: 2.5;
+  marginTop: 2.5px;
   fontSize: 17px;
   fontWeight: 500;
 `;

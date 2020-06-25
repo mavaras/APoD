@@ -1,14 +1,42 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
-import { NASA_API_KEY } from 'react-native-dotenv';
+import {
+  Dimensions,
+  TouchableHighlight,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import styled from 'styled-components';
 
 import Picture from '../../components/Picture/PictureComponent';
 import FirebaseDB from '../../config';
-import { filterByWord, shuffleArray } from '../../utils/utils';
+import { ThemeColors } from '../../themes';
+import {
+  equalDates, fetchData, filterByWord, getTodayStringDate, shuffleArray,
+} from '../../utils/utils';
 import LoadingScreen from '../loading/LoadingScreen';
 import WaitingScreen from '../loading/WaitingScreen';
 
+
+const SafeAreaView = styled.SafeAreaView`
+  height: ${Dimensions.get('window').height};
+  flex: 1;
+  overflow: hidden;
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
+`;
+const SettingsTouchableHighlight = styled(TouchableHighlight)`
+  marginLeft: 90%;
+  width: 10px;
+  height: 30px;
+  marginTop: 0px;
+  marginBottom: -13px;
+`;
+const SettingsIcon = styled(Icon)`
+  color: ${({ theme }: ThemeColors) => theme.buttonColor};
+  backgroundColor: ${({ theme }: ThemeColors) => theme.bgColor};
+  width: 60px;
+  overflow: hidden;
+`;
 
 type RootStackParamList = {
   Explore: undefined;
@@ -23,84 +51,39 @@ interface Props {
 function PictureScreen({ route, navigation }: Props) {
   const { t }: UseTranslationResponse = useTranslation();
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
+
   const [loading, setLoading] = useState<Boolean>(true);
   const [error, setError] = useState<Boolean>(false);
-  const [, setDataSource] = useState<Array<{[string: string]: string}>>([]);
   const [response, setResponse] = useState<{[string: string]: string}>({});
-  const [similars, setSimilars] = useState<{[string: string]: string}>({});
+  const [similars, setSimilars] = useState<Array<object>>([]);
 
-  async function fetchData(): Promise<void> {
-    if (!route.params) {
-      let mustQuery: boolean = true;
-      let lastPicture: any = null;
-      setTimeout(async () => {
-        await DB.pictures
-          .limitToLast(1)
-          .once('value', (data: any) => {
-            // eslint-disable-next-line prefer-destructuring
-            lastPicture = Object.values(data.val())[0];
-            const today = new Date();
-            // eslint-disable-next-line prefer-template
-            const todayDate: string = `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
-            mustQuery = todayDate !== lastPicture.date;
-          });
-        if (mustQuery) {
-          fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
-            .then((_response) => _response.json())
-            .then((responseJson) => {
-              if (!('error' in responseJson) && responseJson) {
-                setResponse(responseJson);
-                DB.pictures
-                  .orderByChild('title')
-                  .equalTo(responseJson.title)
-                  .once('value')
-                  .then((snapshot: any) => {
-                    setDataSource(responseJson);
-                    if (!snapshot.val()) {
-                      // eslint-disable-next-line no-nested-ternary
-                      const anyAuthor: string = 'author' in response ? response.author : ('copyright' in response) ? response.copyright : '';
-                      DB.pictures.push({
-                        title: response.title,
-                        explanation: response.explanation,
-                        url: response.url,
-                        date: response.date,
-                        author: anyAuthor,
-                      });
-                    }
-                  });
-              } else {
-                setError(true);
-                throw new Error('error in response');
-              }
-            })
-            .catch(() => setError(true));
-        } else {
-          setResponse(lastPicture);
-        }
-      }, 2000);
-    } else {
-      setResponse(route.params.attrs);
-    }
-  }
 
   async function getSimilars(): Promise<void> {
     const titleWords: Array<string> = response.title.split(' ').filter((word) => word.length > 3);
     const picturesList = DB.picturesList;
-    let similarsList: Array<string> = [];
+    let similarsList: Array<object> = [];
     let maxLen: number = 0;
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const word in titleWords) {
-      const wordFiltered = filterByWord(picturesList, word);
+      const wordFiltered = filterByWord(picturesList, word, response.title);
       if (wordFiltered.length > maxLen) {
         maxLen = wordFiltered.length;
         similarsList = wordFiltered;
       }
     }
-    setSimilars(shuffleArray(similarsList));
+    setSimilars(shuffleArray(similarsList));console.log(similarsList);
   }
 
   useEffect(() => {
-    fetchData();
+    (async () => {
+      await fetchData(route.params)
+        .then((res) => {
+          setResponse(res);
+        })
+        .catch(() => {
+          setError(true);
+        });
+    })();
   }, []);
   useEffect(() => {
     if (JSON.stringify(response) !== JSON.stringify({})) {
@@ -108,6 +91,10 @@ function PictureScreen({ route, navigation }: Props) {
       setLoading(false);
     }
   }, [response]);
+
+  function isDailyPicture(): boolean {
+    return equalDates(response.date, getTodayStringDate());
+  }
 
   if (error) {
     const text = t('picture.waitingScreen');
@@ -121,11 +108,26 @@ function PictureScreen({ route, navigation }: Props) {
     );
   }
   return (
-    <Picture
-      attrs={response}
-      similars={similars}
-      navigation={navigation}
-    />
+    <SafeAreaView>
+      {isDailyPicture()
+        ? (
+          <SettingsTouchableHighlight
+            underlayColor="none"
+            onPress={() => navigation.navigate('Settings', { navigation })}
+          >
+            <SettingsIcon
+              name="cog"
+              size={24}
+              iconStyle={{ color: 'white' }}
+            />
+          </SettingsTouchableHighlight>
+        ) : undefined}
+      <Picture
+        attrs={response}
+        similars={similars}
+        navigation={navigation}
+      />
+    </SafeAreaView>
   );
 }
 
