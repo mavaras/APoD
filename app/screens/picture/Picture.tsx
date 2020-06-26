@@ -71,7 +71,7 @@ function PictureScreen({ route, navigation }: Props) {
         similarsList = wordFiltered;
       }
     }
-    setSimilars(shuffleArray(similarsList));console.log(similarsList);
+    setSimilars(shuffleArray(similarsList));
   }
 
   useEffect(() => {
