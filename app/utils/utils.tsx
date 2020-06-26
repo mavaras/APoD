@@ -84,18 +84,22 @@ export async function fetchData(params: any): Promise<{[string: string]: string}
               .equalTo(responseJson.title)
               .once('value')
               .then((snapshot: any) => {
-                if (!snapshot.val()) {
-                  // eslint-disable-next-line no-nested-ternary
-                  const anyAuthor: string = 'author' in responseJson ? responseJson.author : ('copyright' in response) ? response.copyright : '';
-                  DB.pictures.push({
-                    title: responseJson.title,
-                    explanation: responseJson.explanation,
-                    url: responseJson.url,
-                    date: responseJson.date,
-                    author: anyAuthor,
-                  });
+                if (response.title !== 'Default Image') {
+                  if (!snapshot.val()) {
+                    // eslint-disable-next-line no-nested-ternary
+                    const anyAuthor: string = 'author' in responseJson ? responseJson.author : ('copyright' in response) ? response.copyright : '';
+                    DB.pictures.push({
+                      title: responseJson.title,
+                      explanation: responseJson.explanation,
+                      url: responseJson.url,
+                      date: responseJson.date,
+                      author: anyAuthor,
+                    });
+                  }
+                  response = responseJson;
+                } else {
+                  response = lastPicture;
                 }
-                response = responseJson;
               });
           } else {
             throw new Error('error in response');
