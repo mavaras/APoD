@@ -1,10 +1,11 @@
+import Animation from 'lottie-react-native';
 import React, { useEffect } from 'react';
 
 import * as _ from './style';
 
 
 function LoadingScreen() {
-  let animation = require('../../res/animations/loading_line.json'); // eslint-disable-line no-undef, global-require
+  let animation: Animation = require('../../res/animations/loading_line.json'); // eslint-disable-line no-undef, global-require
 
   useEffect(() => {
     animation.play();
@@ -13,7 +14,7 @@ function LoadingScreen() {
   return (
     <_.AnimationView>
       <_.LottieComponent
-        ref={(animationRef) => { animation = animationRef; }}
+        ref={(animationRef: Animation) => { animation = animationRef; }}
         source={animation}
       />
     </_.AnimationView>

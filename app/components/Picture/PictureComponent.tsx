@@ -72,7 +72,7 @@ function Picture({ attrs, similars, navigation }: Props) {
     outputRange: [1.6, 1.1, 1],
     extrapolate: 'clamp',
   });
-  let imageRef: any;
+  let imageRef: View;
 
   function download(): void {
     const { config, fs }: RNFetchBlob = RNFetchBlob;
@@ -243,7 +243,7 @@ function Picture({ attrs, similars, navigation }: Props) {
       {!isVideo()
         ? (
           <_.TouchableHighlight
-            ref={(r) => { imageRef = r; }}
+            ref={(r: View) => { imageRef = r; }}
             onPress={showPopover.bind(this)}
             underlayColor="none"
           >

@@ -46,7 +46,7 @@ function AnimationLayout({ animation, text, render = true }: Props) {
       <ScrollView>
         <AnimationView>
           <AnimationComponent
-            ref={(animationRef) => { animationAux = animationRef; }}
+            ref={(animationRef: Animation) => { animationAux = animationRef; }}
             source={animation}
           />
         </AnimationView>
