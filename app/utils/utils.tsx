@@ -29,7 +29,11 @@ export function formatDate(date: string): string {
   return `${monthNames[parseInt(dateSplit[1], 10) - 1]} ${parseInt(dateSplit[2], 10)}`;
 }
 
-export function filterByWord(array: Array<any>, text: string, toExclude: string): Array<any> {
+export function filterByWord(
+  array: Array<any>,
+  text: string,
+  toExclude: string = '',
+): Array<any> {
   return array.filter((element: {[string: string]: string}) =>
     element.title.toLowerCase().includes(text.toLowerCase())
     && element.title !== toExclude);
