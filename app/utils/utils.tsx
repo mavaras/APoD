@@ -142,3 +142,25 @@ export async function requestStoragePermissionAndroid() {
     console.log(`Some error while granting storage access: ${err}`);
   }
 }
+
+/*
+async function loadData(): Promise<void> {
+  if (pictures.length === picturesList.length) {
+    return;
+  }
+  setRefreshing(true);
+  await DB.pictures
+    .once('value', (data: any) => {
+      picturesList = data.val();
+      this.picturesList = Object.values(picturesList);
+      this.picturesList = this.picturesList.filter((picture: {[string: string]: string})
+      : {[string: string]: string} | undefined => {
+        if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
+          return picture;
+        }
+      });
+      getNextItems();
+    })
+    .catch(() => setError(true));
+}
+*/

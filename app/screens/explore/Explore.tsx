@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/react-hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
@@ -11,10 +12,11 @@ import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
 import { filterByWord } from '../../utils/utils';
 import WaitingScreen from '../loading/WaitingScreen';
+import { GET_ALL_PICTURES } from './queries';
 import * as _ from './style';
 
 
-let flatListRef: typeof FlatList = FlatList;
+let flatListRef: FlatList;
 
 type RootStackParamList = {
   Explore: undefined;
@@ -43,12 +45,27 @@ function ExploreScreen({ navigation }: Props) {
   const [search, setSearch] = useState<string>('');
   const [cols, setCols] = useState<number>(2);
 
+  const getAllPictures = useQuery(GET_ALL_PICTURES, {
+    onCompleted: (data) => {
+      setRefreshing(true);
+      this.picturesList = data.allPictures;
+      this.picturesList = this.picturesList.filter((picture: {[string: string]: string})
+      : {[string: string]: string} | undefined => {
+        if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
+          return picture;
+        }
+      });
+    },
+    onError: () => {
+      setError(true);
+    },
+  });
+
   function scrollToTop(): void {
     setTimeout(() => {
       flatListRef?.scrollToEnd();
     }, 200);
   }
-
 
   async function getNextItems(): Promise<void> {
     if (this.picturesList.length === 0 || pictures.length === this.picturesList.length) {
@@ -63,28 +80,11 @@ function ExploreScreen({ navigation }: Props) {
     setRefreshing(false);
   }
 
-  async function loadData(): Promise<void> {
-    if (pictures.length === picturesList.length) {
-      return;
-    }
-    setRefreshing(true);
-    await DB.pictures
-      .once('value', (data: any) => {
-        picturesList = data.val();
-        this.picturesList = Object.values(picturesList);
-        this.picturesList = this.picturesList.filter((picture: {[string: string]: string})
-        : {[string: string]: string} | undefined => {
-          if (!['youtube', 'vimeo'].some((aux) => picture.url.split(/[/.]/).includes(aux))) {
-            return picture;
-          }
-        });
-        getNextItems();
-      })
-      .catch(() => setError(true));
-  }
-
   useEffect(() => {
-    setTimeout(() => loadData(), 2000);
+    setTimeout(() => {
+      setRefreshing(true);
+      getNextItems();
+    }, 2000);
   }, []);
 
   function setNumberOfColumns(nCols: number): void {
