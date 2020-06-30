@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, ViewStyle } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -181,7 +181,7 @@ function ExploreScreen({ navigation }: Props) {
                 borderRightColor: theme.getColors().bgColor,
                 borderLeftColor: theme.getColors().bgColor,
               },
-            ]}
+            ] as ViewStyle}
             onPress={() => { setNumberOfColumns(2); }}
           />
           <Icon.Button
@@ -196,7 +196,7 @@ function ExploreScreen({ navigation }: Props) {
                 borderRightColor: theme.getColors().bgColor,
                 borderLeftColor: theme.getColors().bgColor,
               },
-            ]}
+            ] as ViewStyle}
             onPress={() => { setNumberOfColumns(3); }}
           />
           <Icon.Button
@@ -211,7 +211,7 @@ function ExploreScreen({ navigation }: Props) {
                 borderRightColor: theme.getColors().bgColor,
                 borderLeftColor: theme.getColors().bgColor,
               },
-            ]}
+            ] as ViewStyle}
             onPress={() => { setNumberOfColumns(1); }}
           />
         </_.LayoutButtonsView>
@@ -247,20 +247,20 @@ function ExploreScreen({ navigation }: Props) {
         }}
         onEndReachedThreshold={0.1}
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
-        ref={(ref: typeof FlatList) => {
+        ref={(ref: FlatList) => {
           if (ref) {
-            setTimeout(() => flatListRef = ref, 100);
+            setTimeout(() => { flatListRef = ref; }, 100);
           }
         }}
         key={cols}
         data={pictures}
         extraData={pictures}
-        getItemLayout={(data, indx) => ({
+        getItemLayout={(_data: any, indx: number) => ({
           length: [400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1],
           offset: ([400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1]) * indx,
           index: indx,
         })}
-        renderItem={({ item, index }) => (
+        renderItem={({ item, index }: {item: object, index: number}) => (
           <PictureSmall
             picture={item}
             cols={cols}
@@ -268,7 +268,7 @@ function ExploreScreen({ navigation }: Props) {
             navigation={navigation}
           />
         )}
-        keyExtractor={(item) => item.title.toString()}
+        keyExtractor={(item: object) => item.title.toString()}
         numColumns={cols}
       />
     </_.SafeAreaView>
