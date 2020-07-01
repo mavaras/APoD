@@ -6,7 +6,6 @@ import {
   Animated, Dimensions,
   LayoutChangeEvent,
   Platform,
-  TouchableHighlight,
   View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -26,6 +25,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
+import { PictureType } from '../../types';
 import {
   capitalize, equalDates, formatDate,
   getTodayStringDate, requestStoragePermissionAndroid,
@@ -45,8 +45,8 @@ type RootStackParamList = {
   ExplorePicture: undefined;
 };
 interface Props {
-  attrs: any,
-  similars: Array<object>,
+  attrs: PictureType,
+  similars: Array<PictureType>,
   navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
 }
 function Picture({ attrs, similars, navigation }: Props) {
@@ -137,8 +137,11 @@ function Picture({ attrs, similars, navigation }: Props) {
 
   async function isFavourite(): Promise<boolean> {
     const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
-    const favouritesArray: Array<object> = JSON.parse(favourites);
-    return favouritesArray.some((item: object) => item.title === attrs.title);
+    let favouritesArray: Array<PictureType> = [];
+    if (favourites) {
+      favouritesArray = JSON.parse(favourites);
+    }
+    return favouritesArray.some((item: PictureType) => item.title === attrs.title);
   }
 
   function isVideo(): boolean {
@@ -148,7 +151,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   async function addFavourite(): Promise<void> {
     setAlreadyFavourite(true);
     const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray: Array<object> = [];
+    let favouritesArray: Array<PictureType> = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
       if (!await isFavourite()) {
@@ -163,8 +166,11 @@ function Picture({ attrs, similars, navigation }: Props) {
   async function removeFavourite(): Promise<void> {
     setAlreadyFavourite(false);
     const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray: Array<object> = JSON.parse(favourites);
-    favouritesArray = favouritesArray.filter((item: object) => attrs.title !== item.title);
+    let favouritesArray: Array<PictureType> = [];
+    if (favourites) {
+      favouritesArray = JSON.parse(favourites);
+    }
+    favouritesArray = favouritesArray.filter((item: PictureType) => attrs.title !== item.title);
     await Storage.setItem('@APODapp:favourites', JSON.stringify(favouritesArray));
   }
 

@@ -2,6 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { TouchableHighlight, View } from 'react-native';
 
+import { PictureType } from '../../types';
 import * as _ from './style';
 
 
@@ -12,7 +13,7 @@ type RootStackParamList = {
   ExplorePicture: undefined;
 };
 interface Props {
-  picture: any,
+  picture: PictureType,
   index: number,
   cols: number,
   navigation: StackNavigationProp<RootStackParamList, 'Picture' | 'Explore'>,

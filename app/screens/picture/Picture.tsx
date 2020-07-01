@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import Picture from '../../components/Picture/PictureComponent';
 import FirebaseDB from '../../config';
 import { ThemeColors } from '../../themes';
+import { PictureType } from '../../types';
 import {
   equalDates, fetchData, filterByWord, getTodayStringDate, shuffleArray,
 } from '../../utils/utils';
@@ -54,14 +55,13 @@ function PictureScreen({ route, navigation }: Props) {
 
   const [loading, setLoading] = useState<Boolean>(true);
   const [error, setError] = useState<Boolean>(false);
-  const [response, setResponse] = useState<{[string: string]: string}>({});
-  const [similars, setSimilars] = useState<Array<object>>([]);
-
+  const [response, setResponse] = useState<PictureType>({} as PictureType);
+  const [similars, setSimilars] = useState<Array<PictureType>>([]);
 
   async function getSimilars(): Promise<void> {
     const titleWords: Array<string> = response.title.split(' ').filter((word) => word.length > 3);
     const picturesList = DB.picturesList;
-    let similarsList: Array<object> = [];
+    let similarsList: Array<PictureType> = [];
     let maxLen: number = 0;
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const word in titleWords) {
@@ -78,7 +78,7 @@ function PictureScreen({ route, navigation }: Props) {
     (async () => {
       await fetchData(route.params)
         .then((res) => {
-          setResponse(res);
+          setResponse(res as unknown as PictureType);
         })
         .catch(() => {
           setError(true);

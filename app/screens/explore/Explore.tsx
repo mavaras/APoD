@@ -10,6 +10,7 @@ import PictureSmall from '../../components/Picture/PictureComponentSmall';
 import FirebaseDB from '../../config';
 import Storage from '../../storage';
 import { ThemeContext, useTheme } from '../../themes';
+import { PictureType } from '../../types';
 import { filterByWord } from '../../utils/utils';
 import WaitingScreen from '../loading/WaitingScreen';
 import { GET_ALL_PICTURES } from './queries';
@@ -32,7 +33,7 @@ function ExploreScreen({ navigation }: Props) {
   const { t }: UseTranslationResponse = useTranslation();
   const DB: FirebaseDB = FirebaseDB.instance;
 
-  let picturesList: Array<string> = ['notempty'];
+  let picturesList: Array<PictureType> = ['notempty'];
   const [error, setError] = useState<boolean>(false);
   const [picturesLimit, ] = useState<number>(18);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
@@ -40,8 +41,8 @@ function ExploreScreen({ navigation }: Props) {
   const [searching, setSearching] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [pictures, setPictures] = useState<Array<{[string: string]: string}>>([]);
-  const [picturesAux, setPicturesAux] = useState<Array<{[string: string]: string}>>([]);
+  const [pictures, setPictures] = useState<Array<PictureType>>([]);
+  const [picturesAux, setPicturesAux] = useState<Array<PictureType>>([]);
   const [search, setSearch] = useState<string>('');
   const [cols, setCols] = useState<number>(2);
 
@@ -72,7 +73,7 @@ function ExploreScreen({ navigation }: Props) {
       setRefreshing(false);
       return;
     }
-    const newArray: Array<{[string: string]: string}> = [
+    const newArray: Array<PictureType> = [
       ...this.picturesList.slice(0, picturesLimit * page)];
     setPictures(newArray);
     setPicturesAux(newArray);
@@ -268,7 +269,7 @@ function ExploreScreen({ navigation }: Props) {
             navigation={navigation}
           />
         )}
-        keyExtractor={(item: object) => item.title.toString()}
+        keyExtractor={(item: PictureType) => item.title.toString()}
         numColumns={cols}
       />
     </_.SafeAreaView>
