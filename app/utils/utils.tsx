@@ -78,7 +78,9 @@ export async function fetchData(params: any): Promise<{[string: string]: string}
       });
 
     if (mustQuery) {
-      fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`)
+      const controller: AbortController = new AbortController();
+      setTimeout(() => controller.abort(), 10000);
+      await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`, { signal: controller.signal })
         .then((_response) => _response.json())
         .then((responseJson) => {
           if (!('error' in responseJson) && responseJson) {
