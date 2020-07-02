@@ -1,15 +1,15 @@
 /**
  * @format
  */
-import './src/node_modules/react-native-gesture-handler';
+import 'react-native-gesture-handler';
 
-import React from './src/node_modules/react';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { AppRegistry } from './src/screens/explore/node_modules/react-native';
+import { AppRegistry } from 'react-native';
 
 import { name as appName } from './app.json';
-import apolloClient from './src/apollo';
-import StackNavigator from './src/App';
+import apolloClient from './app/apollo';
+import StackNavigator from './app/App';
 
 
 const Root = () => (
