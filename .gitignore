@@ -61,3 +61,5 @@ buck-out/
 .env
 package-lock.json
 .code-workspace
+back/PK_FB_DB.json
+/**/__pycache__
