@@ -9,7 +9,7 @@ import { AppRegistry } from 'react-native';
 
 import { name as appName } from './app.json';
 import apolloClient from './app/apollo';
-import StackNavigator from './app/App';
+import StackNavigator from './app/src';
 
 
 const Root = () => (
