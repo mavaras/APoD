@@ -1,1 +1,0 @@
-../../../../../node_modules/react-native-image-base64/ios/RNImgToBase64.h
