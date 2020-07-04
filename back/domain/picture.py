@@ -3,10 +3,10 @@ from typing import Dict, List
 import urllib.request
 from decouple import config as envs
 
-from back.typ import PictureType as Picture
-from back.dal.firebase import fb
-from back.domain.utils import utils
-from back.exceptions import FetchException
+from typ import PictureType as Picture
+from dal.firebase import fb
+from domain.utils import utils
+from exceptions import FetchException
 
 
 def get_today_picture() -> Picture:
@@ -48,7 +48,6 @@ def get_similars(picture_title: str) -> List[Picture]:
     pictures = get_all_pictures()
     title_split = [word for word in picture_title.split(' ') if len(word) > 3]
     for word in title_split:
-        word = word[:-1] if not word[-1].isalpha() else word
         filtered_pictures = filter_pictures_by_word(pictures, word, picture_title)
         if len(filtered_pictures) > max_len:
             max_len = len(filtered_pictures)

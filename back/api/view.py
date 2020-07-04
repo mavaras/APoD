@@ -1,6 +1,6 @@
 from flask_graphql import GraphQLView
-from back.api.middleware import DepthAnalysisBackend
-from back.api.schema import SCHEMA
+from api.middleware import DepthAnalysisBackend
+from api.schema import SCHEMA
 
 
 class APIView(GraphQLView):

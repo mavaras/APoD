@@ -5,7 +5,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from api.schema import SCHEMA
-from back.api.view import APIView
+from api.view import APIView
 
 app = Flask(__name__)
 CORS(app)
