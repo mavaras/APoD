@@ -20,9 +20,10 @@ class PicturesQuery(ObjectType):
     def resolve_today_picture(self, info):
         try:
             response = picture_domain.get_today_picture()
+            picture_title = response.get('title', '')
             similars = picture_domain.get_similars(picture_title)
             return TodayPicture(
-                title=response.get('title', ''),
+                title=picture_title,
                 url=response.get('url', ''),
                 explanation=response.get('explanation', ''),
                 date=response.get('date', ''),

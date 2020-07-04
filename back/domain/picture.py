@@ -21,7 +21,7 @@ def get_today_picture() -> Picture:
             picture = {
                 'title': response.get('title', ''),
                 'url': response.get('url', ''),
-                'description': response.get('explanation', ''),
+                'explanation': response.get('explanation', ''),
                 'date': response.get('date', ''),
                 'author': response.get('author', response.get('copyright', ''))
             }
