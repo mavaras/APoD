@@ -6,3 +6,10 @@ export type PictureType = {
   author: string;
   explorePicture?: object;
 };
+
+export type RootStackParamList = {
+  Explore: undefined;
+  Settings: undefined;
+  Picture: undefined;
+  ExplorePicture: undefined;
+};

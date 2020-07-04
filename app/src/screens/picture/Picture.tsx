@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Picture from '../../components/Picture/PictureComponent';
 import FirebaseDB from '../../config';
 import { ThemeColors } from '../../themes';
-import { PictureType } from '../../types';
+import { PictureType, RootStackParamList } from '../../types';
 import {
   equalDates, fetchData, filterByWord, getTodayStringDate, shuffleArray,
 } from '../../utils/utils';
@@ -39,12 +39,6 @@ const SettingsIcon = styled(Icon)`
   overflow: hidden;
 `;
 
-type RootStackParamList = {
-  Explore: undefined;
-  Settings: undefined;
-  Picture: undefined;
-  ExplorePicture: undefined;
-};
 interface Props {
   route: any,
   navigation: StackNavigationProp<RootStackParamList, 'Picture'>,

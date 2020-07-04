@@ -34,16 +34,11 @@ import AnimationLayout from '../common/AnimationLayout';
 import CarouselPictureList from '../common/CarouselImageList';
 import Video from '../Video/VideoComponent';
 import * as _ from './style';
+import { RootStackParamList } from '../../types';
 
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
-type RootStackParamList = {
-  Explore: undefined;
-  Settings: undefined;
-  Picture: undefined;
-  ExplorePicture: undefined;
-};
 interface Props {
   attrs: PictureType,
   similars: Array<PictureType>,

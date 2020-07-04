@@ -15,16 +15,11 @@ import { filterByWord } from '../../utils/utils';
 import WaitingScreen from '../loading/WaitingScreen';
 import { GET_ALL_PICTURES } from './queries';
 import * as _ from './style';
+import { RootStackParamList } from '../../types';
 
 
 let flatListRef: FlatList;
 
-type RootStackParamList = {
-  Explore: undefined;
-  Settings: undefined;
-  Picture: undefined;
-  ExplorePicture: undefined;
-};
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Explore'>,
 }

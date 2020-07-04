@@ -6,6 +6,7 @@ import Shimmer from 'react-native-shimmer';
 import styled from 'styled-components';
 
 import { ThemeColors } from '../../themes';
+import { PictureType, RootStackParamList } from '../../types';
 
 
 const SimilarsView = styled.View`
@@ -45,15 +46,9 @@ const ShimmerInner = styled.Text`
   borderRadius: 5px;
 `;
 
-type RootStackParamList = {
-  Explore: undefined;
-  Settings: undefined;
-  Picture: undefined;
-  ExplorePicture: undefined;
-};
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
-  list: Array<object>,
+  list: Array<PictureType>,
 }
 function CarouselPictureList({ navigation, list }: Props) {
   const { t }: UseTranslationResponse = useTranslation();
@@ -72,7 +67,7 @@ function CarouselPictureList({ navigation, list }: Props) {
         decelerationRate="fast"
         pagingEnabled
       >
-        {list?.map((item) => (
+        {list?.map((item: PictureType) => (
           <SimilarsTouchableHighlight
             underlayColor="none"
             onPress={() => {
