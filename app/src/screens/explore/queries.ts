@@ -6,7 +6,7 @@ export const GET_ALL_PICTURES = gql`
   query GetAllPictures {
     allPictures {
       title
-      description
+      explanation
       url
       author
       date

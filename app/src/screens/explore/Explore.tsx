@@ -28,7 +28,7 @@ function ExploreScreen({ navigation }: Props) {
   const { t }: UseTranslationResponse = useTranslation();
   const DB: FirebaseDB = FirebaseDB.instance;
 
-  let picturesList: Array<PictureType> = ['notempty'];
+  let picturesList: Array<PictureType> = [{} as PictureType];
   const [error, setError] = useState<boolean>(false);
   const [picturesLimit, ] = useState<number>(18);
   const [showFavourites, setShowFavourites] = useState<boolean>(false);
@@ -41,7 +41,7 @@ function ExploreScreen({ navigation }: Props) {
   const [search, setSearch] = useState<string>('');
   const [cols, setCols] = useState<number>(2);
 
-  const getAllPictures = useQuery(GET_ALL_PICTURES, {
+  const {} = useQuery(GET_ALL_PICTURES, {
     onCompleted: (data) => {
       setRefreshing(true);
       this.picturesList = data.allPictures;
@@ -256,7 +256,7 @@ function ExploreScreen({ navigation }: Props) {
           offset: ([400, 220, 150][cols - 1] + [2.2, 2.4, 2][cols - 1]) * indx,
           index: indx,
         })}
-        renderItem={({ item, index }: {item: object, index: number}) => (
+        renderItem={({ item, index }: {item: PictureType, index: number}) => (
           <PictureSmall
             picture={item}
             cols={cols}
