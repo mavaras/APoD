@@ -1,4 +1,4 @@
-from graphene import ObjectType, String
+from graphene import Field, List, ObjectType, String
 
 
 class TodayPicture(ObjectType):
@@ -7,6 +7,7 @@ class TodayPicture(ObjectType):
     description = String()
     author = String()
     date = String()
+    similars = List(String)
 
     def resolve_url(self, info):
         return self.url
@@ -22,3 +23,6 @@ class TodayPicture(ObjectType):
 
     def resolve_date(self, info):
         return self.date
+
+    def resolve_similars(self, info):
+        return self.similars

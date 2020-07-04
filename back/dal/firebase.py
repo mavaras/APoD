@@ -3,8 +3,8 @@ from typing import List
 from decouple import config as envs
 import pyrebase
 
-from exceptions import WriteFBException
-from typ import PictureType as Picture
+from back.exceptions import WriteFBException
+from back.typ import PictureType as Picture
 
 
 class Firebase:
