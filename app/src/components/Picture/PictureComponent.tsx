@@ -379,7 +379,10 @@ function Picture({ attrs, similars, navigation }: Props) {
             />
           </_.PictureIconsViewRight>
         </_.PictureIconsView>
-        <CarouselPictureList navigation={navigation} list={similars} />
+        <CarouselPictureList 
+          navigation={navigation}
+          list={similars}
+        />
       </Animated.ScrollView>
     </View>
   );

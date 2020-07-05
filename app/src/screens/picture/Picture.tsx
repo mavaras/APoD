@@ -1,3 +1,4 @@
+import { useLazyQuery } from '@apollo/react-hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, UseTranslationResponse } from 'react-i18next';
@@ -17,6 +18,7 @@ import {
 } from '../../utils/utils';
 import LoadingScreen from '../loading/LoadingScreen';
 import WaitingScreen from '../loading/WaitingScreen';
+import { GET_LAST_PICTURE, GET_TODAY_PICTURE } from './queries';
 
 
 const SafeAreaView = styled.SafeAreaView`
@@ -50,7 +52,26 @@ function PictureScreen({ route, navigation }: Props) {
   const [loading, setLoading] = useState<Boolean>(true);
   const [error, setError] = useState<Boolean>(false);
   const [response, setResponse] = useState<PictureType>({} as PictureType);
+  const [lastPicture, setLastPicture] = useState<PictureType>({} as PictureType);
   const [similars, setSimilars] = useState<Array<PictureType>>([]);
+
+  const [getTodayPicture] = useLazyQuery(GET_TODAY_PICTURE, {
+    onCompleted: (data) => {
+      setResponse(data.todayPicture as PictureType);
+    },
+    onError: () => {
+      setError(true);
+    },
+  });
+
+  const [getLastPicture] = useLazyQuery(GET_LAST_PICTURE, {
+    onCompleted: (data) => {
+      setLastPicture(data.lastPicture as PictureType);
+    },
+    onError: () => {
+      setError(true);
+    },
+  });
 
   async function getSimilars(): Promise<void> {
     const titleWords: Array<string> = response.title.split(' ').filter((word) => word.length > 3);
@@ -68,22 +89,41 @@ function PictureScreen({ route, navigation }: Props) {
     setSimilars(shuffleArray(similarsList));
   }
 
+  async function getPicture() {
+    if (!route.params) {
+      const today = new Date();
+      const todayDate: string = [
+        `${today.getFullYear()}-`,
+        `${('0' + (today.getMonth() + 1)).slice(-2)}-`,
+        `${('0' + today.getDate()).slice(-2)}`,
+      ].join('');
+      await getLastPicture();
+      const mustQuery: boolean = todayDate !== lastPicture.date;
+      if (mustQuery) {
+        await getTodayPicture();
+      } else {
+        setResponse(lastPicture);
+      }
+    } else {
+      setResponse(route.params.attrs);
+    }
+  }
+
   useEffect(() => {
     (async () => {
-      await fetchData(route.params)
-        .then((res) => {
-          setResponse(res as unknown as PictureType);
-        })
+      await getPicture()
         .catch(() => {
           setError(true);
         });
     })();
   }, []);
   useEffect(() => {
-    if (JSON.stringify(response) !== JSON.stringify({})) {
-      getSimilars();
-      setLoading(false);
-    }
+    (async () => {
+      if (JSON.stringify(response) !== JSON.stringify({})) {
+        await getSimilars();
+        setLoading(false);
+      }
+    })();
   }, [response]);
 
   function isDailyPicture(): boolean {
