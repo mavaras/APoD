@@ -1,5 +1,6 @@
 /* eslint-disable */
 import AsyncStorage from '@react-native-community/async-storage';
+import { log } from './utils/utils';
 
 
 const Storage = {
@@ -10,21 +11,21 @@ const Storage = {
         return item;
       }
     } catch(error) {
-      console.log(error);
+      log(error);
     }
   },
   setItem: async function (key: string, value: string) {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
-      console.log(error);
+      log(error);
     }
   },
   removeItem: async function (key: string) {
     try {
       return await AsyncStorage.removeItem(key);
     } catch(error) {
-      console.log(error);
+      log(error);
     } 
   },
   clear: async function (key: string) {

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { ThemeProvider } from 'styled-components/native';
 
 import Storage from './storage';
+import { log } from './utils/utils';
 
 
 interface Colors {
@@ -63,7 +64,7 @@ async function getCurrentTheme(): Promise<string> {
 const ThemeContext = createContext({
   themeStyle: defaultTheme,
   // eslint-disable-next-line no-console
-  setTheme: (theme: string): void => console.log(theme),
+  setTheme: (theme: string): void => log(theme),
   getTheme: (): Promise<string> | string => defaultTheme,
   getColors: (): any => {},
 });

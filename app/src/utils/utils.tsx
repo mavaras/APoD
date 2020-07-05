@@ -136,13 +136,17 @@ export async function requestStoragePermissionAndroid() {
       },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('Storage Permission Granted');
+      log('Storage Permission Granted');
     } else {
-      console.log('Storage Permission Not Granted');
+      log('Storage Permission Not Granted');
     }
   } catch (err) {
-    console.log(`Some error while granting storage access: ${err}`);
+    log(`Some error while granting storage access: ${err}`);
   }
+}
+
+export function log(content: string): void {
+  console.log(content);
 }
 
 /*

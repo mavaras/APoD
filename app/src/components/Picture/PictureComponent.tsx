@@ -28,7 +28,7 @@ import { ThemeContext, useTheme } from '../../themes';
 import { PictureType } from '../../types';
 import {
   capitalize, equalDates, formatDate,
-  getTodayStringDate, requestStoragePermissionAndroid,
+  getTodayStringDate, log, requestStoragePermissionAndroid,
 } from '../../utils/utils';
 import AnimationLayout from '../common/AnimationLayout';
 import CarouselPictureList from '../common/CarouselImageList';
@@ -91,21 +91,21 @@ function Picture({ attrs, similars, navigation }: Props) {
       };
       config(options).fetch('GET', attrs.url)
         .then((res) => {
-          console.log(`Success downloading photo to path: ${res.path()}`);
+          log(`Success downloading photo to path: ${res.path()}`);
           setDownloading(false);
         })
         .catch((err) => {
-          console.log(`Error occurred when trying to download picture: ${err}`);
+          log(`Error occurred when trying to download picture: ${err}`);
         });
     } else {
       CameraRoll.saveToCameraRoll(attrs.url)
         .then(() => {
-          console.log('Success downloading photo to camera roll');
+          log('Success downloading photo to camera roll');
           setDownloading(false);
           setShowAlert(true);
         })
         .catch((err) => {
-          console.log(`Error occurred when trying to download picture: ${err}`);
+          log(`Error occurred when trying to download picture: ${err}`);
         });
     }
   }
@@ -120,10 +120,10 @@ function Picture({ attrs, similars, navigation }: Props) {
         };
         Share.open(options)
           .catch((err: string) => {
-            console.log(err);
+            log(err);
           });
       })
-      .catch((err: string) => console.log(err));
+      .catch((err: string) => log(err));
   }
 
   function zoom(): void {

@@ -56,12 +56,12 @@ export default class FirebaseDB {
       .equalTo(title)
       .once('value')
       .then((snapshot: any) => {
-        const pictureObject: Object = snapshot.val();console.log(pictureObject);
+        const pictureObject: Object = snapshot.val();
         const pictureKey: string = Object.keys(pictureObject)[0];
         const isFavourite: boolean = Object.values(pictureObject)[0].favourite | false;
         DB.db.ref(`pictures/${pictureKey}`)
           .update({ favourite: !isFavourite })
-          .catch((error: string) => console.log(error));
+          .catch((error: string) => log(error));
       });
   }*/
 }
