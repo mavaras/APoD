@@ -25,3 +25,15 @@ export const GET_LAST_PICTURE = gql`
     }
   }
 `;
+
+export const GET_ALL_PICTURES = gql`
+  query GetAllPictures {
+    allPictures {
+      title
+      explanation
+      url
+      author
+      date
+    }
+  }
+`;
