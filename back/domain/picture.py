@@ -15,7 +15,8 @@ def get_today_picture() -> Picture:
     must_query = utils.get_today_date_formatted() != last_picture['date']
     if must_query:
         with urllib.request.urlopen(
-                f'https://api.nasa.gov/planetary/apod?api_key={envs("NASA_API_KEY")}'
+                f'https://api.nasa.gov/planetary/apod?api_key={envs("NASA_API_KEY")}',
+                timeout=10
             ) as response:
             response = json.loads(response.read().decode('utf-8'))
             if response.get('title', '') == 'Default Image':
@@ -27,9 +28,8 @@ def get_today_picture() -> Picture:
                 'date': response.get('date', ''),
                 'author': response.get('author', response.get('copyright', ''))
             }
-            '''if not add_picture(picture):
-                # raise FB write error
-                pass'''
+            if not add_picture(picture):
+                raise Exception('Error: error while writing to database')
     else:
         picture = last_picture
 
