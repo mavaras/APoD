@@ -30,8 +30,8 @@ class PicturesQuery(ObjectType):
                 author=response.get('author', response.get('copyright', '')),
                 similars=similars,
             )
-        except:
-            raise FetchException()
+        except Exception as e:
+            raise FetchException(e)
 
 
     def resolve_last_picture(self, info):

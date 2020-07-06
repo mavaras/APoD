@@ -18,6 +18,8 @@ def get_today_picture() -> Picture:
                 f'https://api.nasa.gov/planetary/apod?api_key={envs("NASA_API_KEY")}'
             ) as response:
             response = json.loads(response.read().decode('utf-8'))
+            if response.get('title', '') == 'Default Image':
+                raise Exception('Error: NASA returned a default image')
             picture = {
                 'title': response.get('title', ''),
                 'url': response.get('url', ''),
