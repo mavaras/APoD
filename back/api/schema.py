@@ -2,13 +2,14 @@ import json
 from typing import Dict, List
 
 from decouple import config as envs
-from graphene import Field, List, ObjectType, Schema, String
+from graphene import Boolean, Field, List, ObjectType, Schema, String
 import urllib.request
 
 from dal.firebase import fb
 from domain import picture as picture_domain
 from exceptions import FetchException
 from models.today_picture import TodayPicture
+from typ import PictureType as Picture
 
 
 class PicturesQuery(ObjectType):
@@ -16,6 +17,13 @@ class PicturesQuery(ObjectType):
     last_picture = Field(TodayPicture)
     all_pictures = List(TodayPicture)
     picture_similars = List(TodayPicture, picture_title=String(required=True))
+    add_picture = Field(Boolean,
+        title=String(required=True),
+        url=String(required=True),
+        date=String(required=True),
+        explanation=String(required=True),
+        author=String(required=True),
+    )
 
     def resolve_today_picture(self, info):
         try:
@@ -70,6 +78,10 @@ class PicturesQuery(ObjectType):
                 date=picture.get('date', ''),
                 author=picture.get('author', ''),
             )
+
+
+    def resolve_add_picture(self, info, **picture: Picture):
+        return picture_domain.add_picture(picture)
 
 
 SCHEMA = Schema(query=PicturesQuery, types=[])
