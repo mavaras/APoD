@@ -17,13 +17,13 @@ import { i18next } from './utils/translations/translate';
 
 console.disableYellowBox = true;
 
-const Stack = createStackNavigator();
-const Tabs = createBottomTabNavigator();
+const stack = createStackNavigator();
+const tabs = createBottomTabNavigator();
 
 function BottomTabNavigator() {
   const theme: ThemeContext = useTheme();
   return (
-    <Tabs.Navigator
+    <tabs.Navigator
       tabBarVisible={false}
       tabBarOptions={{
         activeTintColor: theme.getColors().activeSectionMenuColor,
@@ -34,21 +34,21 @@ function BottomTabNavigator() {
         },
       }}
     >
-      <Tabs.Screen
+      <tabs.Screen
         name="Daily Picture"
         component={PictureScreen}
         options={{
           tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={24} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
-      <Tabs.Screen
+      <tabs.Screen
         name="Explore"
         component={ExploreScreen}
         options={{
           tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={24} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
-    </Tabs.Navigator>
+    </tabs.Navigator>
   );
 }
 
@@ -56,13 +56,13 @@ function StackNavigatorContainer() {
   const theme: ThemeContext = useTheme();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      <stack.Navigator>
+        <stack.Screen
           name="Back"
           component={BottomTabNavigator}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        <stack.Screen
           name="Explore Picture"
           component={PictureScreen}
           options={{
@@ -71,7 +71,7 @@ function StackNavigatorContainer() {
             headerStyle: { backgroundColor: theme.getColors().bgColor },
           }}
         />
-        <Stack.Screen
+        <stack.Screen
           name="Settings"
           component={SettingsScreen}
           options={{
@@ -80,7 +80,7 @@ function StackNavigatorContainer() {
             headerStyle: { backgroundColor: theme.getColors().bgColor },
           }}
         />
-        <Stack.Screen
+        <stack.Screen
           name="Mentions"
           component={MentionsScreen}
           options={{
@@ -89,7 +89,7 @@ function StackNavigatorContainer() {
             headerStyle: { backgroundColor: theme.getColors().bgColor },
           }}
         />
-      </Stack.Navigator>
+      </stack.Navigator>
     </NavigationContainer>
   );
 }

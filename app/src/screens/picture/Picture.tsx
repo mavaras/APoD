@@ -70,7 +70,7 @@ function PictureScreen({ route, navigation }: Props) {
   });
 
   const { data: lastPictureData } = useQuery(GET_LAST_PICTURE, {
-    onCompleted: async (data) => {
+    onCompleted: async () => {
       getAllPictures();
       await getPicture();
     },
@@ -105,6 +105,8 @@ function PictureScreen({ route, navigation }: Props) {
       ].join('');
       const lastPicture = lastPictureData.lastPicture;
       const mustQuery: boolean = todayDate !== lastPicture.date;
+      console.log(mustQuery);
+      console.log(lastPicture.date);
       if (mustQuery) {
         getTodayPicture();
       } else {

@@ -61,7 +61,7 @@ async function getCurrentTheme(): Promise<string> {
   return (currentTheme || defaultTheme);
 }
 
-const ThemeContext = createContext({
+const themeContext = createContext({
   themeStyle: defaultTheme,
   // eslint-disable-next-line no-console
   setTheme: (theme: string): void => log(theme),
@@ -75,7 +75,7 @@ export type ThemeContext = {
   getTheme: () => Promise<string> | string;
   getColors: () => Colors;
 };
-export const useTheme = (): ThemeContext => useContext(ThemeContext);
+export const useTheme = (): ThemeContext => useContext(themeContext);
 
 interface Props {
   children: React.ReactNode,
@@ -98,7 +98,7 @@ function ManageThemeProvider({ children }: Props) {
   }
 
   return (
-    <ThemeContext.Provider
+    <themeContext.Provider
       value={{
         themeStyle, setTheme, getTheme, getColors,
       }}
@@ -106,15 +106,15 @@ function ManageThemeProvider({ children }: Props) {
       <ThemeProvider theme={themeStyle === 'lightTheme' ? colors.lightTheme : colors.darkTheme}>
         {children}
       </ThemeProvider>
-    </ThemeContext.Provider>
+    </themeContext.Provider>
   );
 }
 
 interface Props {
   children: React.ReactNode,
 }
-const ThemeHandler = ({ children }: Props) => (
+const themeHandler = ({ children }: Props) => (
   <ManageThemeProvider>{children}</ManageThemeProvider>
 );
 
-export default ThemeHandler;
+export default themeHandler;

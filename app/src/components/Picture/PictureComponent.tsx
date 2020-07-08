@@ -207,7 +207,7 @@ function Picture({ attrs, similars, navigation }: Props) {
         text={t('picture.sharePicturePrev')}
         render={sharing}
       />
-      <Modal
+        <Modal
         visible={openZoomModal}
         transparent={true}
         style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height, margin: 0 }}

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { log } from './utils/utils';
 
 
-const Storage = {
+const storage = {
   getItem: async function (key: string) {
     try {
       const item = await AsyncStorage.getItem(key);
@@ -33,4 +33,4 @@ const Storage = {
   }
 };
 
-export default Storage;
+export default storage;

@@ -27,8 +27,6 @@ export default class FirebaseDB {
 
   pictures = this.db.ref('pictures');
 
-  pictures_nItems = 0;
-
   picturesList = [];
 
   constructor() {
