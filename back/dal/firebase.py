@@ -25,13 +25,11 @@ class Firebase:
         firebase = pyrebase.initialize_app(config)
 
         self.db = firebase.database()
-        self.pictures = self.db.child('pictures')
-        self.pictures_document = self.pictures.get().val()
 
 
     def get_pictures(self) -> List[Picture]:
-        pictures_list = [
-            self.pictures_document[e] for e in list(self.pictures_document.keys())]
+        all_pictures = self.db.child('pictures').get().val()
+        pictures_list = [all_pictures[e] for e in list(all_pictures.keys())]
         return pictures_list
 
 
