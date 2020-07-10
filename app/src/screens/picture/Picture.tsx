@@ -58,8 +58,12 @@ function PictureScreen({ route, navigation }: Props) {
     onCompleted: async (data) => {
       await setResponse(data.todayPicture as PictureType);
     },
-    onError: () => {
-      setError(true);
+    onError: (error) => {
+      if (error.toString().includes('Error: NASA returned a default image')) {
+        setResponse(lastPictureData.lastPicture);
+      } else {
+        setError(true);
+      }
     },
   });
 
@@ -105,8 +109,6 @@ function PictureScreen({ route, navigation }: Props) {
       ].join('');
       const lastPicture = lastPictureData.lastPicture;
       const mustQuery: boolean = todayDate !== lastPicture.date;
-      console.log(mustQuery);
-      console.log(lastPicture.date);
       if (mustQuery) {
         getTodayPicture();
       } else {
