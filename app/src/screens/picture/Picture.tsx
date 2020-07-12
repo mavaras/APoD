@@ -67,7 +67,7 @@ function PictureScreen({ route, navigation }: Props) {
     },
   });
 
-  const [getAllPictures, { data: allPicturesData }] = useLazyQuery(GET_ALL_PICTURES, {
+  const { data: allPicturesData } = useQuery(GET_ALL_PICTURES, {
     onError: () => {
       setError(true);
     },
@@ -75,7 +75,6 @@ function PictureScreen({ route, navigation }: Props) {
 
   const { data: lastPictureData } = useQuery(GET_LAST_PICTURE, {
     onCompleted: async () => {
-      getAllPictures();
       await getPicture();
     },
     onError: () => {
@@ -125,7 +124,7 @@ function PictureScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     (async () => {
-      if (similars.length === 0 && JSON.stringify(response) !== JSON.stringify({})) {
+      if (allPicturesData && similars.length === 0 && JSON.stringify(response) !== JSON.stringify({})) {
         await getSimilars();
         setLoading(false);
       }
