@@ -8,6 +8,7 @@ import urllib.request
 from dal.firebase import fb
 from domain import picture as picture_domain
 from exceptions import FetchException
+from models.article import Article
 from models.today_picture import TodayPicture
 from typ import PictureType as Picture
 
@@ -24,6 +25,7 @@ class PicturesQuery(ObjectType):
         explanation=String(required=True),
         author=String(required=True),
     )
+    news = List(Article)
 
     def resolve_today_picture(self, info):
         try:
@@ -82,6 +84,20 @@ class PicturesQuery(ObjectType):
 
     def resolve_add_picture(self, info, **picture: Picture):
         return picture_domain.add_picture(picture)
+
+
+    def resolve_news(self, info):
+        news = picture_domain.get_news()
+        for article in news:
+            yield Article(
+                title=article.get('title', ''),
+                url=article.get('url', ''),
+                image=article.get('featured_image', ''),
+                site=article.get('news_site_long', ''),
+                date=article.get('published_date', ''),
+                tags=article.get('tags', ''),
+                categories=article.get('categories', ''),
+            )
 
 
 SCHEMA = Schema(query=PicturesQuery, types=[])

@@ -36,6 +36,11 @@ def get_today_picture() -> Picture:
     return picture
 
 
+def get_news() -> str:
+    with urllib.request.urlopen(envs('NEWS_API_URL'), timeout=15) as response:
+        return json.loads(response.read().decode('utf-8'))['docs']
+
+
 def add_picture(picture: Picture) -> bool:
     return fb.push_picture(picture)
 
