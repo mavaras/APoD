@@ -3,7 +3,10 @@ from typing import Dict, List
 import urllib.request
 from decouple import config as envs
 
-from typ import PictureType as Picture
+from typ import (
+    PictureType as Picture,
+    ArticleType as Article
+)
 from dal.firebase import fb
 from domain.utils import utils
 from exceptions import FetchException
@@ -36,7 +39,7 @@ def get_today_picture() -> Picture:
     return picture
 
 
-def get_news() -> str:
+def get_news() -> List[Article]:
     with urllib.request.urlopen(envs('NEWS_API_URL'), timeout=15) as response:
         return json.loads(response.read().decode('utf-8'))['docs']
 
