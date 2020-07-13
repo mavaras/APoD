@@ -15,7 +15,7 @@ def get_today_picture() -> Picture:
     must_query = utils.get_today_date_formatted() != last_picture['date']
     if must_query:
         with urllib.request.urlopen(
-                f'https://api.nasa.gov/planetary/apod?api_key={envs("NASA_API_KEY")}',
+                f'{envs("NASA_API_URL")}api_key={envs("NASA_API_KEY")}',
                 timeout=10
             ) as response:
             response = json.loads(response.read().decode('utf-8'))
