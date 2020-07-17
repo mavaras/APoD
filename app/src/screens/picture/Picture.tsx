@@ -59,11 +59,7 @@ function PictureScreen({ route, navigation }: Props) {
       await setResponse(data.todayPicture as PictureType);
     },
     onError: (error) => {
-      if (error.toString().includes('Error: NASA returned a default image')) {
-        setResponse(lastPictureData.lastPicture);
-      } else {
-        setError(true);
-      }
+      setResponse(lastPictureData.lastPicture);
     },
   });
 
