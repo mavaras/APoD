@@ -16,6 +16,7 @@ from typ import PictureType as Picture
 class PicturesQuery(ObjectType):
     today_picture = Field(TodayPicture)
     last_picture = Field(TodayPicture)
+    picture_by_date = Field(TodayPicture, date=String(required=True))
     all_pictures = List(TodayPicture)
     picture_similars = List(TodayPicture, picture_title=String(required=True))
     add_picture = Field(Boolean,
@@ -45,7 +46,7 @@ class PicturesQuery(ObjectType):
 
 
     def resolve_last_picture(self, info):
-        last_picture = fb.get_last_picture()
+        last_picture = picture_domain.get_last_picture()
         picture_title = last_picture.get('title', '')
         similars = picture_domain.get_similars(picture_title)
         return TodayPicture(
@@ -54,6 +55,20 @@ class PicturesQuery(ObjectType):
             explanation=last_picture.get('explanation', ''),
             date=last_picture.get('date', ''),
             author=last_picture.get('author', ''),
+            similars=similars,
+        )
+
+
+    def resolve_picture_by_date(self, info, date: str):
+        picture = picture_domain.get_picture(date)
+        picture_title = picture.get('title', '')
+        similars = picture_domain.get_similars(picture_title)
+        return TodayPicture(
+            title=picture.get('title', ''),
+            url=picture.get('url', ''),
+            explanation=picture.get('explanation', ''),
+            date=picture.get('date', ''),
+            author=picture.get('author', ''),
             similars=similars,
         )
 

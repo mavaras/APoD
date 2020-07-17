@@ -13,12 +13,21 @@ from exceptions import FetchException
 
 
 def get_today_picture() -> Picture:
+    return get_picture()
+
+
+def get_last_picture() -> Picture:
+    return fb.get_last_picture()
+
+
+def get_picture(date: str = utils.get_today_date_formatted()) -> Picture:
     picture = None
     last_picture = fb.get_last_picture()
-    must_query = utils.get_today_date_formatted() != last_picture['date']
+    must_query = date != last_picture['date']
     if must_query:
         with urllib.request.urlopen(
-                f'{envs("NASA_API_URL")}api_key={envs("NASA_API_KEY")}',
+                f'{envs("NASA_API_URL")}api_key={envs("NASA_API_KEY")}'
+                f'&date={date}',
                 timeout=10
             ) as response:
             response = json.loads(response.read().decode('utf-8'))
