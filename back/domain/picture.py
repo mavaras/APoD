@@ -49,8 +49,22 @@ def get_picture(date: str = utils.get_today_date_formatted()) -> Picture:
 
 
 def get_news() -> List[Article]:
-    with urllib.request.urlopen(envs('NEWS_API_URL'), timeout=15) as response:
-        return json.loads(response.read().decode('utf-8'))['docs']
+    news = []
+    today = utils.get_today_date_formatted()
+    with urllib.request.urlopen(envs('SF_NEWS_API_URL'), timeout=15) as response:
+        response = json.loads(response.read().decode('utf-8'))['docs']
+        news.extend(response)
+
+    with urllib.request.urlopen(envs('STSCI_NEWS_API_URL'), timeout=15) as response:
+        today_response = []
+        for article in json.loads(response.read().decode('utf-8')):
+            if article['pub_date'].split('T')[0] == today:
+                article['url'] = article['link']
+                article['site'] = 'Space Telescope Live feed (STScI)'
+                today_response.append(article)
+        news.extend(response)
+
+    return news
 
 
 def add_picture(picture: Picture) -> bool:
