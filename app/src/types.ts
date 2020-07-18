@@ -1,3 +1,6 @@
+import { ViewStyle } from 'react-native';
+
+
 export type PictureType = {
   title: string;
   explanation: string;
@@ -22,4 +25,11 @@ export type ArticleType = {
   site: string;
   date: string;
   categories: string;
+};
+
+export type SettingMenuItemType = {
+  action: any;
+  title: string;
+  iconName: string;
+  extraStyle?: ViewStyle;
 };
