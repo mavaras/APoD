@@ -11,6 +11,7 @@ interface Colors {
   buttonColor: string;
   borderColor: string;
   highlightColor: string;
+  badge: string;
   fontColor: string;
   shimmerColor: string;
   iconColor: string;
@@ -32,6 +33,7 @@ const lightThemeColors: Colors = {
   buttonColor: 'gray',
   borderColor: '#f2f2ff',
   highlightColor: 'black',
+  badge: 'primary',
   fontColor: 'black',
   shimmerColor: '#dadadae8',
   iconColor: '#5c5c5c',
@@ -43,6 +45,7 @@ const darkThemeColors: Colors = {
   buttonColor: 'gray',
   borderColor: '#dadadae8',
   highlightColor: 'blue',
+  badge: 'warning',
   fontColor: '#fffcf6',
   shimmerColor: '#2a2f38',
   iconColor: '#fafaff',

@@ -8,6 +8,7 @@ import { I18nextProvider } from 'react-i18next';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 import ExploreScreen from './screens/explore/Explore';
+import NewsScreen from './screens/news/News';
 import PictureScreen from './screens/picture/Picture';
 import MentionsScreen from './screens/settings/Mentions';
 import SettingsScreen from './screens/settings/Settings';
@@ -24,6 +25,7 @@ function BottomTabNavigator() {
   const theme: ThemeContext = useTheme();
   return (
     <tabs.Navigator
+      initialRouteName="Daily Picture"
       tabBarVisible={false}
       tabBarOptions={{
         activeTintColor: theme.getColors().activeSectionMenuColor,
@@ -35,6 +37,13 @@ function BottomTabNavigator() {
       }}
     >
       <tabs.Screen
+        name="News"
+        component={NewsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => <FontAwesome name="newspaper" size={24} color={focused ? '#007AFF' : 'gray'} />
+        }}
+      />
+      <tabs.Screen
         name="Daily Picture"
         component={PictureScreen}
         options={{
@@ -42,7 +51,7 @@ function BottomTabNavigator() {
         }}
       />
       <tabs.Screen
-        name="Explore"
+        name="Explore Pictures"
         component={ExploreScreen}
         options={{
           tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={24} color={focused ? '#007AFF' : 'gray'} />

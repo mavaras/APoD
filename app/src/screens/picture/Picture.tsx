@@ -58,7 +58,7 @@ function PictureScreen({ route, navigation }: Props) {
     onCompleted: async (data) => {
       await setResponse(data.todayPicture as PictureType);
     },
-    onError: (error) => {
+    onError: () => {
       setResponse(lastPictureData.lastPicture);
     },
   });
@@ -120,7 +120,7 @@ function PictureScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     (async () => {
-      if (allPicturesData && similars.length === 0 && JSON.stringify(response) !== JSON.stringify({})) {
+      if (similars.length === 0 && JSON.stringify(response) !== JSON.stringify({})) {
         await getSimilars();
         setLoading(false);
       }

@@ -13,3 +13,13 @@ export type RootStackParamList = {
   Picture: undefined;
   ExplorePicture: undefined;
 };
+
+export type ArticleType = {
+  title: string;
+  image: string;
+  tags: string;
+  url: string;
+  site: string;
+  date: string;
+  categories: string;
+};
