@@ -126,16 +126,27 @@ class PicturesQuery(ObjectType):
     def resolve_launches(self, info):
         launches = picture_domain.get_launches()
         for launch in launches:
+            mission = launch.get('missions')[0]
+            location = launch.get('location')
+            description = mission['description']
+            type_name = mission['typeName']
+            location_name = location['name']
+            latitude = location.get('pads')[0]['latitude']
+            longitude = location.get('pads')[0]['longitude']
+            image = launch.get('rocket')['imageURL']
+
             yield RocketLaunch(
                 name=launch.get('name', ''),
+                image=image,
                 date=launch.get('windowstart', ''),
-                location=launch.get('location', ''),
+                location=location_name,
+                description=description,
+                typeName=type_name,
                 videoUrls=launch.get('vidURLs', ''),
                 infoUrls=launch.get('infoURLs', ''),
                 wikiUrl=launch.get('wikiURL', ''),
-                latitude=launch.get('latitude', ''),
-                longitude=launch.get('longitude', ''),
-                missions=launch.get('missions', []),
+                latitude=latitude,
+                longitude=longitude,
             )
 
 
