@@ -62,6 +62,7 @@ def get_news() -> List[Article]:
         for article in response:
             if article['pub_date'].split('T')[0] == today:
                 article['url'] = article['link']
+                article['featured_image'] = article['image'][2:]
                 article['site'] = 'Space Telescope Live feed (STScI)'
                 today_response.append(article)
         news.extend(response)

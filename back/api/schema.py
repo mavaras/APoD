@@ -126,10 +126,13 @@ class PicturesQuery(ObjectType):
     def resolve_launches(self, info):
         launches = picture_domain.get_launches()
         for launch in launches:
-            mission = launch.get('missions')[0]
+            mission = launch.get('missions')
+            if not mission:
+                mission = [{}]
+            mission = mission[0]
             location = launch.get('location')
-            description = mission['description']
-            type_name = mission['typeName']
+            description = mission.get('description', '')
+            type_name = mission.get('typeName', '')
             location_name = location['name']
             latitude = location.get('pads')[0]['latitude']
             longitude = location.get('pads')[0]['longitude']
