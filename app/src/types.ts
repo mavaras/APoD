@@ -27,6 +27,21 @@ export type ArticleType = {
   categories: string;
 };
 
+export type RocketLaunchType = {
+  name: string;
+  location: string;
+  wikiUrl: string;
+  infoUrls: string;
+  videoUrls: string;
+  date: string;
+  missions: string;
+  latitud: string;
+  longitude: string;
+  description: string;
+  typeName: string;
+  image: string;
+};
+
 export type SettingMenuItemType = {
   action: any;
   title: string;

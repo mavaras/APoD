@@ -29,4 +29,8 @@ export const enTranslations: ResourceLanguage = {
       repo: 'https://www.github.com/mavaras/APoD',
     },
   },
+  news: {
+    news: 'Latest Astronomy News',
+    rockets: 'Rocket Launches',
+  }
 };

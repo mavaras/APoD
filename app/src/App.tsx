@@ -40,21 +40,21 @@ function BottomTabNavigator() {
         name="News"
         component={NewsScreen}
         options={{
-          tabBarIcon: ({ focused }) => <FontAwesome name="newspaper" size={24} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome name="newspaper" size={22} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
       <tabs.Screen
         name="Daily Picture"
         component={PictureScreen}
         options={{
-          tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={24} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={28} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
       <tabs.Screen
         name="Explore Pictures"
         component={ExploreScreen}
         options={{
-          tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={24} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={22} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
     </tabs.Navigator>

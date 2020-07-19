@@ -16,9 +16,9 @@ const ArticlePicture = styled(FastImage)`
   marginBottom: 25px;
   borderRadius: 5px;
 `;
-const ArticleText = styled.Text`
+const ArticleTitle = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
-  fontSize: 17px;
+  fontSize: 20px;
   fontWeight: 600;
 `;
 
@@ -56,7 +56,7 @@ function Article({ index, item, nArticles }: Props) {
     >
       <View>
         <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-          <ArticleText>{item.title}</ArticleText>
+          <ArticleTitle>{item.title}</ArticleTitle>
         </View>
         <Badge
           value={item.site}

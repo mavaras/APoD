@@ -120,7 +120,7 @@ function PictureScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     (async () => {
-      if (similars.length === 0 && JSON.stringify(response) !== JSON.stringify({})) {
+      if (allPicturesData && similars.length === 0 && JSON.stringify(response) !== JSON.stringify({})) {
         await getSimilars();
         setLoading(false);
       }

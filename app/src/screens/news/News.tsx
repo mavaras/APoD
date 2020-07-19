@@ -1,30 +1,34 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import React, { useState } from 'react';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import {
   Animated,
-  Dimensions, Linking, ScrollView,
-  Text, View,
+  Dimensions,
+  View,
 } from 'react-native';
+import SegmentedControlTab from 'react-native-segmented-control-tab'
 import styled from 'styled-components';
 
 import Article from '../../components/News/ArticleComponent';
-import { ThemeColors } from '../../themes';
-import { ArticleType } from '../../types';
+import Launch from '../../components/News/LaunchComponent';
+import { ThemeColors, ThemeContext, useTheme } from '../../themes';
+import { ArticleType, RocketLaunchType } from '../../types';
 import LoadingScreen from '../loading/LoadingScreen';
-import { GET_NEWS } from './queries';
+import { GET_LAUNCHES, GET_NEWS } from './queries';
 
 
 const ScreenTitleView = styled(Animated.View)`
   alignSelf: center;
+  flexDirection: row;
   width: 90%;
-  marginTop: 40px;
-  marginBottom: 40px;
+  marginTop: 0px;
+  marginBottom: 30px;
 `;
 const ScreenTitle = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
   fontSize: 24px;
   fontWeight: 600;
-  width: 92%;
+  width: 87%;
 `;
 const ArticleTitle = styled.Text`
   color: ${({ theme }: ThemeColors) => theme.fontColor};
@@ -40,20 +44,26 @@ const SafeAreaView = styled.SafeAreaView`
 
 
 function NewsScreen() {
+  const { t }: UseTranslationResponse = useTranslation();
+
   const [loading, setLoading] = useState<Boolean>(true);
-  const [isScrolling, setIsScrolling] = useState<Boolean>(false);
-  const [scrollY] = useState<Animated.Value>(new Animated.Value(0));
-  const ImageScale: Animated.AnimatedInterpolation = scrollY.interpolate({
-    inputRange: [-10, 0, 10],
-    outputRange: [1, 1.1, 1],
-    extrapolate: 'clamp',
-  });
+  const [currView, setCurrView] = useState<string>('news');
 
   const { data: news } = useQuery(GET_NEWS, {
+    onCompleted: () => {
+      getLaunches();
+    },
+  });
+
+  const [getLaunches, { data: launches }] = useLazyQuery(GET_LAUNCHES, {
     onCompleted: () => {
       setLoading(false);
     },
   });
+
+  function changeNewsView() {
+    setCurrView(currView === 'news' ? 'rockets' : 'news');
+  }
 
   if (loading) {
     return (
@@ -62,28 +72,46 @@ function NewsScreen() {
   }
   return (
     <SafeAreaView>
-      <ScreenTitleView>
-        <ScreenTitle>Latest Astronomy News</ScreenTitle>
-      </ScreenTitleView>
+      <SegmentedControlTab
+        tabsContainerStyle={{ marginTop: 20, marginBottom: 40, width: '90%', marginLeft: '5%' }}
+        borderRadius={0}
+        values={[t('news.news'), t('news.rockets')]}
+        selectedIndex={currView === 'news' ? 0 : 1}
+        onTabPress={changeNewsView}
+      />
+      {/*<ScreenTitleView>
+        {currView === 'news'
+          ? (
+            <ScreenTitle>{t('news.news')}</ScreenTitle>
+          ) :
+            <ScreenTitle>{t('news.rockets')}</ScreenTitle>
+        }
+      </ScreenTitleView>*/}
       <Animated.ScrollView
-        style={{ marginBottom: 35 }}        
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          {
-            useNativeDriver: true,
-          },
-        )}
+        style={{ marginBottom: 35 }}
       >
-        <View>
-          {news.news.map((article: ArticleType, index: number) => (
-            <Article
-              index={index}
-              item={article}
-              nArticles={news.news.length}
-            />
-          ))}
-        </View>
-      </Animated.ScrollView>
+        {currView === 'news'
+          ? (
+            <View>
+              {news.news.map((article: ArticleType, index: number) => (
+                <Article
+                  index={index}
+                  item={article}
+                  nArticles={news.news.length}
+                />
+              ))}
+            </View>) : (
+            <View>
+              {launches.launches.map((launch: RocketLaunchType, index: number) => (
+                <Launch
+                  index={index}
+                  item={launch}
+                  nLaunches={launches.launches.length}
+                />
+              ))}
+            </View>)
+        }
+          </Animated.ScrollView>
     </SafeAreaView>
   );
 }
