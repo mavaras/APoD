@@ -2,13 +2,21 @@ import json
 from typing import Dict, List
 
 from decouple import config as envs
-from graphene import Boolean, Field, List, ObjectType, Schema, String
+from graphene import (
+    Boolean,
+    Field,
+    List,
+    ObjectType,
+    Schema,
+    String,
+)
 import urllib.request
 
 from dal.firebase import fb
 from domain import picture as picture_domain
 from exceptions import FetchException
 from models.article import Article
+from models.rocket_launch import RocketLaunch
 from models.today_picture import TodayPicture
 from typ import PictureType as Picture
 
@@ -27,6 +35,7 @@ class PicturesQuery(ObjectType):
         author=String(required=True),
     )
     news = List(Article)
+    launches = List(RocketLaunch)
 
     def resolve_today_picture(self, info):
         try:
@@ -112,6 +121,21 @@ class PicturesQuery(ObjectType):
                 date=article.get('published_date', ''),
                 tags=article.get('tags', ''),
                 categories=article.get('categories', ''),
+            )
+    
+    def resolve_launches(self, info):
+        launches = picture_domain.get_launches()
+        for launch in launches:
+            yield RocketLaunch(
+                name=launch.get('name', ''),
+                date=launch.get('windowstart', ''),
+                location=launch.get('location', ''),
+                videoUrls=launch.get('vidURLs', ''),
+                infoUrls=launch.get('infoURLs', ''),
+                wikiUrl=launch.get('wikiURL', ''),
+                latitude=launch.get('latitude', ''),
+                longitude=launch.get('longitude', ''),
+                missions=launch.get('missions', []),
             )
 
 

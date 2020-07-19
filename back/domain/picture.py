@@ -5,7 +5,8 @@ from decouple import config as envs
 
 from typ import (
     PictureType as Picture,
-    ArticleType as Article
+    ArticleType as Article,
+    RocketLaunchType as RocketLaunch
 )
 from dal.firebase import fb
 from domain.utils import utils
@@ -56,8 +57,9 @@ def get_news() -> List[Article]:
         news.extend(response)
 
     with urllib.request.urlopen(envs('STSCI_NEWS_API_URL'), timeout=15) as response:
+        response = json.loads(response.read().decode('utf-8'))
         today_response = []
-        for article in json.loads(response.read().decode('utf-8')):
+        for article in response:
             if article['pub_date'].split('T')[0] == today:
                 article['url'] = article['link']
                 article['site'] = 'Space Telescope Live feed (STScI)'
@@ -65,6 +67,24 @@ def get_news() -> List[Article]:
         news.extend(response)
 
     return news
+
+
+def get_launches(n: int = 5) -> List[RocketLaunch]:
+    ACCEPT_HEADER = (
+        'text/html,application/xhtml+xml,'
+        'application/xml;q=0.9,image/webp,'
+        'image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    )
+    USER_AGENT_HEADER = (
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
+    )
+    request = urllib.request.Request(f'{envs("LL_API_URL")}{n}')
+    request.add_header('Accept', ACCEPT_HEADER)
+    request.add_header('User-Agent', USER_AGENT_HEADER)
+    with urllib.request.urlopen(request, timeout=15) as response:
+        response = json.loads(response.read().decode('utf-8'))['launches']
+        return response
 
 
 def add_picture(picture: Picture) -> bool:
