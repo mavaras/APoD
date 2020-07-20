@@ -14,7 +14,7 @@ function MentionsScreen() {
   const items = require('../../res/credits.json');
 
   return (
-    <SafeAreaView style={{ height: Dimensions.get('window').height, backgroundColor: theme.getColors().bgColor2 }}>
+    <SafeAreaView style={{ backgroundColor: theme.getColors().bgColor2 }}>
       <ScrollView>
         <DataDisplay items={items} />
       </ScrollView>

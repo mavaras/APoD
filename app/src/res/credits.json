@@ -18,5 +18,22 @@
                 "url": "https://lottiefiles.com/17577-loading"
             }
         ]
+    },
+    {
+        "title": "API Credits",
+        "titles": [
+            {
+                "title": "Astronomy Picture of the Day",
+                "person": "NASA"
+            },
+            {
+                "title": "Rocket Launches",
+                "person": "Launch Library"
+            },
+            {
+                "title": "Astronomy News",
+                "person": "Spaceflight"
+            }
+        ]
     }
 ]
