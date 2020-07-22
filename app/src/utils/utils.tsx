@@ -58,6 +58,8 @@ async function wait(time: number) {
   });
 }
 
+export function noop() {}
+
 export async function fetchData(params: any): Promise<{[string: string]: string}> {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef
   let response: any;
