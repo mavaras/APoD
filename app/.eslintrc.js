@@ -1,11 +1,12 @@
 module.exports = {
   extends: [
-    "airbnb-typescript"
+    "airbnb"
   ],
-  parserOptions: {
-      project: './tsconfig.json',
-  },
-  plugins: ["simple-import-sort"],
+  plugins: [
+    "simple-import-sort",
+    "@typescript-eslint"
+  ],
+  parser: "@typescript-eslint/parser",
   rules: {
     "react/prop-types": 0,
     "react/jsx-pascal-case": "off",
@@ -13,6 +14,11 @@ module.exports = {
     "import/order": "off",
     "simple-import-sort/sort": "error",
     "global-require": "off",
+    "comma-spacing": "off",
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ]
   },
   env: {
     "jest": true
