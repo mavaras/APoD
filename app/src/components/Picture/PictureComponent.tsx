@@ -41,7 +41,7 @@ const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 interface Props {
   attrs: PictureType,
-  similars: Array<PictureType>,
+  similars: PictureType[],
   navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
 }
 function Picture({ attrs, similars, navigation }: Props) {
@@ -132,7 +132,7 @@ function Picture({ attrs, similars, navigation }: Props) {
 
   async function isFavourite(): Promise<boolean> {
     const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray: Array<PictureType> = [];
+    let favouritesArray: PictureType[] = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
     }
@@ -146,7 +146,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   async function addFavourite(): Promise<void> {
     setAlreadyFavourite(true);
     const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray: Array<PictureType> = [];
+    let favouritesArray: PictureType[] = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
       if (!await isFavourite()) {
@@ -161,7 +161,7 @@ function Picture({ attrs, similars, navigation }: Props) {
   async function removeFavourite(): Promise<void> {
     setAlreadyFavourite(false);
     const favourites: string | undefined = await Storage.getItem('@APODapp:favourites');
-    let favouritesArray: Array<PictureType> = [];
+    let favouritesArray: PictureType[] = [];
     if (favourites) {
       favouritesArray = JSON.parse(favourites);
     }
@@ -379,7 +379,7 @@ function Picture({ attrs, similars, navigation }: Props) {
             />
           </_.PictureIconsViewRight>
         </_.PictureIconsView>
-        <CarouselPictureList 
+        <CarouselPictureList
           navigation={navigation}
           list={similars}
         />

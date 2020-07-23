@@ -28,14 +28,14 @@ const RowText = styled.Text`
 `;
 
 interface Props {
-  items: Array<Array<SettingMenuItemType>>,
+  items: SettingMenuItemType[][],
 }
 function SectionsMenu({ items }: Props) {
   const theme: ThemeContext = useTheme();
 
   return (
     <ScrollView>
-      {items.map((sectionItems: Array<SettingMenuItemType>) => (
+      {items.map((sectionItems: SettingMenuItemType[]) => (
         <RowView>
           {sectionItems.map((item: SettingMenuItemType, index: number) => (
             <TouchableHighlight

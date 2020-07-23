@@ -9,8 +9,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 import ExploreScreen from './screens/explore/Explore';
 import NewsScreen from './screens/news/News';
-import PictureScreen from './screens/picture/Picture';
 import MentionsScreen from './screens/settings/Mentions';
+import PictureScreen from './screens/picture/Picture';
 import SettingsScreen from './screens/settings/Settings';
 import ThemeHandler, { ThemeContext, useTheme } from './themes';
 import { i18next } from './utils/translations/translate';
@@ -47,7 +47,7 @@ function BottomTabNavigator() {
         name="Daily Picture"
         component={PictureScreen}
         options={{
-          tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={28} color={focused ? '#007AFF' : 'gray'} />
+          tabBarIcon: ({ focused }) => <FontAwesome name="meteor" size={22} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
       <tabs.Screen
@@ -55,6 +55,13 @@ function BottomTabNavigator() {
         component={ExploreScreen}
         options={{
           tabBarIcon: ({ focused }) => <FontAwesome name="rocket" size={22} color={focused ? '#007AFF' : 'gray'} />
+        }}
+      />
+      <tabs.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => <FontAwesome name="cog" size={22} color={focused ? '#007AFF' : 'gray'} />
         }}
       />
     </tabs.Navigator>

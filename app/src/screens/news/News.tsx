@@ -24,17 +24,6 @@ const ScreenTitleView = styled(Animated.View)`
   marginTop: 0px;
   marginBottom: 30px;
 `;
-const ScreenTitle = styled.Text`
-  color: ${({ theme }: ThemeColors) => theme.fontColor};
-  fontSize: 24px;
-  fontWeight: 600;
-  width: 87%;
-`;
-const ArticleTitle = styled.Text`
-  color: ${({ theme }: ThemeColors) => theme.fontColor};
-  fontSize: 18px;
-  fontWeight: 500;
-`;
 const SafeAreaView = styled.SafeAreaView`
   height: ${Dimensions.get('window').height};
   flex: 1;
@@ -44,14 +33,15 @@ const SafeAreaView = styled.SafeAreaView`
 
 
 function NewsScreen() {
+  const theme: ThemeContext = useTheme();
   const { t }: UseTranslationResponse = useTranslation();
 
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [currView, setCurrView] = useState<string>('news');
 
   const { data: news } = useQuery(GET_NEWS, {
-    onCompleted: () => {
-      getLaunches();
+    onCompleted: async () => {
+      await getLaunches();
     },
   });
 
@@ -73,21 +63,18 @@ function NewsScreen() {
   return (
     <SafeAreaView>
       <SegmentedControlTab
-        tabsContainerStyle={{ marginTop: 20, marginBottom: 40, width: '90%', marginLeft: '5%' }}
+        tabsContainerStyle={{ marginTop: 20, marginBottom: 30, width: '90%', marginLeft: '5%' }}
+        activeTabStyle={{ backgroundColor: theme.getColors().activeSectionMenuColor }}
+        activeTabTextStyle={{ color: theme.getColors().bgColor }}
+        tabTextStyle={{ color: theme.getColors().activeSectionMenuColor }}
         borderRadius={0}
         values={[t('news.news'), t('news.rockets')]}
         selectedIndex={currView === 'news' ? 0 : 1}
         onTabPress={changeNewsView}
       />
-      {/*<ScreenTitleView>
-        {currView === 'news'
-          ? (
-            <ScreenTitle>{t('news.news')}</ScreenTitle>
-          ) :
-            <ScreenTitle>{t('news.rockets')}</ScreenTitle>
-        }
-      </ScreenTitleView>*/}
       <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         style={{ marginBottom: 35 }}
       >
         {currView === 'news'

@@ -1,7 +1,10 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+
+import { PictureType, RootStackParamList } from '../../types';
 
 
 const styles = StyleSheet.create({
@@ -31,8 +34,12 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
 });
+interface Props {
+  navigation: StackNavigationProp<RootStackParamList, 'Picture' | 'Explore'>,
+  item: PictureType,
+}
 
-function PictureListItem({ navigation, item }) {
+function PictureListItem({ navigation, item }: Props) {
   return (
     <TouchableHighlight
       underlayColor="white"

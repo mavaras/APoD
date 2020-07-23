@@ -31,7 +31,7 @@ function Article({ index, item, nArticles }: Props) {
   const theme: ThemeContext = useTheme();
 
   if (!item.image) {
-    const mockImages: Array<string> = [
+    const mockImages: string[] = [
       'https://cdn.spacetelescope.org/archives/images/screen/heic0206c.jpg',
       'https://cdn.spacetelescope.org/archives/images/screen/heic1713a.jpg',
       'https://cdn.spacetelescope.org/archives/images/screen/heic0707a.jpg',

@@ -48,7 +48,7 @@ const ShimmerInner = styled.Text`
 
 interface Props {
   navigation: StackNavigationProp<RootStackParamList, 'Picture'>,
-  list: Array<PictureType>,
+  list: PictureType[],
 }
 function CarouselPictureList({ navigation, list }: Props) {
   const { t }: UseTranslationResponse = useTranslation();

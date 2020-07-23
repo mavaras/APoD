@@ -22,7 +22,7 @@ interface Props {
 function SettingsScreen({ navigation }: Props) {
   const theme: ThemeContext = useTheme();
   const { t }: UseTranslationResponse = useTranslation();
-  const [items, setItems] = useState<Array<Array<SettingMenuItemType>>>([
+  const [items, setItems] = useState<SettingMenuItemType[][]>([
     [
       {
         title: t('settings.labels.appearance'),
@@ -70,7 +70,7 @@ function SettingsScreen({ navigation }: Props) {
   async function changeTheme(): Promise<void> {
     const newTheme: string = await theme.getTheme() === 'lightTheme' ? 'darkTheme' : 'lightTheme';
     theme.setTheme(newTheme);
-    const itemsAux: Array<Array<SettingMenuItemType>> = items.slice();
+    const itemsAux: SettingMenuItemType[][] = items.slice();
     itemsAux[0][0].extraStyle = { color: newTheme === 'lightTheme' ? '#131415' : '#fffcf6' } as ViewStyle;
     setItems(itemsAux);
     await Storage.setItem('@APODapp:theme', newTheme);

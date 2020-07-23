@@ -48,3 +48,14 @@ export type SettingMenuItemType = {
   iconName: string;
   extraStyle?: ViewStyle;
 };
+
+export type MentionsDataType = {
+  title: string;
+  titles: MentionsItemType[];
+}
+
+export type MentionsItemType = {
+  title: string;
+  person: string;
+  url?: string;
+}

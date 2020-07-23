@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styled from "styled-components";
 
 import { ThemeColors, ThemeContext, useTheme } from '../../themes';
+import { MentionsDataType, MentionsItemType } from '..//../types';
+import { noop } from '../../utils/utils';
 
 
 const RowView = styled.View`
@@ -34,20 +36,20 @@ const SectionTitleText = styled.Text`
 `;
 
 interface Props {
-  items: Array<Array<Object>>,
+  items: MentionsDataType[],
 }
 function DataDisplay({ items }: Props) {
   const theme: ThemeContext = useTheme();
 
   return (
     <ScrollView>
-      {items.map((sectionItems: Array<Object>) => (
+      {items.map((sectionItems: MentionsDataType) => (
         <View>
           <View style={{ width: '90%', alignSelf: 'center', marginTop: 50 }}>
             <SectionTitleText>{sectionItems.title}</SectionTitleText>
           </View>
           <RowView>
-            {sectionItems.titles.map((item, index: number) => (
+            {sectionItems.titles.map((item: MentionsItemType, index: number) => (
               <View
                 style={[{
                   width: '90%',
@@ -79,7 +81,7 @@ function DataDisplay({ items }: Props) {
                           iconStyle={{
                             color: theme.getColors().iconColor,
                           }}
-                          onPress={() => Linking.openURL(item.url)}
+                          onPress={() => item.url ? Linking.openURL(item.url) : noop}
                         />
                       ) : undefined}
                   </View>

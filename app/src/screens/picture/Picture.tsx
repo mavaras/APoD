@@ -49,10 +49,10 @@ interface Props {
 function PictureScreen({ route, navigation }: Props) {
   const { t }: UseTranslationResponse = useTranslation();
 
-  const [loading, setLoading] = useState<Boolean>(true);
-  const [error, setError] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const [response, setResponse] = useState<PictureType>({} as PictureType);
-  const [similars, setSimilars] = useState<Array<PictureType>>([]);
+  const [similars, setSimilars] = useState<PictureType[]>([]);
 
   const [getTodayPicture] = useLazyQuery(GET_TODAY_PICTURE, {
     onCompleted: async (data) => {
@@ -79,16 +79,18 @@ function PictureScreen({ route, navigation }: Props) {
   });
 
   async function getSimilars(): Promise<void> {
-    const titleWords: Array<string> = response.title.split(' ').filter((word) => word.length > 3);
+    const titleWords: string[] = response.title.split(' ').filter((word) => word.length > 3);
     const picturesList = allPicturesData.allPictures;
-    let similarsList: Array<PictureType> = [];
+    let similarsList: PictureType[] = [];
     let maxLen: number = 0;
-    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+
     for (const word in titleWords) {
-      const wordFiltered = filterByWord(picturesList, word, response.title);
-      if (wordFiltered.length > maxLen) {
-        maxLen = wordFiltered.length;
-        similarsList = wordFiltered;
+      if (titleWords.hasOwnProperty(word)) {
+        const wordFiltered = filterByWord(picturesList, word, response.title);
+        if (wordFiltered.length > maxLen) {
+          maxLen = wordFiltered.length;
+          similarsList = wordFiltered;
+        }
       }
     }
     setSimilars(shuffleArray(similarsList));

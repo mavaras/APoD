@@ -4,7 +4,7 @@ import { NASA_API_KEY } from 'react-native-dotenv';
 import FirebaseDB from '../config';
 
 
-export function shuffleArray(array: Array<any>): Array<any> {
+export function shuffleArray(array: any[]): any[] {
   let aux: any;
   let randomIndex: number;
   let currentIndex: number = array.length;
@@ -21,19 +21,19 @@ export function shuffleArray(array: Array<any>): Array<any> {
 }
 
 export function formatDate(date: string): string {
-  const monthNames: Array<string> = [
+  const monthNames: string[] = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
   ];
-  const dateSplit: Array<string> = date.split('-');
+  const dateSplit: string[] = date.split('-');
   return `${monthNames[parseInt(dateSplit[1], 10) - 1]} ${parseInt(dateSplit[2], 10)}`;
 }
 
 export function filterByWord(
-  array: Array<any>,
+  array: any[],
   text: string,
   toExclude: string = '',
-): Array<any> {
+): any[] {
   return array.filter((element: {[string: string]: string}) =>
     element.title.toLowerCase().includes(text.toLowerCase())
     && element.title !== toExclude);
@@ -58,7 +58,7 @@ async function wait(time: number) {
   });
 }
 
-export function noop() {}
+export function noop(): void {}
 
 export async function fetchData(params: any): Promise<{[string: string]: string}> {
   const DB = FirebaseDB.instance; // eslint-disable-line no-undef

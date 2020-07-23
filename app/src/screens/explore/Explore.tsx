@@ -233,6 +233,8 @@ function ExploreScreen({ navigation }: Props) {
         </_.HeartButtonView>
       </View>
       <_.FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         inverted={searching || showFavourites}
         ListFooterComponent={renderFooter.bind(this)}
         onEndReached={() => {

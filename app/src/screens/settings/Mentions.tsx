@@ -7,11 +7,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import DataDisplay from '../../components/common/DataDisplay';
 import { ThemeContext, useTheme } from '../../themes';
+import { MentionsDataType } from '..//../types';
 
 
 function MentionsScreen() {
   const theme: ThemeContext = useTheme();
-  const items = require('../../res/credits.json');
+  const items: MentionsDataType[] = require('../../res/credits.json');
 
   return (
     <SafeAreaView style={{ backgroundColor: theme.getColors().bgColor2 }}>
