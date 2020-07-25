@@ -18,7 +18,8 @@ module.exports = {
     "variable-name": [
       true,
       "allow-leading-underscore"
-    ]
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
   },
   env: {
     "jest": true
